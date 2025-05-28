@@ -59,8 +59,6 @@ http://localhost:5000
 
 ### Admin Girişi
 - `/Admin/Giris` sayfasından admin girişi yapılabilir
-- Varsayılan kullanıcı adı: `admin`
-- Varsayılan şifre: `admin123`
 
 ### Veli Girişi
 - Ana sayfadan kayıt olunabilir
