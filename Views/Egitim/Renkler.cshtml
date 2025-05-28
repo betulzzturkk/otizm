@@ -1,0 +1,90 @@
+@{
+    ViewData["Title"] = "Renkler";
+    var renkler = new Dictionary<string, (string image, string hex)> {
+        {"Kırmızı", ("/images/kırmızı.jpg", "#FF0000")},
+        {"Mavi", ("/images/mavi.jpg", "#0000FF")},
+        {"Sarı", ("/images/sarı.jpg", "#FFFF00")},
+        {"Yeşil", ("/images/yeşil.jpg", "#008000")},
+        {"Siyah", ("/images/siyah.jpg", "#000000")},
+        {"Beyaz", ("/images/beyaz.jpg", "#FFFFFF")},
+        {"Mor", ("/images/mor.jpg", "#800080")},
+        {"Turuncu", ("/images/turuncu.jpg", "#FFA500")},
+        {"Pembe", ("/images/pembe.jpg", "#FFC0CB")},
+        {"Kahverengi", ("/images/kahverengi.jpg", "#8B4513")}
+    };
+}
+
+<div class="container">
+    <div class="d-flex align-items-center mb-4">
+        <a href="@Url.Action("Index", "Egitim")" class="btn btn-outline-primary me-3">
+            <i class="fas fa-arrow-left"></i> Geri
+        </a>
+        <h1>Renkler</h1>
+    </div>
+
+    <div class="row g-4">
+        @foreach (var renk in renkler)
+        {
+            <div class="col-md-3 mb-4">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-body text-center">
+                        <!-- Görsel -->
+                        <div class="mb-3 image-container" style="height: 250px; border-radius: 8px; overflow: hidden;">
+                            <img src="@renk.Value.image" alt="@renk.Key" class="img-fluid h-100 w-100" style="object-fit: cover;" />
+                        </div>
+                        
+                        <!-- Renk adı -->
+                        <h5 class="card-title mb-3" style="color: @renk.Value.hex">@renk.Key</h5>
+                        
+                        <!-- Renk örneği -->
+                        <div class="color-sample mb-3" style="background-color: @renk.Value.hex"></div>
+
+                        <!-- Ses çalma butonu -->
+                        <button class="btn btn-primary w-100" onclick="playSound('@renk.Key')">
+                            <i class="fas fa-volume-up me-2"></i> Sesi Dinle
+                        </button>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+<style>
+    .image-container {
+        transition: transform 0.2s;
+        cursor: pointer;
+    }
+
+    .image-container:hover {
+        transform: scale(1.05);
+    }
+
+    .card {
+        transition: box-shadow 0.3s;
+    }
+
+    .card:hover {
+        box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+    }
+
+    .color-sample {
+        height: 30px;
+        border-radius: 15px;
+        border: 1px solid #ddd;
+    }
+
+    /* Beyaz renk için özel stil */
+    .color-sample[style*="FFFFFF"] {
+        border: 1px solid #ddd;
+    }
+</style>
+
+@section Scripts {
+    <script>
+        function playSound(renk) {
+            // Ses dosyası eklendiğinde burada çalınacak
+            console.log(renk + " sesi çalınacak");
+        }
+    </script>
+} 

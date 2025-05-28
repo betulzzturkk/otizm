@@ -1,0 +1,90 @@
+@{
+    ViewData["Title"] = "Trafik Levhaları";
+    var levhalar = new Dictionary<string, (string image, string aciklama)> {
+        {"Dur", ("/images/dur.jpg", "Dur işareti, aracın tamamen durmasını gerektirir")},
+        {"Yaya Geçidi", ("/images/yaya-gecidi.jpg", "Yayaların karşıdan karşıya geçtiği yer")},
+        {"Park Yasak", ("/images/park-yasak.jpg", "Araç park edilmesi yasak olan bölge")},
+        {"Okul Geçidi", ("/images/okul-gecidi.jpg", "Okul yakınında, öğrencilerin geçiş yaptığı yer")},
+        {"Hız Limiti", ("/images/hiz-limiti.jpg", "Araçların uyması gereken hız sınırı")},
+        {"Girilmez", ("/images/girilmez.jpg", "Bu yöne araç girişi yasaktır")},
+        {"Sağa Dön", ("/images/saga-don.jpg", "Araçların sağa dönmesi gereken yer")},
+        {"Sola Dön", ("/images/sola-don.jpg", "Araçların sola dönmesi gereken yer")},
+        {"Hastane", ("/images/hastane.jpg", "Hastane bölgesi, dikkatli ve sessiz olunmalı")},
+        {"Işıklı İşaret", ("/images/isikli-isaret.jpg", "Trafik ışıkları ile kontrollü geçiş")}
+    };
+}
+
+<div class="container">
+    <div class="d-flex align-items-center mb-4">
+        <a href="@Url.Action("Index", "Egitim")" class="btn btn-outline-primary me-3">
+            <i class="fas fa-arrow-left"></i> Geri
+        </a>
+        <h1>Trafik Levhaları</h1>
+    </div>
+
+    <div class="row g-4">
+        @foreach (var levha in levhalar)
+        {
+            <div class="col-md-3 mb-4">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-body text-center">
+                        <!-- Görsel -->
+                        <div class="mb-3 image-container" style="height: 250px; border-radius: 8px; overflow: hidden; background-color: #f8f9fa;">
+                            <img src="@levha.Value.image" alt="@levha.Key" class="img-fluid h-100 w-100" style="object-fit: contain;" />
+                        </div>
+                        
+                        <!-- Levha adı -->
+                        <h5 class="card-title mb-2">@levha.Key</h5>
+
+                        <!-- Açıklama -->
+                        <p class="card-text mb-3 text-muted small">@levha.Value.aciklama</p>
+                        
+                        <!-- Ses çalma butonu -->
+                        <button class="btn btn-primary w-100" onclick="playSound('@levha.Key')">
+                            <i class="fas fa-volume-up me-2"></i> Sesi Dinle
+                        </button>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+<style>
+    .image-container {
+        transition: transform 0.2s;
+        cursor: pointer;
+        border: 2px solid #e9ecef;
+    }
+
+    .image-container:hover {
+        transform: scale(1.05);
+    }
+
+    .card {
+        transition: box-shadow 0.3s;
+    }
+
+    .card:hover {
+        box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+    }
+
+    .card-title {
+        color: #dc3545;
+        font-weight: 600;
+    }
+
+    .card-text {
+        font-size: 0.85rem;
+        line-height: 1.4;
+    }
+</style>
+
+@section Scripts {
+    <script>
+        function playSound(levha) {
+            // Ses dosyası eklendiğinde burada çalınacak
+            console.log(levha + " sesi çalınacak");
+        }
+    </script>
+} 

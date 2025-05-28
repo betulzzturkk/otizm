@@ -1,0 +1,74 @@
+@{
+    ViewData["Title"] = "Hayvanlar";
+    var hayvanlar = new Dictionary<string, string> {
+        {"Kedi", "/images/kedi.jpg"},
+        {"Köpek", "/images/köpek.jpg"},
+        {"Kuş", "/images/kuş.jpg"},
+        {"At", "/images/at.jpg"},
+        {"İnek", "/images/inek.jpg"},
+        {"Tavuk", "/images/tavuk.jpg"},
+        {"Aslan", "/images/aslan.jpg"},
+        {"Fil", "/images/fil.jpg"}
+    };
+}
+
+<div class="container">
+    <div class="d-flex align-items-center mb-4">
+        <a href="@Url.Action("Index", "Egitim")" class="btn btn-outline-primary me-3">
+            <i class="fas fa-arrow-left"></i> Geri
+        </a>
+        <h1>Hayvanlar</h1>
+    </div>
+
+    <div class="row g-4">
+        @foreach (var hayvan in hayvanlar)
+        {
+            <div class="col-md-3 mb-4">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-body text-center">
+                        <!-- Görsel -->
+                        <div class="mb-3 image-container" style="height: 250px; border-radius: 8px; overflow: hidden;">
+                            <img src="@hayvan.Value" alt="@hayvan.Key" class="img-fluid h-100 w-100" style="object-fit: cover;" />
+                        </div>
+                        
+                        <!-- Hayvan adı -->
+                        <h5 class="card-title mb-3">@hayvan.Key</h5>
+                        
+                        <!-- Ses çalma butonu -->
+                        <button class="btn btn-primary w-100" onclick="playSound('@hayvan.Key')">
+                            <i class="fas fa-volume-up me-2"></i> Sesi Dinle
+                        </button>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+<style>
+    .image-container {
+        transition: transform 0.2s;
+        cursor: pointer;
+    }
+
+    .image-container:hover {
+        transform: scale(1.05);
+    }
+
+    .card {
+        transition: box-shadow 0.3s;
+    }
+
+    .card:hover {
+        box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+    }
+</style>
+
+@section Scripts {
+    <script>
+        function playSound(hayvan) {
+            // Ses dosyası eklendiğinde burada çalınacak
+            console.log(hayvan + " sesi çalınacak");
+        }
+    </script>
+} 

@@ -1,0 +1,87 @@
+@{
+    ViewData["Title"] = "Eğitimler";
+}
+
+<div class="container">
+    <h1 class="my-4 text-center">Eğitimler</h1>
+
+    <div class="row g-4">
+        <!-- Hayvanlar Kartı -->
+        <div class="col-md-3">
+            <a href="@Url.Action("Hayvanlar", "Egitim")" class="text-decoration-none">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-body text-center">
+                        <i class="fas fa-paw fa-3x mb-3 text-primary"></i>
+                        <h5 class="card-title">Hayvanlar</h5>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <!-- Sayılar Kartı -->
+        <div class="col-md-3">
+            <a href="@Url.Action("Sayilar", "Egitim")" class="text-decoration-none">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-body text-center">
+                        <i class="fas fa-sort-numeric-up fa-3x mb-3 text-success"></i>
+                        <h5 class="card-title">Sayılar</h5>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <!-- Renkler Kartı -->
+        <div class="col-md-3">
+            <a href="@Url.Action("Renkler", "Egitim")" class="text-decoration-none">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-body text-center">
+                        <i class="fas fa-palette fa-3x mb-3 text-danger"></i>
+                        <h5 class="card-title">Renkler</h5>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <!-- Şekiller Kartı -->
+        <div class="col-md-3">
+            <a href="@Url.Action("Sekiller", "Egitim")" class="text-decoration-none">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-body text-center">
+                        <i class="fas fa-shapes fa-3x mb-3 text-warning"></i>
+                        <h5 class="card-title">Şekiller</h5>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <!-- Trafik Levhaları Kartı -->
+        <div class="col-md-3">
+            <a href="@Url.Action("TrafikLevhalari", "Egitim")" class="text-decoration-none">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-body text-center">
+                        <i class="fas fa-traffic-light fa-3x mb-3 text-info"></i>
+                        <h5 class="card-title">Trafik Levhaları</h5>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <!-- Görgü Kuralları Kartı -->
+        <div class="col-md-3">
+            <a href="@Url.Action("GorguKurallari", "Egitim")" class="text-decoration-none">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-body text-center">
+                        <i class="fas fa-handshake fa-3x mb-3 text-purple"></i>
+                        <h5 class="card-title">Görgü Kuralları</h5>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>
+
+<style>
+    .text-purple {
+        color: #6f42c1;
+    }
+</style> 

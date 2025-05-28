@@ -1,0 +1,97 @@
+@{
+    ViewData["Title"] = "Çocuk Bilgileri";
+}
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-sm border-0 rounded-3 mt-5">
+                <div class="card-body p-4">
+                    <div class="text-center mb-4">
+                        <h1 class="display-6 mb-3">Çocuk Bilgileri</h1>
+                        <p class="text-muted">Lütfen çocuğunuzun bilgilerini giriniz</p>
+                    </div>
+
+                    <form asp-controller="Kullanici" asp-action="CocukBilgileriKaydet" method="post">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-floating mb-3">
+                                    <input type="text" class="form-control" id="ad" name="Ad" placeholder="Ad" required>
+                                    <label for="ad">Adı</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-floating mb-3">
+                                    <input type="text" class="form-control" id="soyad" name="Soyad" placeholder="Soyad" required>
+                                    <label for="soyad">Soyadı</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-floating mb-3">
+                                    <input type="date" class="form-control" id="dogumTarihi" name="DogumTarihi" required>
+                                    <label for="dogumTarihi">Doğum Tarihi</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-floating mb-3">
+                                    <select class="form-select" id="cinsiyet" name="Cinsiyet" required>
+                                        <option value="">Seçiniz</option>
+                                        <option value="Erkek">Erkek</option>
+                                        <option value="Kız">Kız</option>
+                                    </select>
+                                    <label for="cinsiyet">Cinsiyet</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-floating mb-3">
+                            <textarea class="form-control" id="ozelDurum" name="OzelDurum" style="height: 100px" placeholder="Özel Durum"></textarea>
+                            <label for="ozelDurum">Özel Durumu (Varsa)</label>
+                        </div>
+
+                        <div class="form-floating mb-4">
+                            <input type="text" class="form-control" id="ilgiAlanlari" name="IlgiAlanlari" placeholder="İlgi Alanları">
+                            <label for="ilgiAlanlari">İlgi Alanları</label>
+                        </div>
+
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary btn-lg">Kaydet ve Devam Et</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .card {
+        background: #fff;
+        transition: .3s transform cubic-bezier(.155,1.105,.295,1.12),.3s box-shadow,.3s -webkit-transform cubic-bezier(.155,1.105,.295,1.12);
+    }
+
+    .form-floating > .form-control:focus ~ label,
+    .form-floating > .form-control:not(:placeholder-shown) ~ label {
+        color: #0d6efd;
+    }
+
+    .form-control:focus {
+        border-color: #0d6efd;
+        box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+    }
+
+    .btn-primary {
+        padding: 0.8rem 1rem;
+    }
+
+    .btn-primary:hover {
+        transform: translateY(-1px);
+    }
+
+    textarea.form-control {
+        min-height: 100px;
+    }
+</style> 
