@@ -12,25 +12,30 @@
                     </div>
 
                     <form asp-controller="Admin" asp-action="Giris" method="post">
+                        @Html.AntiForgeryToken()
                         <div class="form-floating mb-3">
-                            <input type="text" name="kullaniciAdi" class="form-control" placeholder="Kullanıcı Adı" required>
+                            <input type="text" name="kullaniciAdi" class="form-control" placeholder="Kullanıcı Adı" required autocomplete="username">
                             <label>Kullanıcı Adı</label>
                         </div>
 
                         <div class="form-floating mb-4">
-                            <input type="password" name="sifre" class="form-control" placeholder="Şifre" required>
+                            <input type="password" name="sifre" class="form-control" placeholder="Şifre" required autocomplete="current-password">
                             <label>Şifre</label>
                         </div>
 
                         @if (!ViewData.ModelState.IsValid)
                         {
-                            <div class="alert alert-danger">
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
                                 @Html.ValidationSummary()
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                             </div>
                         }
 
                         <div class="d-grid">
-                            <button type="submit" class="btn btn-primary btn-lg">Giriş Yap</button>
+                            <button type="submit" class="btn btn-primary btn-lg">
+                                <i class="fas fa-sign-in-alt me-2"></i>
+                                Giriş Yap
+                            </button>
                         </div>
                     </form>
                 </div>
@@ -61,5 +66,10 @@
 
     .btn-primary:hover {
         transform: translateY(-1px);
+    }
+
+    .alert {
+        border-radius: 8px;
+        border: none;
     }
 </style> 

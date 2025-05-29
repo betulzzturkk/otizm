@@ -2,16 +2,20 @@ using Microsoft.AspNetCore.Mvc;
 using AutismEducationPlatform.Models;
 using AutismEducationPlatform.Data;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Http;
+using System.Linq;
 
 namespace AutismEducationPlatform.Controllers
 {
     public class KullaniciController : Controller
     {
         private readonly UygulamaDbContext _context;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public KullaniciController(UygulamaDbContext context)
+        public KullaniciController(UygulamaDbContext context, IHttpContextAccessor httpContextAccessor)
         {
             _context = context;
+            _httpContextAccessor = httpContextAccessor;
         }
 
         // GET: /Kullanici/Giris
@@ -91,21 +95,17 @@ namespace AutismEducationPlatform.Controllers
                 return View(model);
             }
 
+            // Admin kaydını engelle
+            if (model.KullaniciTipi.ToLower() == "admin")
+            {
+                ModelState.AddModelError("KullaniciTipi", "Admin kaydı yapılamaz");
+                return View(model);
+            }
+
             if (_context.Kullanicilar.Any(k => k.Email == model.Email))
             {
                 ModelState.AddModelError("Email", "Bu e-posta adresi zaten kullanılıyor");
                 return View(model);
-            }
-
-            // Admin kaydı için ek kontrol
-            if (model.KullaniciTipi == "Admin")
-            {
-                // Sadece mevcut bir admin yeni admin ekleyebilir
-                if (HttpContext.Session.GetString("KullaniciTipi") != "Admin")
-                {
-                    ModelState.AddModelError("KullaniciTipi", "Admin hesabı oluşturma yetkiniz yok");
-                    return View(model);
-                }
             }
 
             var kullanici = new Kullanici
@@ -146,8 +146,19 @@ namespace AutismEducationPlatform.Controllers
 
         public IActionResult KullaniciBilgileri()
         {
-            var kullaniciId = int.Parse(HttpContext.Session.GetString("KullaniciId"));
+            var kullaniciIdStr = HttpContext.Session.GetString("KullaniciId");
+            if (string.IsNullOrEmpty(kullaniciIdStr))
+            {
+                return RedirectToAction("Giris");
+            }
+
+            var kullaniciId = int.Parse(kullaniciIdStr);
             var kullanici = _context.Kullanicilar.Find(kullaniciId);
+            if (kullanici == null)
+            {
+                return RedirectToAction("Giris");
+            }
+
             return View(kullanici);
         }
     }

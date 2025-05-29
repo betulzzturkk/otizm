@@ -11,10 +11,11 @@ namespace AutismEducationPlatform.Data
         }
 
         public DbSet<Kullanici> Kullanicilar { get; set; }
-        public DbSet<Admin> Adminler { get; set; }
-        public DbSet<Ogrenci> Ogrenciler { get; set; }
         public DbSet<EgitimModulu> EgitimModulleri { get; set; }
         public DbSet<ModulIcerik> ModulIcerikleri { get; set; }
+        public DbSet<Cocuk> Cocuklar { get; set; }
+        public DbSet<CocukDurumu> CocukDurumlari { get; set; }
+        public DbSet<VeliBilgilendirme> VeliBilgilendirmeler { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -26,28 +27,31 @@ namespace AutismEducationPlatform.Data
                 .HasMaxLength(20)
                 .IsRequired();
 
-            // Öğrenci-Veli ilişkisi
-            modelBuilder.Entity<Ogrenci>()
-                .HasOne(o => o.Veli)
+            // Çocuk-Veli ilişkisi
+            modelBuilder.Entity<Cocuk>()
+                .HasOne(c => c.Veli)
                 .WithMany()
-                .HasForeignKey(o => o.VeliId)
+                .HasForeignKey(c => c.VeliId)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            // Modül içerikleri ilişkisi
+            // Admin kullanıcısını seed data olarak ekle
+            modelBuilder.Entity<Kullanici>().HasData(
+                new Kullanici
+                {
+                    Id = 1,
+                    Ad = "Admin",
+                    Soyad = "Admin",
+                    Email = "admin@gmail.com",
+                    Sifre = "admin1234",
+                    KullaniciTipi = "Admin"
+                }
+            );
+
+            // EgitimModulu - ModulIcerik ilişkisi
             modelBuilder.Entity<ModulIcerik>()
                 .HasOne(mi => mi.EgitimModulu)
                 .WithMany(em => em.Icerikler)
                 .HasForeignKey(mi => mi.EgitimModuluId);
-
-            // Admin için seed data
-            modelBuilder.Entity<Admin>().HasData(
-                new Admin
-                {
-                    Id = 1,
-                    KullaniciAdi = "admin",
-                    Sifre = "admin123" // Gerçek uygulamada şifre hash'lenmelidir
-                }
-            );
         }
     }
 } 

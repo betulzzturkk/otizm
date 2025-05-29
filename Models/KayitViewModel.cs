@@ -10,12 +10,12 @@ namespace AutismEducationPlatform.Models
         [Required(ErrorMessage = "Soyad alanı zorunludur")]
         public string Soyad { get; set; }
 
-        [Required(ErrorMessage = "E-posta adresi zorunludur")]
+        [Required(ErrorMessage = "E-posta alanı zorunludur")]
         [EmailAddress(ErrorMessage = "Geçerli bir e-posta adresi giriniz")]
         public string Email { get; set; }
 
-        [Required(ErrorMessage = "Şifre zorunludur")]
-        [StringLength(100, MinimumLength = 6, ErrorMessage = "Şifre en az 6 karakter olmalıdır")]
+        [Required(ErrorMessage = "Şifre alanı zorunludur")]
+        [MinLength(6, ErrorMessage = "Şifre en az 6 karakter olmalıdır")]
         [DataType(DataType.Password)]
         public string Password { get; set; }
 
@@ -24,7 +24,7 @@ namespace AutismEducationPlatform.Models
         [DataType(DataType.Password)]
         public string ConfirmPassword { get; set; }
 
-        [Required(ErrorMessage = "Lütfen bir kullanıcı tipi seçiniz (Veli, Eğitmen veya Admin)")]
-        public string KullaniciTipi { get; set; }
+        [Required(ErrorMessage = "Kullanıcı tipi seçiniz")]
+        public string KullaniciTipi { get; set; } // Veli, Egitmen
     }
 } 

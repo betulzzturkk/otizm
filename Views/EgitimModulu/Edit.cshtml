@@ -4,77 +4,70 @@
     ViewData["Title"] = "Eğitim Modülü Düzenle";
 }
 
-<div class="container">
-    <h1 class="my-4">Eğitim Modülü Düzenle</h1>
+<h1>Eğitim Modülü Düzenle</h1>
 
-    <div class="row">
-        <div class="col-md-8">
-            <form asp-action="Edit" enctype="multipart/form-data">
-                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                <input type="hidden" asp-for="Id" />
+<hr />
+<div class="row">
+    <div class="col-md-8">
+        <form asp-action="Edit" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
 
-                <div class="form-group mb-3">
-                    <label asp-for="Ad" class="control-label">Modül Adı</label>
-                    <input asp-for="Ad" class="form-control" />
-                    <span asp-validation-for="Ad" class="text-danger"></span>
-                </div>
+            <div class="form-group">
+                <label asp-for="ModulAdi" class="control-label">Modül Adı</label>
+                <input asp-for="ModulAdi" class="form-control" />
+                <span asp-validation-for="ModulAdi" class="text-danger"></span>
+            </div>
 
-                <div class="form-group mb-3">
-                    <label asp-for="Aciklama" class="control-label">Açıklama</label>
-                    <textarea asp-for="Aciklama" class="form-control" rows="3"></textarea>
-                    <span asp-validation-for="Aciklama" class="text-danger"></span>
-                </div>
+            <div class="form-group">
+                <label asp-for="Aciklama" class="control-label">Açıklama</label>
+                <textarea asp-for="Aciklama" class="form-control"></textarea>
+                <span asp-validation-for="Aciklama" class="text-danger"></span>
+            </div>
 
-                <div class="form-group mb-3">
-                    <label asp-for="ModulTipi" class="control-label">Modül Tipi</label>
-                    <select asp-for="ModulTipi" class="form-control">
-                        <option value="">Seçiniz...</option>
-                        <option value="Renkler">Renkler</option>
-                        <option value="Hayvanlar">Hayvanlar</option>
-                        <option value="Şekiller">Şekiller</option>
-                        <option value="TrafikLevhalari">Trafik Levhaları</option>
-                        <option value="Selamlaşma">Selamlaşma</option>
-                    </select>
-                    <span asp-validation-for="ModulTipi" class="text-danger"></span>
-                </div>
+            <div class="form-group">
+                <label asp-for="ModulTipi" class="control-label">Modül Tipi</label>
+                <select asp-for="ModulTipi" class="form-control">
+                    <option value="">Seçiniz...</option>
+                    <option value="Renkler">Renkler</option>
+                    <option value="Hayvanlar">Hayvanlar</option>
+                    <option value="Şekiller">Şekiller</option>
+                    <option value="Sayılar">Sayılar</option>
+                    <option value="Harfler">Harfler</option>
+                </select>
+                <span asp-validation-for="ModulTipi" class="text-danger"></span>
+            </div>
 
-                <div class="form-group mb-3">
-                    <label asp-for="ResimYolu" class="control-label">Yeni Resim (Opsiyonel)</label>
-                    <input type="file" name="Resim" class="form-control" accept="image/*" />
-                    <span asp-validation-for="ResimYolu" class="text-danger"></span>
-                    @if (!string.IsNullOrEmpty(Model.ResimYolu))
-                    {
-                        <div class="mt-2">
-                            <img src="@Model.ResimYolu" alt="Mevcut Resim" style="max-width: 200px;" class="img-thumbnail" />
-                        </div>
-                    }
-                </div>
+            <div class="form-group">
+                <label for="resimDosyasi" class="control-label">Resim</label>
+                <input type="file" id="resimDosyasi" name="resimDosyasi" class="form-control" accept="image/*" />
+                @if (!string.IsNullOrEmpty(Model.ResimYolu))
+                {
+                    <div class="mt-2">
+                        <img src="@Model.ResimYolu" alt="@Model.ModulAdi" style="max-width: 200px;" />
+                    </div>
+                }
+            </div>
 
-                <div class="form-group mb-3">
-                    <label asp-for="SesYolu" class="control-label">Yeni Ses Dosyası (Opsiyonel)</label>
-                    <input type="file" name="Ses" class="form-control" accept="audio/*" />
-                    <span asp-validation-for="SesYolu" class="text-danger"></span>
-                    @if (!string.IsNullOrEmpty(Model.SesYolu))
-                    {
-                        <div class="mt-2">
-                            <audio controls>
-                                <source src="@Model.SesYolu" type="audio/mpeg">
-                                Tarayıcınız ses dosyasını desteklemiyor.
-                            </audio>
-                        </div>
-                    }
-                </div>
+            <div class="form-group">
+                <label for="sesDosyasi" class="control-label">Ses</label>
+                <input type="file" id="sesDosyasi" name="sesDosyasi" class="form-control" accept="audio/*" />
+                @if (!string.IsNullOrEmpty(Model.SesYolu))
+                {
+                    <div class="mt-2">
+                        <audio controls>
+                            <source src="@Model.SesYolu" type="audio/mpeg">
+                            Tarayıcınız ses dosyasını desteklemiyor.
+                        </audio>
+                    </div>
+                }
+            </div>
 
-                <div class="form-group mt-4">
-                    <button type="submit" class="btn btn-primary">
-                        <i class="fas fa-save"></i> Kaydet
-                    </button>
-                    <a asp-action="Index" class="btn btn-secondary">
-                        <i class="fas fa-arrow-left"></i> Listeye Dön
-                    </a>
-                </div>
-            </form>
-        </div>
+            <div class="form-group mt-3">
+                <input type="submit" value="Kaydet" class="btn btn-primary" />
+                <a asp-action="Index" class="btn btn-secondary">Listeye Dön</a>
+            </div>
+        </form>
     </div>
 </div>
 

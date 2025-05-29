@@ -4,45 +4,43 @@
     ViewData["Title"] = "Eğitim Modülleri";
 }
 
-<div class="container">
-    <h1 class="my-4">Eğitim Modülleri</h1>
+<h1>Eğitim Modülleri</h1>
 
-    <p>
-        <a asp-action="Create" class="btn btn-primary">
-            <i class="fas fa-plus"></i> Yeni Modül Ekle
-        </a>
-    </p>
+<p>
+    <a asp-action="Create" class="btn btn-primary">Yeni Modül Ekle</a>
+</p>
 
-    <div class="row">
-        @foreach (var item in Model)
-        {
-            <div class="col-md-4 mb-4">
-                <div class="card h-100">
-                    @if (!string.IsNullOrEmpty(item.ResimYolu))
-                    {
-                        <img src="@item.ResimYolu" class="card-img-top" alt="@item.Ad">
-                    }
-                    <div class="card-body">
-                        <h5 class="card-title">@item.Ad</h5>
-                        <p class="card-text">@item.Aciklama</p>
-                        <p class="card-text">
-                            <small class="text-muted">Modül Tipi: @item.ModulTipi</small>
-                        </p>
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                @if (!string.IsNullOrEmpty(item.ResimYolu))
+                {
+                    <img src="@item.ResimYolu" class="card-img-top" alt="@item.ModulAdi" style="height: 200px; object-fit: cover;">
+                }
+                else
+                {
+                    <div class="card-img-top bg-light d-flex align-items-center justify-content-center" style="height: 200px;">
+                        <span class="text-muted">Resim yok</span>
                     </div>
-                    <div class="card-footer bg-transparent">
-                        <div class="btn-group" role="group">
-                            <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-primary">
-                                <i class="fas fa-edit"></i> Düzenle
-                            </a>
-                            <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">
-                                <i class="fas fa-trash"></i> Sil
-                            </a>
-                        </div>
+                }
+                <div class="card-body">
+                    <h5 class="card-title">@item.ModulAdi</h5>
+                    <p class="card-text">
+                        <small class="text-muted">@item.ModulTipi</small>
+                    </p>
+                    <p class="card-text">@item.Aciklama</p>
+                </div>
+                <div class="card-footer bg-transparent">
+                    <div class="btn-group" role="group">
+                        <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-primary btn-sm">Düzenle</a>
+                        <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger btn-sm">Sil</a>
                     </div>
                 </div>
             </div>
-        }
-    </div>
+        </div>
+    }
 </div>
 
 @section Scripts {
