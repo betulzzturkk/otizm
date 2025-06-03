@@ -1,0 +1,187 @@
+@{
+    ViewData["Title"] = "Sık Sorulan Sorular";
+}
+
+<style>
+    .faq-section {
+        background: linear-gradient(135deg, #f6f9fc, #edf2f7);
+        padding: 5rem 0;
+        min-height: 80vh;
+    }
+
+    .faq-title {
+        color: #2c3e50;
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin-bottom: 3rem;
+        text-align: center;
+    }
+
+    .accordion-item {
+        border: none;
+        margin-bottom: 1rem;
+        border-radius: 15px !important;
+        overflow: hidden;
+        box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+    }
+
+    .accordion-button {
+        font-weight: 600;
+        padding: 1.5rem;
+        background: white;
+        color: #2c3e50;
+    }
+
+    .accordion-button:not(.collapsed) {
+        background: #3498db;
+        color: white;
+    }
+
+    .accordion-button:focus {
+        box-shadow: none;
+        border-color: rgba(0,0,0,0.125);
+    }
+
+    .accordion-button::after {
+        transition: transform 0.3s ease;
+    }
+
+    .accordion-body {
+        padding: 1.5rem;
+        background: white;
+        color: #34495e;
+        line-height: 1.8;
+    }
+
+    .search-box {
+        position: relative;
+        margin-bottom: 3rem;
+    }
+
+    .search-input {
+        width: 100%;
+        padding: 1rem 1.5rem;
+        border-radius: 50px;
+        border: 2px solid #e0e0e0;
+        font-size: 1.1rem;
+        transition: all 0.3s ease;
+    }
+
+    .search-input:focus {
+        outline: none;
+        border-color: #3498db;
+        box-shadow: 0 0 15px rgba(52,152,219,0.1);
+    }
+
+    .search-icon {
+        position: absolute;
+        right: 1.5rem;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #95a5a6;
+    }
+</style>
+
+<div class="faq-section">
+    <div class="container">
+        <h1 class="faq-title">
+            <i class="fas fa-question-circle text-primary me-2"></i>
+            Sık Sorulan Sorular
+        </h1>
+
+        <div class="search-box">
+            <input type="text" class="search-input" id="faqSearch" placeholder="Soru ara...">
+            <i class="fas fa-search search-icon"></i>
+        </div>
+
+        <div class="accordion" id="faqAccordion">
+            <div class="accordion-item">
+                <h2 class="accordion-header">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faq1">
+                        Platform kimler için tasarlandı?
+                    </button>
+                </h2>
+                <div id="faq1" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
+                    <div class="accordion-body">
+                        Bu platform öncelikle otizmli çocuklar ve onların aileleri için tasarlanmıştır. Eğitmenler ve terapistler de platformu eğitim süreçlerinde destekleyici bir araç olarak kullanabilirler. İçerikler, otizmli çocukların öğrenme ihtiyaçları göz önünde bulundurularak hazırlanmıştır.
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <h2 class="accordion-header">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2">
+                        Platformda hangi eğitim içerikleri bulunuyor?
+                    </button>
+                </h2>
+                <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                    <div class="accordion-body">
+                        Platformumuzda çeşitli eğitim modülleri bulunmaktadır:
+                        <ul>
+                            <li>Renkler ve Şekiller</li>
+                            <li>Sayılar ve Matematik</li>
+                            <li>Hayvanlar</li>
+                            <li>Trafik İşaretleri</li>
+                            <li>Görgü Kuralları</li>
+                            <li>Eğitici Videolar ve Masallar</li>
+                        </ul>
+                        Her modül, görsel ve işitsel öğelerle desteklenmiştir.
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <h2 class="accordion-header">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq3">
+                        Platformu nasıl kullanabilirim?
+                    </button>
+                </h2>
+                <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                    <div class="accordion-body">
+                        Platformu kullanmak için öncelikle üye olmanız gerekmektedir. Üyelik işleminden sonra tüm eğitim içeriklerine erişebilirsiniz. Her bir eğitim modülü kendi içinde adım adım ilerlemektedir. Çocuğunuzun seviyesine ve ilgi alanına göre istediğiniz modülden başlayabilirsiniz.
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <h2 class="accordion-header">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq4">
+                        İlerleme takibi yapılıyor mu?
+                    </button>
+                </h2>
+                <div id="faq4" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                    <div class="accordion-body">
+                        Evet, platform üzerinde çocuğunuzun ilerlemesi otomatik olarak takip edilmektedir. Her bir modülde kaydedilen ilerleme, tamamlanan aktiviteler ve başarı durumu görüntülenebilir. Bu sayede çocuğunuzun gelişimini düzenli olarak takip edebilirsiniz.
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <h2 class="accordion-header">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq5">
+                        Teknik destek alabilir miyim?
+                    </button>
+                </h2>
+                <div id="faq5" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                    <div class="accordion-body">
+                        Platform kullanımı sırasında herhangi bir sorunla karşılaşırsanız, chatbot desteğimizden faydalanabilir veya iletişim sayfamız üzerinden bize ulaşabilirsiniz. Teknik ekibimiz en kısa sürede size yardımcı olacaktır.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function() {
+            $("#faqSearch").on("keyup", function() {
+                var value = $(this).val().toLowerCase();
+                $("#faqAccordion .accordion-item").filter(function() {
+                    var text = $(this).text().toLowerCase();
+                    $(this).toggle(text.indexOf(value) > -1);
+                });
+            });
+        });
+    </script>
+} 

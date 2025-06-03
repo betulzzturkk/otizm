@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sayı Sesleri</title>
+    <style>
+        button {
+            margin: 10px;
+            padding: 10px 20px;
+            font-size: 16px;
+        }
+        .number-button {
+            width: 150px;
+            height: 50px;
+            margin: 10px;
+            font-size: 18px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .number-button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <h1>Sayı Sesleri Oluşturucu</h1>
+    <p>Her sayı için butona tıklayın ve tarayıcınızın ses kaydedicisi ile sesi kaydedin.</p>
+    
+    <div>
+        <button class="number-button" onclick="speak('sıfır')">0 - Sıfır</button>
+        <button class="number-button" onclick="speak('bir')">1 - Bir</button>
+        <button class="number-button" onclick="speak('iki')">2 - İki</button>
+        <button class="number-button" onclick="speak('üç')">3 - Üç</button>
+        <button class="number-button" onclick="speak('dört')">4 - Dört</button>
+        <button class="number-button" onclick="speak('beş')">5 - Beş</button>
+        <button class="number-button" onclick="speak('altı')">6 - Altı</button>
+        <button class="number-button" onclick="speak('yedi')">7 - Yedi</button>
+        <button class="number-button" onclick="speak('sekiz')">8 - Sekiz</button>
+        <button class="number-button" onclick="speak('dokuz')">9 - Dokuz</button>
+        <button class="number-button" onclick="speak('on')">10 - On</button>
+    </div>
+
+    <script>
+        function speak(text) {
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.lang = 'tr-TR';
+            utterance.rate = 0.8; // Konuşma hızını biraz yavaşlat
+            speechSynthesis.speak(utterance);
+        }
+    </script>
+</body>
+</html> 

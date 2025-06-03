@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Http
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+
+<!DOCTYPE html>
 <html lang="tr">
 <head>
     <meta charset="utf-8" />
@@ -6,7 +9,7 @@
     <title>@ViewData["Title"] - Otizm Eğitim Platformu</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
     <header>
@@ -18,64 +21,79 @@
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
-                        @if (Context.Session.GetString("KullaniciTipi") == "Veli")
-                        {
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-controller="Home" asp-action="Index">Ana Sayfa</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-controller="Kullanici" asp-action="KullaniciBilgileri">Kullanıcı Bilgileri</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-controller="Kullanici" asp-action="CocukBilgileri">Çocuk Bilgileri</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-controller="Home" asp-action="Haberler">Haberler</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-controller="Home" asp-action="SSS">Sık Sorulan Sorular</a>
-                            </li>
-                        }
-                        else if (Context.Session.GetString("KullaniciTipi") == "Kullanici")
-                        {
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-controller="Egitim" asp-action="Index">Eğitimler</a>
-                            </li>
+                        @{
+                            var userId = HttpContextAccessor.HttpContext?.Session.GetString("UserId");
+                            if (!string.IsNullOrEmpty(userId))
+                            {
+                                var isInChildMode = HttpContextAccessor.HttpContext?.Session.GetString("IsInChildMode") == "True";
+                                
+                                if (isInChildMode)
+                                {
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-controller="Education" asp-action="Index">Eğitimler</a>
+                                    </li>
+                                }
+                                else
+                                {
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-controller="Parent" asp-action="Dashboard">Ana Sayfa</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-controller="Parent" asp-action="Reports">Raporlar</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-controller="Parent" asp-action="News">Haberler</a>
+                                    </li>
+                                }
+                            }
                         }
                     </ul>
                     <ul class="navbar-nav">
-                        @if (Context.Session.GetString("KullaniciId") != null)
-                        {
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle text-dark" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown">
-                                    <i class="fas fa-user-circle"></i> @Context.Session.GetString("KullaniciAd")
-                                </a>
-                                <div class="dropdown-menu dropdown-menu-end">
-                                    @if (Context.Session.GetString("KullaniciTipi") == "Veli")
-                                    {
-                                        <a class="dropdown-item" href="#" onclick="switchToChild()">
-                                            <i class="fas fa-child"></i> Çocuk Modu
-                                        </a>
-                                        <div class="dropdown-divider"></div>
-                                    }
-                                    else if (Context.Session.GetString("KullaniciTipi") == "Kullanici")
-                                    {
-                                        <a class="dropdown-item" href="#" onclick="switchToParent()">
-                                            <i class="fas fa-user-tie"></i> Veli Modu
-                                        </a>
-                                        <div class="dropdown-divider"></div>
-                                    }
-                                    <a class="dropdown-item" asp-controller="Kullanici" asp-action="Cikis">
-                                        <i class="fas fa-sign-out-alt"></i> Çıkış Yap
+                        @{
+                            if (!string.IsNullOrEmpty(userId))
+                            {
+                                var userName = HttpContextAccessor.HttpContext?.Session.GetString("UserName");
+                                var isInChildMode = HttpContextAccessor.HttpContext?.Session.GetString("IsInChildMode") == "True";
+                                
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle text-dark" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown">
+                                        <i class="fas fa-user me-2"></i>@userName
                                     </a>
-                                </div>
-                            </li>
-                        }
-                        else
-                        {
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-controller="Kullanici" asp-action="Giris">Giriş Yap</a>
-                            </li>
+                                    <ul class="dropdown-menu dropdown-menu-end">
+                                        <li>
+                                            <a class="dropdown-item" asp-controller="Parent" asp-action="ToggleChildMode">
+                                                @if (isInChildMode)
+                                                {
+                                                    <text><i class="fas fa-user me-2"></i>Veli Moduna Geç</text>
+                                                }
+                                                else
+                                                {
+                                                    <text><i class="fas fa-child me-2"></i>Çocuk Moduna Geç</text>
+                                                }
+                                            </a>
+                                        </li>
+                                        <li><hr class="dropdown-divider"></li>
+                                        <li>
+                                            <a class="dropdown-item" asp-controller="Account" asp-action="Logout">
+                                                <i class="fas fa-sign-out-alt me-2"></i>Çıkış Yap
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            }
+                            else
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-controller="Parent" asp-action="Login">
+                                        <i class="fas fa-sign-in-alt me-2"></i>Giriş Yap
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-controller="Parent" asp-action="Register">
+                                        <i class="fas fa-user-plus me-2"></i>Kayıt Ol
+                                    </a>
+                                </li>
+                            }
                         }
                     </ul>
                 </div>
@@ -83,34 +101,21 @@
         </nav>
     </header>
 
-    <div class="container">
-        <main role="main" class="pb-3">
+    <main role="main" class="pb-3">
+        <div class="container">
             @RenderBody()
-        </main>
-    </div>
+        </div>
+    </main>
 
     <footer class="border-top footer text-muted">
         <div class="container text-center">
-            &copy; 2025 İGÜ - OTİZM EĞİTİM PLATFORMU
+            &copy; @DateTime.Now.Year - Otizm Eğitim Platformu
         </div>
     </footer>
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
-    <script>
-        function switchToChild() {
-            $.post('@Url.Action("SwitchToChild", "Kullanici")', function() {
-                window.location.href = '@Url.Action("Index", "Egitim")';
-            });
-        }
-
-        function switchToParent() {
-            $.post('@Url.Action("SwitchToParent", "Kullanici")', function() {
-                window.location.href = '@Url.Action("Index", "Home")';
-            });
-        }
-    </script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

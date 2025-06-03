@@ -1,0 +1,159 @@
+@model List<Message>
+@{
+    ViewData["Title"] = "Mesajlar";
+}
+
+<style>
+    .messages-container {
+        padding: 2rem 0;
+    }
+
+    .message-card {
+        background: white;
+        border-radius: 15px;
+        padding: 1.5rem;
+        margin-bottom: 1rem;
+        box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+        transition: all 0.3s ease;
+        border-left: 5px solid #e0e0e0;
+    }
+
+    .message-card.unread {
+        border-left-color: #3498db;
+    }
+
+    .message-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+    }
+
+    .message-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1rem;
+    }
+
+    .message-sender {
+        font-weight: 600;
+        color: #2c3e50;
+    }
+
+    .message-date {
+        color: #7f8c8d;
+        font-size: 0.9rem;
+    }
+
+    .message-subject {
+        color: #34495e;
+        font-size: 1.1rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .message-content {
+        color: #7f8c8d;
+        margin-bottom: 1rem;
+    }
+
+    .message-actions {
+        display: flex;
+        justify-content: flex-end;
+        gap: 1rem;
+    }
+
+    .message-status {
+        padding: 0.25rem 0.75rem;
+        border-radius: 15px;
+        font-size: 0.8rem;
+        font-weight: 500;
+    }
+
+    .status-unread {
+        background-color: #e3f2fd;
+        color: #1976d2;
+    }
+
+    .status-read {
+        background-color: #e8f5e9;
+        color: #388e3c;
+    }
+
+    .empty-messages {
+        text-align: center;
+        padding: 3rem;
+        color: #7f8c8d;
+    }
+
+    .empty-messages i {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+        color: #bdc3c7;
+    }
+</style>
+
+<div class="messages-container">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2>
+            <i class="fas fa-envelope me-2"></i>
+            Mesajlar
+        </h2>
+    </div>
+
+    @if (Model.Any())
+    {
+        foreach (var message in Model)
+        {
+            <div class="message-card @(message.IsRead ? "" : "unread")" id="message-@message.Id">
+                <div class="message-header">
+                    <div>
+                        <span class="message-sender">@message.SenderName</span>
+                        <span class="message-date ms-2">(@message.CreatedAt.ToString("dd.MM.yyyy HH:mm"))</span>
+                    </div>
+                    <span class="message-status @(message.IsRead ? "status-read" : "status-unread")">
+                        @(message.IsRead ? "Okundu" : "Okunmadı")
+                    </span>
+                </div>
+                <div class="message-subject">@message.Subject</div>
+                <div class="message-content">@message.Content</div>
+                <div class="message-actions">
+                    <a href="mailto:@message.Email" class="btn btn-outline-primary btn-sm">
+                        <i class="fas fa-reply me-1"></i>
+                        Yanıtla
+                    </a>
+                    @if (!message.IsRead)
+                    {
+                        <button class="btn btn-outline-success btn-sm" onclick="markAsRead(@message.Id)">
+                            <i class="fas fa-check me-1"></i>
+                            Okundu Olarak İşaretle
+                        </button>
+                    }
+                </div>
+            </div>
+        }
+    }
+    else
+    {
+        <div class="empty-messages">
+            <i class="fas fa-inbox"></i>
+            <h4>Henüz mesaj yok</h4>
+            <p>Gelen mesajlar burada görüntülenecek.</p>
+        </div>
+    }
+</div>
+
+@section Scripts {
+    <script>
+        function markAsRead(messageId) {
+            $.post('@Url.Action("MarkMessageAsRead", "Admin")', { id: messageId }, function(response) {
+                if (response.success) {
+                    $(`#message-${messageId}`).removeClass('unread');
+                    $(`#message-${messageId} .message-status`)
+                        .removeClass('status-unread')
+                        .addClass('status-read')
+                        .text('Okundu');
+                    $(`#message-${messageId} .btn-outline-success`).remove();
+                }
+            });
+        }
+    </script>
+} 

@@ -1,0 +1,116 @@
+@{
+    ViewData["Title"] = "Admin Dashboard";
+}
+
+<style>
+    .dashboard-container {
+        padding: 2rem 0;
+    }
+
+    .dashboard-card {
+        background: white;
+        border-radius: 15px;
+        padding: 2rem;
+        margin-bottom: 2rem;
+        box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+        transition: all 0.3s ease;
+    }
+
+    .dashboard-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+    }
+
+    .stat-number {
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: #2c3e50;
+        margin-bottom: 0.5rem;
+    }
+
+    .stat-label {
+        color: #7f8c8d;
+        font-size: 1rem;
+        margin-bottom: 0;
+    }
+
+    .stat-icon {
+        font-size: 2rem;
+        color: #3498db;
+        margin-bottom: 1rem;
+    }
+
+    .chart-container {
+        height: 300px;
+        margin-top: 2rem;
+    }
+</style>
+
+<div class="dashboard-container">
+    <div class="row">
+        <div class="col-md-6 col-lg-4">
+            <div class="dashboard-card">
+                <div class="stat-icon">
+                    <i class="fas fa-users"></i>
+                </div>
+                <div class="stat-number" id="userCount">0</div>
+                <p class="stat-label">Toplam Kullanıcı</p>
+            </div>
+        </div>
+
+        <div class="col-md-6 col-lg-4">
+            <div class="dashboard-card">
+                <div class="stat-icon">
+                    <i class="fas fa-envelope"></i>
+                </div>
+                <div class="stat-number" id="unreadMessageCount">0</div>
+                <p class="stat-label">Okunmamış Mesaj</p>
+            </div>
+        </div>
+
+        <div class="col-md-6 col-lg-4">
+            <div class="dashboard-card">
+                <div class="stat-icon">
+                    <i class="fas fa-graduation-cap"></i>
+                </div>
+                <div class="stat-number">3</div>
+                <p class="stat-label">Aktif Eğitim Modülü</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-4">
+        <div class="col-12">
+            <div class="dashboard-card">
+                <h3>Hızlı Erişim</h3>
+                <div class="row mt-4">
+                    <div class="col-md-4">
+                        <a asp-controller="Admin" asp-action="Messages" class="btn btn-primary w-100 mb-3">
+                            <i class="fas fa-envelope me-2"></i>
+                            Mesajları Yönet
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        function updateStats() {
+            $.get('@Url.Action("GetUserCount", "Admin")', function(data) {
+                $('#userCount').text(data.count);
+            });
+
+            $.get('@Url.Action("GetUnreadMessageCount", "Admin")', function(data) {
+                $('#unreadMessageCount').text(data.count);
+            });
+        }
+
+        $(document).ready(function() {
+            updateStats();
+            setInterval(updateStats, 30000); // Her 30 saniyede bir güncelle
+        });
+    </script>
+} 

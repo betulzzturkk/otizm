@@ -1,0 +1,298 @@
+@{
+    ViewData["Title"] = "Hayvanlar";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <a href="/Education" class="btn btn-primary">
+            <i class="fas fa-arrow-left"></i> Geri Dön
+        </a>
+        <h2 class="text-center mb-0">Hayvanlar</h2>
+        <div style="width: 100px;"></div>
+    </div>
+
+    <div class="container py-5">
+        <div class="row mb-4">
+            <div class="col text-center">
+                <h1 class="display-4">Hayvanlar</h1>
+                <p class="lead text-muted">Hayvanları tanıyalım ve seslerini öğrenelim</p>
+            </div>
+        </div>
+
+        @if (User.Identity.IsAuthenticated)
+        {
+            <div class="row mb-4">
+                <div class="col">
+                    <div class="progress" style="height: 30px;">
+                        <div class="progress-bar bg-success progress-bar-striped" id="moduleProgress" 
+                             role="progressbar" style="width: 0%;" 
+                             aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+                            0%
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="row mb-4">
+                <div class="col">
+                    <div class="alert alert-info" role="alert">
+                        <i class="fas fa-info-circle"></i>
+                        İlerlemenizin kaydedilmesi için <a href="/Account/Login" class="alert-link">giriş yapın</a> veya 
+                        <a href="/Account/Register" class="alert-link">kayıt olun</a>.
+                    </div>
+                </div>
+            </div>
+        }
+
+        <div class="row g-4" id="animalCards">
+            <!-- Kedi -->
+            <div class="col-md-3 col-sm-6">
+                <div class="card h-100 animal-card" data-animal="kedi">
+                    <img src="~/images/kedi.jpg" class="card-img-top" alt="Kedi" style="height: 200px; object-fit: cover;">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">Kedi</h5>
+                        <button class="btn btn-primary play-sound" onclick="playAnimalSound('kedi')">
+                            <i class="fas fa-volume-up"></i> Sesi Çal
+                        </button>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <div class="mt-2">
+                                <i class="fas fa-check-circle text-success completion-icon" style="display: none;"></i>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+
+            <!-- Köpek -->
+            <div class="col-md-3 col-sm-6">
+                <div class="card h-100 animal-card" data-animal="kopek">
+                    <img src="~/images/kopek.jpg" class="card-img-top" alt="Köpek" style="height: 200px; object-fit: cover;">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">Köpek</h5>
+                        <button class="btn btn-primary play-sound" onclick="playAnimalSound('kopek')">
+                            <i class="fas fa-volume-up"></i> Sesi Çal
+                        </button>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <div class="mt-2">
+                                <i class="fas fa-check-circle text-success completion-icon" style="display: none;"></i>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+
+            <!-- Kuş -->
+            <div class="col-md-3 col-sm-6">
+                <div class="card h-100 animal-card" data-animal="kus">
+                    <img src="~/images/kus.jpg" class="card-img-top" alt="Kuş" style="height: 200px; object-fit: cover;">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">Kuş</h5>
+                        <button class="btn btn-primary play-sound" onclick="playAnimalSound('kus')">
+                            <i class="fas fa-volume-up"></i> Sesi Çal
+                        </button>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <div class="mt-2">
+                                <i class="fas fa-check-circle text-success completion-icon" style="display: none;"></i>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+
+            <!-- At -->
+            <div class="col-md-3 col-sm-6">
+                <div class="card h-100 animal-card" data-animal="at">
+                    <img src="~/images/at.jpg" class="card-img-top" alt="At" style="height: 200px; object-fit: cover;">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">At</h5>
+                        <button class="btn btn-primary play-sound" onclick="playAnimalSound('at')">
+                            <i class="fas fa-volume-up"></i> Sesi Çal
+                        </button>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <div class="mt-2">
+                                <i class="fas fa-check-circle text-success completion-icon" style="display: none;"></i>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+
+            <!-- İnek -->
+            <div class="col-md-3 col-sm-6">
+                <div class="card h-100 animal-card" data-animal="inek">
+                    <img src="~/images/inek.jpg" class="card-img-top" alt="İnek" style="height: 200px; object-fit: cover;">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">İnek</h5>
+                        <button class="btn btn-primary play-sound" onclick="playAnimalSound('inek')">
+                            <i class="fas fa-volume-up"></i> Sesi Çal
+                        </button>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <div class="mt-2">
+                                <i class="fas fa-check-circle text-success completion-icon" style="display: none;"></i>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tavuk -->
+            <div class="col-md-3 col-sm-6">
+                <div class="card h-100 animal-card" data-animal="tavuk">
+                    <img src="~/images/tavuk.jpg" class="card-img-top" alt="Tavuk" style="height: 200px; object-fit: cover;">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">Tavuk</h5>
+                        <button class="btn btn-primary play-sound" onclick="playAnimalSound('tavuk')">
+                            <i class="fas fa-volume-up"></i> Sesi Çal
+                        </button>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <div class="mt-2">
+                                <i class="fas fa-check-circle text-success completion-icon" style="display: none;"></i>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+
+            <!-- Aslan -->
+            <div class="col-md-3 col-sm-6">
+                <div class="card h-100 animal-card" data-animal="aslan">
+                    <img src="~/images/aslan.jpg" class="card-img-top" alt="Aslan" style="height: 200px; object-fit: cover;">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">Aslan</h5>
+                        <button class="btn btn-primary play-sound" onclick="playAnimalSound('aslan')">
+                            <i class="fas fa-volume-up"></i> Sesi Çal
+                        </button>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <div class="mt-2">
+                                <i class="fas fa-check-circle text-success completion-icon" style="display: none;"></i>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+
+            <!-- Fil -->
+            <div class="col-md-3 col-sm-6">
+                <div class="card h-100 animal-card" data-animal="fil">
+                    <img src="~/images/fil.jpg" class="card-img-top" alt="Fil" style="height: 200px; object-fit: cover;">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">Fil</h5>
+                        <button class="btn btn-primary play-sound" onclick="playAnimalSound('fil')">
+                            <i class="fas fa-volume-up"></i> Sesi Çal
+                        </button>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <div class="mt-2">
+                                <i class="fas fa-check-circle text-success completion-icon" style="display: none;"></i>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        // Hayvan seslerini çalma ve ilerlemeyi kaydetme
+        function playAnimalSound(animal) {
+            const audio = new Audio(`/sounds/animals/${animal}.mp3`);
+            
+            audio.onended = function() {
+                // Kullanıcı giriş yapmışsa ilerlemeyi kaydet
+                if (@Json.Serialize(User.Identity.IsAuthenticated)) {
+                    markAsCompleted(animal);
+                }
+            };
+            
+            audio.play();
+        }
+
+        // Tamamlanan hayvanları işaretleme
+        function markAsCompleted(animal) {
+            const card = document.querySelector(`[data-animal="${animal}"]`);
+            const icon = card.querySelector('.completion-icon');
+            icon.style.display = 'inline-block';
+
+            // İlerleme durumunu sunucuya kaydet
+            saveProgress(animal);
+
+            // İlerleme çubuğunu güncelle
+            updateProgress();
+        }
+
+        // İlerleme durumunu sunucuya kaydetme
+        function saveProgress(animal) {
+            fetch('/Education/SaveProgress', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    moduleName: 'Animals',
+                    itemName: animal,
+                    isCompleted: true
+                })
+            });
+        }
+
+        // İlerleme çubuğunu güncelleme
+        function updateProgress() {
+            const totalAnimals = document.querySelectorAll('.animal-card').length;
+            const completedAnimals = document.querySelectorAll('.completion-icon[style="display: inline-block"]').length;
+            const progressPercentage = (completedAnimals / totalAnimals) * 100;
+
+            const progressBar = document.getElementById('moduleProgress');
+            if (progressBar) {
+                progressBar.style.width = `${progressPercentage}%`;
+                progressBar.textContent = `${Math.round(progressPercentage)}%`;
+                progressBar.setAttribute('aria-valuenow', progressPercentage);
+            }
+        }
+
+        // Sayfa yüklendiğinde önceki ilerlemeyi yükle
+        document.addEventListener('DOMContentLoaded', function() {
+            if (@Json.Serialize(User.Identity.IsAuthenticated)) {
+                fetch('/Education/GetProgress?moduleName=Animals')
+                    .then(response => response.json())
+                    .then(data => {
+                        data.forEach(item => {
+                            if (item.isCompleted) {
+                                const card = document.querySelector(`[data-animal="${item.itemName}"]`);
+                                if (card) {
+                                    const icon = card.querySelector('.completion-icon');
+                                    icon.style.display = 'inline-block';
+                                }
+                            }
+                        });
+                        updateProgress();
+                    });
+            }
+        });
+    </script>
+}
+
+<style>
+    .btn-primary {
+        background-color: #3498db;
+        border-color: #3498db;
+        transition: all 0.3s ease;
+    }
+
+    .btn-primary:hover {
+        background-color: #2980b9;
+        border-color: #2980b9;
+        transform: translateX(-5px);
+    }
+</style> 

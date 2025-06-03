@@ -1,0 +1,176 @@
+@{
+    ViewData["Title"] = "Görgü Kuralları";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <a href="/Education" class="btn btn-primary">
+            <i class="fas fa-arrow-left"></i> Geri Dön
+        </a>
+        <h2 class="text-center mb-0">Görgü Kuralları</h2>
+        <div style="width: 100px;"></div>
+    </div>
+    
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+        <!-- Selamlaşma -->
+        <div class="col">
+            <div class="card h-100 manner-card">
+                <div class="card-body text-center">
+                    <img src="/images/selamlasma.png" class="card-img-top manner-image mb-3" alt="Selamlaşma">
+                    <h5 class="card-title">Selamlaşma</h5>
+                    <p class="card-text">Karşılaştığımız kişilere "Merhaba", "Günaydın", "İyi günler" deriz.</p>
+                    <button class="btn btn-primary play-sound" data-sound="selamlasma">
+                        <i class="fas fa-volume-up"></i> Dinle
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Teşekkür Etme -->
+        <div class="col">
+            <div class="card h-100 manner-card">
+                <div class="card-body text-center">
+                    <img src="/images/tesekkur.jpg" class="card-img-top manner-image mb-3" alt="Teşekkür Etme">
+                    <h5 class="card-title">Teşekkür Etme</h5>
+                    <p class="card-text">Bize yardım eden veya bir şey veren kişiye "Teşekkür ederim" deriz.</p>
+                    <button class="btn btn-primary play-sound" data-sound="tesekkur-etmek">
+                        <i class="fas fa-volume-up"></i> Dinle
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Özür Dileme -->
+        <div class="col">
+            <div class="card h-100 manner-card">
+                <div class="card-body text-center">
+                    <img src="/images/ozur.jpg" class="card-img-top manner-image mb-3" alt="Özür Dileme">
+                    <h5 class="card-title">Özür Dileme</h5>
+                    <p class="card-text">Yanlış bir şey yaptığımızda "Özür dilerim" deriz.</p>
+                    <button class="btn btn-primary play-sound" data-sound="ozur-dileme">
+                        <i class="fas fa-volume-up"></i> Dinle
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sofra Adabı -->
+        <div class="col">
+            <div class="card h-100 manner-card">
+                <div class="card-body text-center">
+                    <img src="/images/sofra-adabi.jpg" class="card-img-top manner-image mb-3" alt="Sofra Adabı">
+                    <h5 class="card-title">Sofra Adabı</h5>
+                    <p class="card-text">Yemekten önce ellerimizi yıkar, "Afiyet olsun" deriz.</p>
+                    <button class="btn btn-primary play-sound" data-sound="sofra-adabi">
+                        <i class="fas fa-volume-up"></i> Dinle
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sıra Bekleme -->
+        <div class="col">
+            <div class="card h-100 manner-card">
+                <div class="card-body text-center">
+                    <img src="/images/sira.jpg" class="card-img-top manner-image mb-3" alt="Sıra Bekleme">
+                    <h5 class="card-title">Sıra Bekleme</h5>
+                    <p class="card-text">Bir yere gittiğimizde sıramızı bekleriz.</p>
+                    <button class="btn btn-primary play-sound" data-sound="sıra-bekleme">
+                        <i class="fas fa-volume-up"></i> Dinle
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dinleme -->
+        <div class="col">
+            <div class="card h-100 manner-card">
+                <div class="card-body text-center">
+                    <img src="/images/dinleme.jpg" class="card-img-top manner-image mb-3" alt="Dinleme">
+                    <h5 class="card-title">Dinleme</h5>
+                    <p class="card-text">Başkaları konuşurken dikkatle dinleriz, sözünü kesmeyiz.</p>
+                    <button class="btn btn-primary play-sound" data-sound="dinleme">
+                        <i class="fas fa-volume-up"></i> Dinle
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- İzin İsteme -->
+        <div class="col">
+            <div class="card h-100 manner-card">
+                <div class="card-body text-center">
+                    <img src="/images/izin.jpg" class="card-img-top manner-image mb-3" alt="İzin İsteme">
+                    <h5 class="card-title">İzin İsteme</h5>
+                    <p class="card-text">Bir şey yapmadan önce "İzin alabilir miyim?" diye sorarız.</p>
+                    <button class="btn btn-primary play-sound" data-sound="izin-isteme">
+                        <i class="fas fa-volume-up"></i> Dinle
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Paylaşma -->
+        <div class="col">
+            <div class="card h-100 manner-card">
+                <div class="card-body text-center">
+                    <img src="/images/paylasma.jpg" class="card-img-top manner-image mb-3" alt="Paylaşma">
+                    <h5 class="card-title">Paylaşma</h5>
+                    <p class="card-text">Eşyalarımızı ve oyuncaklarımızı arkadaşlarımızla paylaşırız.</p>
+                    <button class="btn btn-primary play-sound" data-sound="paylasma">
+                        <i class="fas fa-volume-up"></i> Dinle
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .manner-card {
+        transition: transform 0.3s ease;
+        cursor: pointer;
+    }
+
+    .manner-card:hover {
+        transform: scale(1.05);
+    }
+
+    .manner-image {
+        max-height: 200px;
+        object-fit: cover;
+        border-radius: 8px;
+    }
+
+    .card {
+        border-radius: 15px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+
+    .btn-primary {
+        background-color: #3498db;
+        border-color: #3498db;
+        transition: all 0.3s ease;
+    }
+
+    .btn-primary:hover {
+        background-color: #2980b9;
+        border-color: #2980b9;
+        transform: translateX(-5px);
+    }
+</style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const buttons = document.querySelectorAll('.play-sound');
+        
+        buttons.forEach(button => {
+            button.addEventListener('click', function() {
+                const soundName = this.getAttribute('data-sound');
+                const audio = new Audio(`/sounds/gorgu/${soundName}.mp3`);
+                audio.play();
+            });
+        });
+    });
+</script> 

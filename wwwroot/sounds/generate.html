@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Renk Sesleri</title>
+    <style>
+        button {
+            margin: 10px;
+            padding: 10px 20px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Renk Sesleri Oluşturucu</h1>
+    <p>Her renk için "Konuş" butonuna tıklayın ve tarayıcınızın ses kaydedicisi ile sesi kaydedin.</p>
+    
+    <div>
+        <button onclick="speak('kırmızı')">Kırmızı</button>
+        <button onclick="speak('mavi')">Mavi</button>
+        <button onclick="speak('sarı')">Sarı</button>
+        <button onclick="speak('yeşil')">Yeşil</button>
+        <button onclick="speak('beyaz')">Beyaz</button>
+        <button onclick="speak('siyah')">Siyah</button>
+        <button onclick="speak('mor')">Mor</button>
+        <button onclick="speak('turuncu')">Turuncu</button>
+        <button onclick="speak('pembe')">Pembe</button>
+        <button onclick="speak('kahverengi')">Kahverengi</button>
+    </div>
+
+    <script>
+        function speak(text) {
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.lang = 'tr-TR';
+            speechSynthesis.speak(utterance);
+        }
+    </script>
+</body>
+</html> 

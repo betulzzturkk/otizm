@@ -1,217 +1,184 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using AutismEducationPlatform.Data;
-using AutismEducationPlatform.Models;
-using AutismEducationPlatform.Helpers;
+using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using System.Security.Claims;
+using System.Collections.Generic;
+using AutismEducationPlatform.Models;
+using AutismEducationPlatform.Data;
+using AutismEducationPlatform.Helpers;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc.Filters;
-using System;
 
 namespace AutismEducationPlatform.Controllers
 {
-    [AutoValidateAntiforgeryToken]
     public class AdminController : Controller
     {
         private readonly UygulamaDbContext _context;
-        private readonly IHttpContextAccessor _httpContextAccessor;
-        private static readonly Dictionary<string, (int Count, DateTime LastAttempt)> _loginAttempts = new();
-        private const int MaxLoginAttempts = 5;
-        private const int LockoutMinutes = 15;
 
-        public AdminController(UygulamaDbContext context, IHttpContextAccessor httpContextAccessor)
+        public AdminController(UygulamaDbContext context)
         {
             _context = context;
-            _httpContextAccessor = httpContextAccessor;
         }
 
-        private bool IsIpBlocked(string ipAddress)
+        public IActionResult Login()
         {
-            if (_loginAttempts.TryGetValue(ipAddress, out var attempts))
+            if (User.Identity != null && User.Identity.IsAuthenticated && User.IsInRole("Admin"))
             {
-                if (attempts.Count >= MaxLoginAttempts && 
-                    DateTime.Now.Subtract(attempts.LastAttempt).TotalMinutes < LockoutMinutes)
-                {
-                    return true;
-                }
-                else if (DateTime.Now.Subtract(attempts.LastAttempt).TotalMinutes >= LockoutMinutes)
-                {
-                    _loginAttempts.Remove(ipAddress);
-                }
+                return RedirectToAction("Index");
             }
-            return false;
-        }
-
-        private void RecordLoginAttempt(string ipAddress)
-        {
-            if (_loginAttempts.TryGetValue(ipAddress, out var attempts))
-            {
-                _loginAttempts[ipAddress] = (attempts.Count + 1, DateTime.Now);
-            }
-            else
-            {
-                _loginAttempts[ipAddress] = (1, DateTime.Now);
-            }
-        }
-
-        // Admin Giriş Sayfası
-        public IActionResult Giris()
-        {
-            var ipAddress = _httpContextAccessor.HttpContext?.Connection.RemoteIpAddress?.ToString() ?? "unknown";
-            
-            if (IsIpBlocked(ipAddress))
-            {
-                ModelState.AddModelError("", $"Çok fazla başarısız giriş denemesi. Lütfen {LockoutMinutes} dakika bekleyin.");
-                return View();
-            }
-
             return View();
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Giris(string kullaniciAdi, string sifre)
+        public async Task<IActionResult> Login(AdminLoginViewModel model)
         {
-            var ipAddress = _httpContextAccessor.HttpContext?.Connection.RemoteIpAddress?.ToString() ?? "unknown";
-            
-            if (IsIpBlocked(ipAddress))
+            if (ModelState.IsValid && model.Email != null && model.Password != null)
             {
-                ModelState.AddModelError("", $"Çok fazla başarısız giriş denemesi. Lütfen {LockoutMinutes} dakika bekleyin.");
-                return View();
-            }
+                var user = await _context.Users
+                    .FirstOrDefaultAsync(u => u.Email == model.Email && u.IsAdmin);
 
-            var admin = await _context.Kullanicilar
-                .FirstOrDefaultAsync(a => a.KullaniciAdi == kullaniciAdi && a.KullaniciTipi == "Admin");
-
-            if (admin != null && PasswordHasher.VerifyPassword(admin.Sifre, sifre))
-            {
-                _httpContextAccessor.HttpContext?.Session.SetString("AdminId", admin.Id.ToString());
-                _loginAttempts.Remove(ipAddress); // Başarılı girişte deneme sayısını sıfırla
-                return RedirectToAction("Panel");
-            }
-
-            RecordLoginAttempt(ipAddress);
-            ModelState.AddModelError("", "Kullanıcı adı veya şifre hatalı");
-            return View();
-        }
-
-        // Admin Panel - Yetkilendirme kontrolü
-        [AdminAuth]
-        public IActionResult Panel()
-        {
-            var viewModel = new AdminPanelViewModel
-            {
-                Veliler = _context.Kullanicilar.Where(k => k.KullaniciTipi == "Veli").ToList(),
-                Cocuklar = _context.Cocuklar.Include(c => c.Veli).ToList(),
-                EgitimModulleri = _context.EgitimModulleri.ToList(),
-                CocukDurumlari = _context.CocukDurumlari.Include(cd => cd.Cocuk).ToList()
-            };
-
-            return View(viewModel);
-        }
-
-        [AdminAuth]
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> EgitimModuluEkle(EgitimModulu model)
-        {
-            if (ModelState.IsValid)
-            {
-                await _context.EgitimModulleri.AddAsync(model);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Panel));
-            }
-            return RedirectToAction(nameof(Panel));
-        }
-
-        [AdminAuth]
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> EgitimModuluSil(int id)
-        {
-            var modul = await _context.EgitimModulleri.FindAsync(id);
-            if (modul != null)
-            {
-                _context.EgitimModulleri.Remove(modul);
-                await _context.SaveChangesAsync();
-            }
-            return RedirectToAction(nameof(Panel));
-        }
-
-        [AdminAuth]
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult CocukDurumuEkle(CocukDurumu durum)
-        {
-            if (ModelState.IsValid)
-            {
-                _context.CocukDurumlari.Add(durum);
-                _context.SaveChanges();
-
-                var cocuk = _context.Cocuklar
-                    .Include(c => c.Veli)
-                    .FirstOrDefault(c => c.Id == durum.CocukId);
-
-                if (cocuk?.Veli != null)
+                if (user != null && user.PasswordHash != null && 
+                    PasswordHasher.VerifyPassword(model.Password, user.PasswordHash))
                 {
-                    var bildirim = new VeliBilgilendirme
+                    var claims = new List<Claim>
                     {
-                        VeliId = cocuk.VeliId,
-                        Mesaj = $"{cocuk.Ad} {cocuk.Soyad} için yeni durum güncellendi: {durum.Durum}",
-                        TarihSaat = DateTime.Now
+                        new Claim(ClaimTypes.Name, user.Email),
+                        new Claim(ClaimTypes.Role, "Admin"),
+                        new Claim("UserId", user.Id.ToString())
                     };
 
-                    _context.VeliBilgilendirmeler.Add(bildirim);
-                    _context.SaveChanges();
+                    var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+                    var authProperties = new AuthenticationProperties
+                    {
+                        IsPersistent = true,
+                        ExpiresUtc = DateTimeOffset.UtcNow.AddDays(7)
+                    };
+
+                    await HttpContext.SignInAsync(
+                        CookieAuthenticationDefaults.AuthenticationScheme,
+                        new ClaimsPrincipal(claimsIdentity),
+                        authProperties);
+
+                    return RedirectToAction("Index");
                 }
 
-                return RedirectToAction(nameof(Panel));
+                ModelState.AddModelError("", "Geçersiz e-posta veya şifre");
             }
 
-            return RedirectToAction(nameof(Panel));
+            return View(model);
         }
 
-        [AdminAuth]
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> VeliyeBilgilendirmeGonder(int veliId, string mesaj)
+        public async Task<IActionResult> Logout()
         {
-            var bilgilendirme = new VeliBilgilendirme
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            return RedirectToAction("Login");
+        }
+
+        public IActionResult Index()
+        {
+            if (User.Identity == null || !User.Identity.IsAuthenticated || !User.IsInRole("Admin"))
             {
-                VeliId = veliId,
-                Mesaj = mesaj,
-                TarihSaat = DateTime.Now,
-                Okundu = false
-            };
-
-            await _context.VeliBilgilendirmeler.AddAsync(bilgilendirme);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Panel));
+                return RedirectToAction("Login");
+            }
+            return View();
         }
 
-        public IActionResult Cikis()
+        public async Task<IActionResult> Panel()
         {
-            _httpContextAccessor.HttpContext?.Session.Clear();
-            return RedirectToAction("Giris", "Kullanici");
+            var userId = HttpContext.Session.GetString("UserId");
+            if (string.IsNullOrEmpty(userId)) return RedirectToAction("Login", "Account");
+
+            var user = await _context.Users.FindAsync(int.Parse(userId));
+            if (user == null || !user.IsAdmin) return RedirectToAction("AccessDenied", "Account");
+
+            var userCount = await _context.Users.CountAsync();
+            var childCount = await _context.Children.CountAsync();
+            var moduleCount = await _context.LearningModules.CountAsync();
+            var newsCount = await _context.News.CountAsync();
+
+            ViewBag.UserCount = userCount;
+            ViewBag.ChildCount = childCount;
+            ViewBag.ModuleCount = moduleCount;
+            ViewBag.NewsCount = newsCount;
+
+            return View();
         }
-    }
 
-    // Admin yetkilendirme attribute'u
-    public class AdminAuthAttribute : ActionFilterAttribute
-    {
-        public override void OnActionExecuting(ActionExecutingContext context)
+        public async Task<IActionResult> Users()
         {
-            var httpContext = context.HttpContext;
-            var adminId = httpContext.Session.GetString("AdminId");
+            var userId = HttpContext.Session.GetString("UserId");
+            if (string.IsNullOrEmpty(userId)) return RedirectToAction("Login", "Account");
 
-            if (string.IsNullOrEmpty(adminId))
+            var user = await _context.Users.FindAsync(int.Parse(userId));
+            if (user == null || !user.IsAdmin) return RedirectToAction("AccessDenied", "Account");
+
+            var users = await _context.Users
+                .Include(u => u.Children)
+                .OrderByDescending(u => u.CreatedAt)
+                .ToListAsync();
+
+            return View(users);
+        }
+
+        public async Task<IActionResult> Children()
+        {
+            var userId = HttpContext.Session.GetString("UserId");
+            if (string.IsNullOrEmpty(userId)) return RedirectToAction("Login", "Account");
+
+            var user = await _context.Users.FindAsync(int.Parse(userId));
+            if (user == null || !user.IsAdmin) return RedirectToAction("AccessDenied", "Account");
+
+            var children = await _context.Children
+                .Include(c => c.Parent)
+                .Include(c => c.LearningProgress)
+                .OrderByDescending(c => c.CreatedAt)
+                .ToListAsync();
+
+            return View(children);
+        }
+
+        public async Task<IActionResult> Modules()
+        {
+            var userId = HttpContext.Session.GetString("UserId");
+            if (string.IsNullOrEmpty(userId)) return RedirectToAction("Login", "Account");
+
+            var user = await _context.Users.FindAsync(int.Parse(userId));
+            if (user == null || !user.IsAdmin) return RedirectToAction("AccessDenied", "Account");
+
+            var modules = await _context.LearningModules
+                .Include(m => m.Contents)
+                .OrderBy(m => m.OrderIndex)
+                .ToListAsync();
+
+            return View(modules);
+        }
+
+        public async Task<IActionResult> News()
+        {
+            var userId = HttpContext.Session.GetString("UserId");
+            if (string.IsNullOrEmpty(userId)) return RedirectToAction("Login", "Account");
+
+            var user = await _context.Users.FindAsync(int.Parse(userId));
+            if (user == null || !user.IsAdmin) return RedirectToAction("AccessDenied", "Account");
+
+            var news = await _context.News
+                .OrderByDescending(n => n.CreatedAt)
+                .ToListAsync();
+
+            return View(news);
+        }
+
+        public async Task<IActionResult> GetUserCount()
+        {
+            if (User.Identity == null || !User.Identity.IsAuthenticated || !User.IsInRole("Admin"))
             {
-                context.Result = new RedirectToActionResult("Giris", "Admin", null);
-                return;
+                return Json(new { count = 0 });
             }
 
-            base.OnActionExecuting(context);
+            var count = await _context.Users.CountAsync(u => !u.IsAdmin);
+            return Json(new { count });
         }
     }
 } 

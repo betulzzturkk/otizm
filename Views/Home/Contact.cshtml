@@ -1,0 +1,234 @@
+@{
+    ViewData["Title"] = "İletişim";
+}
+
+<style>
+    .contact-section {
+        background: linear-gradient(135deg, #f6f9fc, #edf2f7);
+        padding: 5rem 0;
+        min-height: 80vh;
+    }
+
+    .contact-title {
+        color: #2c3e50;
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin-bottom: 3rem;
+        text-align: center;
+    }
+
+    .contact-card {
+        background: white;
+        border-radius: 15px;
+        padding: 2rem;
+        height: 100%;
+        box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+        transition: transform 0.3s ease;
+    }
+
+    .contact-card:hover {
+        transform: translateY(-5px);
+    }
+
+    .contact-info-item {
+        display: flex;
+        align-items: center;
+        margin-bottom: 1.5rem;
+        color: #34495e;
+    }
+
+    .contact-info-item i {
+        font-size: 1.5rem;
+        color: #3498db;
+        margin-right: 1rem;
+        width: 40px;
+        text-align: center;
+    }
+
+    .contact-info-item a {
+        color: #34495e;
+        text-decoration: none;
+        transition: color 0.3s ease;
+    }
+
+    .contact-info-item a:hover {
+        color: #3498db;
+    }
+
+    .social-links {
+        display: flex;
+        gap: 1rem;
+        margin-top: 2rem;
+    }
+
+    .social-link {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: #3498db;
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-decoration: none;
+        transition: all 0.3s ease;
+    }
+
+    .social-link:hover {
+        transform: translateY(-3px);
+        background: #2980b9;
+        color: white;
+    }
+
+    .contact-form input,
+    .contact-form textarea {
+        border: 2px solid #e0e0e0;
+        border-radius: 10px;
+        padding: 0.75rem 1rem;
+        margin-bottom: 1rem;
+        width: 100%;
+        transition: all 0.3s ease;
+    }
+
+    .contact-form input:focus,
+    .contact-form textarea:focus {
+        outline: none;
+        border-color: #3498db;
+        box-shadow: 0 0 15px rgba(52,152,219,0.1);
+    }
+
+    .contact-form button {
+        background: #3498db;
+        color: white;
+        border: none;
+        border-radius: 10px;
+        padding: 1rem 2rem;
+        font-weight: 600;
+        transition: all 0.3s ease;
+    }
+
+    .contact-form button:hover {
+        background: #2980b9;
+        transform: translateY(-2px);
+    }
+
+    .map-container {
+        border-radius: 15px;
+        overflow: hidden;
+        box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+        height: 300px;
+    }
+</style>
+
+<div class="contact-section">
+    <div class="container">
+        <h1 class="contact-title">
+            <i class="fas fa-envelope text-primary me-2"></i>
+            İletişim
+        </h1>
+
+        <div class="row">
+            <div class="col-lg-6 mb-4">
+                <div class="contact-card">
+                    <h3 class="h4 mb-4">İletişim Bilgileri</h3>
+                    
+                    <div class="contact-info-item">
+                        <i class="fas fa-envelope"></i>
+                        <a href="mailto:betul.ozturk@ogr.gelisim.edu.tr">betul.ozturk@ogr.gelisim.edu.tr</a>
+                    </div>
+
+                    <div class="contact-info-item">
+                        <i class="fas fa-phone"></i>
+                        <a href="tel:+905343113258">0534 311 3258</a>
+                    </div>
+
+                    <div class="contact-info-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>İstanbul Gelişim Üniversitesi, Avcılar, İstanbul</span>
+                    </div>
+
+                    <div class="social-links">
+                        <a href="https://github.com/betulzzturkk" target="_blank" class="social-link">
+                            <i class="fab fa-github"></i>
+                        </a>
+                        <a href="https://www.linkedin.com/in/betul-ozturkk/" target="_blank" class="social-link">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-6 mb-4">
+                <div class="contact-card">
+                    <h3 class="h4 mb-4">Mesaj Gönder</h3>
+                    <form class="contact-form">
+                        <div class="mb-3">
+                            <input type="text" class="form-control" placeholder="Adınız Soyadınız" required>
+                        </div>
+                        <div class="mb-3">
+                            <input type="email" class="form-control" placeholder="E-posta Adresiniz" required>
+                        </div>
+                        <div class="mb-3">
+                            <input type="text" class="form-control" placeholder="Konu" required>
+                        </div>
+                        <div class="mb-3">
+                            <textarea class="form-control" rows="4" placeholder="Mesajınız" required></textarea>
+                        </div>
+                        <button type="submit" class="btn">
+                            <i class="fas fa-paper-plane me-2"></i>
+                            Mesaj Gönder
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="col-12">
+                <div class="map-container">
+                    <iframe 
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3011.6504900330997!2d28.69579661537269!3d40.98431797930335!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14caa0f7cc0fb2a5%3A0x7e2b3588b24c53d2!2zxLBzdGFuYnVsIEdlbGnFn2ltIMOcbml2ZXJzaXRlc2k!5e0!3m2!1str!2str!4v1650123456789!5m2!1str!2str"
+                        width="100%" 
+                        height="100%" 
+                        style="border:0;" 
+                        allowfullscreen="" 
+                        loading="lazy">
+                    </iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function() {
+            $('.contact-form').on('submit', function(e) {
+                e.preventDefault();
+                
+                var formData = {
+                    senderName: $(this).find('input[placeholder="Adınız Soyadınız"]').val(),
+                    email: $(this).find('input[type="email"]').val(),
+                    subject: $(this).find('input[placeholder="Konu"]').val(),
+                    content: $(this).find('textarea').val()
+                };
+
+                $.ajax({
+                    url: '/Home/SaveMessage',
+                    type: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify(formData),
+                    success: function(response) {
+                        if (response.success) {
+                            alert('Mesajınız başarıyla gönderildi! En kısa sürede size dönüş yapacağız.');
+                            $('.contact-form')[0].reset();
+                        } else {
+                            alert('Mesaj gönderilirken bir hata oluştu. Lütfen tüm alanları doğru doldurduğunuzdan emin olun.');
+                        }
+                    },
+                    error: function() {
+                        alert('Bir hata oluştu. Lütfen daha sonra tekrar deneyin.');
+                    }
+                });
+            });
+        });
+    </script>
+} 

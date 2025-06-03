@@ -5,6 +5,13 @@ namespace AutismEducationPlatform.Models
 {
     public class Student
     {
+        public Student()
+        {
+            FirstName = string.Empty;
+            LastName = string.Empty;
+            Parent = new User();
+        }
+
         public int Id { get; set; }
 
         [Required]
@@ -13,10 +20,11 @@ namespace AutismEducationPlatform.Models
         [Required]
         public string LastName { get; set; }
 
-        [Required]
-        public int ParentId { get; set; }  // Foreign key to User (Parent)
+        public DateTime DateOfBirth { get; set; }
 
+        [Required]
         public User Parent { get; set; }
+        public int ParentId { get; set; }
 
         // Track student's progress
         public int CurrentModuleId { get; set; }

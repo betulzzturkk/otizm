@@ -1,0 +1,164 @@
+@{
+    ViewData["Title"] = "Eğitim Modülleri";
+}
+
+<div class="container py-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <a href="/" class="btn btn-primary">
+            <i class="fas fa-arrow-left"></i> Ana Sayfaya Dön
+        </a>
+        <h2 class="text-center mb-0">Eğitim Modülleri</h2>
+        <div style="width: 100px;"></div>
+    </div>
+
+    <div class="row mb-4">
+        <div class="col text-center">
+            <p class="lead text-muted">Otizmli çocukların gelişimi için özel olarak hazırlanmış eğitim içerikleri</p>
+        </div>
+    </div>
+
+    <div class="row g-4">
+        <!-- Hayvanlar Klasörü -->
+        <div class="col-md-4 col-sm-6">
+            <a href="@Url.Action("Animals", "Education")" class="text-decoration-none">
+                <div class="card h-100 border-0 shadow-sm hover-shadow">
+                    <div class="card-body text-center p-4">
+                        <div class="mb-3">
+                            <i class="fas fa-paw fa-4x text-brown"></i>
+                        </div>
+                        <h3 class="h4 text-dark">Hayvanlar</h3>
+                        <p class="text-muted mb-0">Hayvanları tanıma ve seslerini öğrenme</p>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <!-- Renkler Klasörü -->
+        <div class="col-md-4 col-sm-6">
+            <a href="@Url.Action("Colors", "Education")" class="text-decoration-none">
+                <div class="card h-100 border-0 shadow-sm hover-shadow">
+                    <div class="card-body text-center p-4">
+                        <div class="mb-3">
+                            <i class="fas fa-palette fa-4x text-rainbow"></i>
+                        </div>
+                        <h3 class="h4 text-dark">Renkler</h3>
+                        <p class="text-muted mb-0">Renkleri tanıma ve ayırt etme</p>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <!-- Sayılar Klasörü -->
+        <div class="col-md-4 col-sm-6">
+            <a href="@Url.Action("Numbers", "Education")" class="text-decoration-none">
+                <div class="card h-100 border-0 shadow-sm hover-shadow">
+                    <div class="card-body text-center p-4">
+                        <div class="mb-3">
+                            <i class="fas fa-calculator fa-4x text-success"></i>
+                        </div>
+                        <h3 class="h4 text-dark">Sayılar</h3>
+                        <p class="text-muted mb-0">Sayıları öğrenme ve sayma</p>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <!-- Trafik Levhaları Klasörü -->
+        <div class="col-md-4 col-sm-6">
+            <a href="@Url.Action("TrafficSigns", "Education")" class="text-decoration-none">
+                <div class="card h-100 border-0 shadow-sm hover-shadow">
+                    <div class="card-body text-center p-4">
+                        <div class="mb-3">
+                            <i class="fas fa-traffic-light fa-4x text-danger"></i>
+                        </div>
+                        <h3 class="h4 text-dark">Trafik Levhaları</h3>
+                        <p class="text-muted mb-0">Temel trafik işaretlerini tanıma</p>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <!-- Görgü Kuralları Klasörü -->
+        <div class="col-md-4 col-sm-6">
+            <a href="@Url.Action("GorguKurallari", "Education")" class="text-decoration-none">
+                <div class="card h-100 border-0 shadow-sm hover-shadow">
+                    <div class="card-body text-center p-4">
+                        <div class="mb-3">
+                            <i class="fas fa-hands-helping fa-4x text-info"></i>
+                        </div>
+                        <h3 class="h4 text-dark">Görgü Kuralları</h3>
+                        <p class="text-muted mb-0">Temel görgü ve davranış kuralları</p>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <!-- Eğitim Videoları Klasörü -->
+        <div class="col-md-4 col-sm-6">
+            <a href="@Url.Action("Videos", "Education")" class="text-decoration-none">
+                <div class="card h-100 border-0 shadow-sm hover-shadow">
+                    <div class="card-body text-center p-4">
+                        <div class="mb-3">
+                            <i class="fas fa-video fa-4x text-primary"></i>
+                        </div>
+                        <h3 class="h4 text-dark">Eğitim Videoları</h3>
+                        <p class="text-muted mb-0">Kısa ve öğretici videolar</p>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <!-- Masallar Klasörü -->
+        <div class="col-md-4 col-sm-6">
+            <a href="@Url.Action("Stories", "Education")" class="text-decoration-none">
+                <div class="card h-100 border-0 shadow-sm hover-shadow">
+                    <div class="card-body text-center p-4">
+                        <div class="mb-3">
+                            <i class="fas fa-book-reader fa-4x text-purple"></i>
+                        </div>
+                        <h3 class="h4 text-dark">Masallar</h3>
+                        <p class="text-muted mb-0">Eğitici masallar ve hikayeler</p>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>
+
+<style>
+    .hover-shadow:hover {
+        transform: translateY(-5px);
+        transition: transform 0.2s ease-in-out;
+        box-shadow: 0 .5rem 1rem rgba(0,0,0,.15)!important;
+    }
+    
+    .text-brown {
+        color: #8B4513;
+    }
+    
+    .text-rainbow {
+        background: linear-gradient(45deg, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #8f00ff);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+    
+    .text-purple {
+        color: #800080;
+    }
+</style>
+
+@section Scripts {
+    <script>
+        // Ses çalma fonksiyonu - ses dosyaları eklendiğinde aktif edilecek
+        function playSound(name) {
+            const audio = new Audio(`/sounds/${name}.mp3`);
+            audio.play();
+        }
+
+        // İlerleme yüzdesi hesaplama fonksiyonu
+        function updateProgress(category) {
+            // Burada ilerleme yüzdesi hesaplanacak ve progress bar güncellenecek
+            // Örnek: const progress = (tamamlananSayisi / toplamSayisi) * 100;
+        }
+    </script>
+} 

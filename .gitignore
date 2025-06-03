@@ -89,4 +89,15 @@ artifacts/
 
 # Local appsettings
 appsettings.Development.json
-appsettings.Production.json 
+appsettings.Production.json
+
+# SQLite database files
+*.db
+*.sqlite3
+
+# Logs
+logs/
+*.log
+
+# Environment variables
+.env 

@@ -1,0 +1,347 @@
+@{
+    ViewData["Title"] = "Renkler";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <a href="/Education" class="btn btn-primary">
+            <i class="fas fa-arrow-left"></i> Geri Dön
+        </a>
+        <h2 class="text-center mb-0">Renkler</h2>
+        <div style="width: 100px;"></div>
+    </div>
+
+    @if (User.Identity?.IsAuthenticated == true)
+    {
+        <div class="row mb-4">
+            <div class="col">
+                <div class="progress" style="height: 30px;">
+                    <div class="progress-bar bg-success progress-bar-striped" id="moduleProgress" 
+                         role="progressbar" style="width: 0%;" 
+                         aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+                        0%
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="row mb-4">
+            <div class="col">
+                <div class="alert alert-info" role="alert">
+                    <i class="fas fa-info-circle"></i>
+                    İlerlemenizin kaydedilmesi için <a href="/Account/Login" class="alert-link">giriş yapın</a> veya 
+                    <a href="/Account/Register" class="alert-link">kayıt olun</a>.
+                </div>
+            </div>
+        </div>
+    }
+
+    <div class="row g-4" id="colorCards">
+        <!-- Kırmızı -->
+        <div class="col-md-3 col-sm-6">
+            <div class="card h-100 color-card" data-color="kirmizi">
+                <div class="card-img-top text-center py-4" style="background-color: #dc3545;">
+                    <div style="width: 100px; height: 100px; margin: auto;"></div>
+                </div>
+                <div class="card-body text-center">
+                    <h5 class="card-title">Kırmızı</h5>
+                    <button class="btn btn-primary play-sound" onclick="playColorSound('kirmizi')">
+                        <i class="fas fa-volume-up"></i> Sesi Çal
+                    </button>
+                    @if (User.Identity?.IsAuthenticated == true)
+                    {
+                        <div class="mt-2">
+                            <i class="fas fa-check-circle text-success completion-icon" style="display: none;"></i>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+
+        <!-- Mavi -->
+        <div class="col-md-3 col-sm-6">
+            <div class="card h-100 color-card" data-color="mavi">
+                <div class="card-img-top text-center py-4" style="background-color: #007bff;">
+                    <div style="width: 100px; height: 100px; margin: auto;"></div>
+                </div>
+                <div class="card-body text-center">
+                    <h5 class="card-title">Mavi</h5>
+                    <button class="btn btn-primary play-sound" onclick="playColorSound('mavi')">
+                        <i class="fas fa-volume-up"></i> Sesi Çal
+                    </button>
+                    @if (User.Identity?.IsAuthenticated == true)
+                    {
+                        <div class="mt-2">
+                            <i class="fas fa-check-circle text-success completion-icon" style="display: none;"></i>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+
+        <!-- Sarı -->
+        <div class="col-md-3 col-sm-6">
+            <div class="card h-100 color-card" data-color="sari">
+                <div class="card-img-top text-center py-4" style="background-color: #ffc107;">
+                    <div style="width: 100px; height: 100px; margin: auto;"></div>
+                </div>
+                <div class="card-body text-center">
+                    <h5 class="card-title">Sarı</h5>
+                    <button class="btn btn-primary play-sound" onclick="playColorSound('sari')">
+                        <i class="fas fa-volume-up"></i> Sesi Çal
+                    </button>
+                    @if (User.Identity?.IsAuthenticated == true)
+                    {
+                        <div class="mt-2">
+                            <i class="fas fa-check-circle text-success completion-icon" style="display: none;"></i>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+
+        <!-- Yeşil -->
+        <div class="col-md-3 col-sm-6">
+            <div class="card h-100 color-card" data-color="yesil">
+                <div class="card-img-top text-center py-4" style="background-color: #28a745;">
+                    <div style="width: 100px; height: 100px; margin: auto;"></div>
+                </div>
+                <div class="card-body text-center">
+                    <h5 class="card-title">Yeşil</h5>
+                    <button class="btn btn-primary play-sound" onclick="playColorSound('yesil')">
+                        <i class="fas fa-volume-up"></i> Sesi Çal
+                    </button>
+                    @if (User.Identity?.IsAuthenticated == true)
+                    {
+                        <div class="mt-2">
+                            <i class="fas fa-check-circle text-success completion-icon" style="display: none;"></i>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+
+        <!-- Beyaz -->
+        <div class="col-md-3 col-sm-6">
+            <div class="card h-100 color-card" data-color="beyaz">
+                <div class="card-img-top text-center py-4" style="background-color: #ffffff; border: 1px solid #dee2e6;">
+                    <div style="width: 100px; height: 100px; margin: auto;"></div>
+                </div>
+                <div class="card-body text-center">
+                    <h5 class="card-title">Beyaz</h5>
+                    <button class="btn btn-primary play-sound" onclick="playColorSound('beyaz')">
+                        <i class="fas fa-volume-up"></i> Sesi Çal
+                    </button>
+                    @if (User.Identity?.IsAuthenticated == true)
+                    {
+                        <div class="mt-2">
+                            <i class="fas fa-check-circle text-success completion-icon" style="display: none;"></i>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+
+        <!-- Siyah -->
+        <div class="col-md-3 col-sm-6">
+            <div class="card h-100 color-card" data-color="siyah">
+                <div class="card-img-top text-center py-4" style="background-color: #000000;">
+                    <div style="width: 100px; height: 100px; margin: auto;"></div>
+                </div>
+                <div class="card-body text-center">
+                    <h5 class="card-title">Siyah</h5>
+                    <button class="btn btn-primary play-sound" onclick="playColorSound('siyah')">
+                        <i class="fas fa-volume-up"></i> Sesi Çal
+                    </button>
+                    @if (User.Identity?.IsAuthenticated == true)
+                    {
+                        <div class="mt-2">
+                            <i class="fas fa-check-circle text-success completion-icon" style="display: none;"></i>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+
+        <!-- Mor -->
+        <div class="col-md-3 col-sm-6">
+            <div class="card h-100 color-card" data-color="mor">
+                <div class="card-img-top text-center py-4" style="background-color: #6f42c1;">
+                    <div style="width: 100px; height: 100px; margin: auto;"></div>
+                </div>
+                <div class="card-body text-center">
+                    <h5 class="card-title">Mor</h5>
+                    <button class="btn btn-primary play-sound" onclick="playColorSound('mor')">
+                        <i class="fas fa-volume-up"></i> Sesi Çal
+                    </button>
+                    @if (User.Identity?.IsAuthenticated == true)
+                    {
+                        <div class="mt-2">
+                            <i class="fas fa-check-circle text-success completion-icon" style="display: none;"></i>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+
+        <!-- Turuncu -->
+        <div class="col-md-3 col-sm-6">
+            <div class="card h-100 color-card" data-color="turuncu">
+                <div class="card-img-top text-center py-4" style="background-color: #fd7e14;">
+                    <div style="width: 100px; height: 100px; margin: auto;"></div>
+                </div>
+                <div class="card-body text-center">
+                    <h5 class="card-title">Turuncu</h5>
+                    <button class="btn btn-primary play-sound" onclick="playColorSound('turuncu')">
+                        <i class="fas fa-volume-up"></i> Sesi Çal
+                    </button>
+                    @if (User.Identity?.IsAuthenticated == true)
+                    {
+                        <div class="mt-2">
+                            <i class="fas fa-check-circle text-success completion-icon" style="display: none;"></i>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+
+        <!-- Pembe -->
+        <div class="col-md-3 col-sm-6">
+            <div class="card h-100 color-card" data-color="pembe">
+                <div class="card-img-top text-center py-4" style="background-color: #e83e8c;">
+                    <div style="width: 100px; height: 100px; margin: auto;"></div>
+                </div>
+                <div class="card-body text-center">
+                    <h5 class="card-title">Pembe</h5>
+                    <button class="btn btn-primary play-sound" onclick="playColorSound('pembe')">
+                        <i class="fas fa-volume-up"></i> Sesi Çal
+                    </button>
+                    @if (User.Identity?.IsAuthenticated == true)
+                    {
+                        <div class="mt-2">
+                            <i class="fas fa-check-circle text-success completion-icon" style="display: none;"></i>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+
+        <!-- Kahverengi -->
+        <div class="col-md-3 col-sm-6">
+            <div class="card h-100 color-card" data-color="kahverengi">
+                <div class="card-img-top text-center py-4" style="background-color: #795548;">
+                    <div style="width: 100px; height: 100px; margin: auto;"></div>
+                </div>
+                <div class="card-body text-center">
+                    <h5 class="card-title">Kahverengi</h5>
+                    <button class="btn btn-primary play-sound" onclick="playColorSound('kahverengi')">
+                        <i class="fas fa-volume-up"></i> Sesi Çal
+                    </button>
+                    @if (User.Identity?.IsAuthenticated == true)
+                    {
+                        <div class="mt-2">
+                            <i class="fas fa-check-circle text-success completion-icon" style="display: none;"></i>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        // Renk seslerini çalma ve ilerlemeyi kaydetme
+        function playColorSound(color) {
+            const audio = new Audio(`/sounds/colors/${color}.mp3`);
+            
+            audio.onended = function() {
+                // Kullanıcı giriş yapmışsa ilerlemeyi kaydet
+                if (@Json.Serialize(User.Identity?.IsAuthenticated == true)) {
+                    markAsCompleted(color);
+                }
+            };
+            
+            audio.play();
+        }
+
+        // Tamamlanan renkleri işaretleme
+        function markAsCompleted(color) {
+            const card = document.querySelector(`[data-color="${color}"]`);
+            const icon = card.querySelector('.completion-icon');
+            icon.style.display = 'inline-block';
+
+            // İlerleme durumunu sunucuya kaydet
+            saveProgress(color);
+
+            // İlerleme çubuğunu güncelle
+            updateProgress();
+        }
+
+        // İlerleme durumunu sunucuya kaydetme
+        function saveProgress(color) {
+            fetch('/Education/SaveProgress', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    moduleName: 'Colors',
+                    itemName: color,
+                    isCompleted: true
+                })
+            });
+        }
+
+        // İlerleme çubuğunu güncelleme
+        function updateProgress() {
+            const totalColors = document.querySelectorAll('.color-card').length;
+            const completedColors = document.querySelectorAll('.completion-icon[style="display: inline-block"]').length;
+            const progressPercentage = (completedColors / totalColors) * 100;
+
+            const progressBar = document.getElementById('moduleProgress');
+            if (progressBar) {
+                progressBar.style.width = `${progressPercentage}%`;
+                progressBar.textContent = `${Math.round(progressPercentage)}%`;
+                progressBar.setAttribute('aria-valuenow', progressPercentage);
+            }
+        }
+
+        // Sayfa yüklendiğinde önceki ilerlemeyi yükle
+        document.addEventListener('DOMContentLoaded', function() {
+            if (@Json.Serialize(User.Identity?.IsAuthenticated == true)) {
+                fetch('/Education/GetProgress?moduleName=Colors')
+                    .then(response => response.json())
+                    .then(data => {
+                        data.forEach(item => {
+                            if (item.isCompleted) {
+                                const card = document.querySelector(`[data-color="${item.itemName}"]`);
+                                if (card) {
+                                    const icon = card.querySelector('.completion-icon');
+                                    icon.style.display = 'inline-block';
+                                }
+                            }
+                        });
+                        updateProgress();
+                    });
+            }
+        });
+    </script>
+}
+
+<style>
+    .btn-primary {
+        background-color: #3498db;
+        border-color: #3498db;
+        transition: all 0.3s ease;
+    }
+
+    .btn-primary:hover {
+        background-color: #2980b9;
+        border-color: #2980b9;
+        transform: translateX(-5px);
+    }
+</style> 

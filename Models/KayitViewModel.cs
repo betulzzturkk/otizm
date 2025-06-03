@@ -1,9 +1,20 @@
 using System.ComponentModel.DataAnnotations;
+using AutismEducationPlatform.Models.Enums;
 
 namespace AutismEducationPlatform.Models
 {
     public class KayitViewModel
     {
+        public KayitViewModel()
+        {
+            Ad = string.Empty;
+            Soyad = string.Empty;
+            Email = string.Empty;
+            Password = string.Empty;
+            ConfirmPassword = string.Empty;
+            KullaniciTipi = string.Empty;
+        }
+
         [Required(ErrorMessage = "Ad alanı zorunludur")]
         public string Ad { get; set; }
 
@@ -15,16 +26,15 @@ namespace AutismEducationPlatform.Models
         public string Email { get; set; }
 
         [Required(ErrorMessage = "Şifre alanı zorunludur")]
-        [MinLength(6, ErrorMessage = "Şifre en az 6 karakter olmalıdır")]
+        [StringLength(100, ErrorMessage = "Şifre en az {2} karakter uzunluğunda olmalıdır", MinimumLength = 6)]
         [DataType(DataType.Password)]
         public string Password { get; set; }
 
-        [Required(ErrorMessage = "Şifre tekrarı zorunludur")]
-        [Compare("Password", ErrorMessage = "Şifreler eşleşmiyor")]
         [DataType(DataType.Password)]
+        [Compare("Password", ErrorMessage = "Şifreler eşleşmiyor")]
         public string ConfirmPassword { get; set; }
 
-        [Required(ErrorMessage = "Kullanıcı tipi seçiniz")]
-        public string KullaniciTipi { get; set; } // Veli, Egitmen
+        [Required(ErrorMessage = "Kullanıcı tipi seçilmelidir")]
+        public string KullaniciTipi { get; set; }
     }
 } 

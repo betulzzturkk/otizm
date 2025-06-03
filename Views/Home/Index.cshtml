@@ -3,17 +3,47 @@
 }
 
 <div class="container">
-    <div class="text-center">
-        <h1 class="display-4">Otizm Eğitim Platformuna Hoş Geldiniz</h1>
-        <p class="lead">Çocuklarımızın eğitimi için özel olarak tasarlanmış interaktif eğitim platformu</p>
-    </div>
-
-    <div class="row mt-5">
-        <div class="col-md-6 offset-md-3 text-center">
-            <a href="@Url.Action("Index", "Egitim")" class="btn btn-primary btn-lg">
-                <i class="fas fa-book-open me-2"></i>
-                Eğitimlere Başla
-            </a>
+    <div class="row justify-content-center align-items-center min-vh-100">
+        <div class="col-md-8 text-center">
+            <h1 class="display-4 mb-4">Otizm Eğitim Platformuna Hoş Geldiniz</h1>
+            <p class="lead mb-5">Çocuğunuzun gelişimi için özel olarak tasarlanmış eğitim platformumuzda öğrenme yolculuğuna başlayın.</p>
+            
+            <div class="row justify-content-center gap-3">
+                <div class="col-md-4">
+                    <a href="@Url.Action("Login", "Parent")" class="btn btn-primary btn-lg w-100">
+                        <i class="fas fa-sign-in-alt me-2"></i>Veli Girişi
+                    </a>
+                </div>
+                <div class="col-md-4">
+                    <a href="@Url.Action("Register", "Parent")" class="btn btn-success btn-lg w-100">
+                        <i class="fas fa-user-plus me-2"></i>Veli Kaydı
+                    </a>
+                </div>
+            </div>
         </div>
     </div>
 </div>
+
+<style>
+    .btn {
+        padding: 15px 30px;
+        border-radius: 10px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+    }
+
+    .btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+
+    .btn-primary {
+        background-color: #4A90E2;
+        border-color: #4A90E2;
+    }
+
+    .btn-success {
+        background-color: #50B83C;
+        border-color: #50B83C;
+    }
+</style>

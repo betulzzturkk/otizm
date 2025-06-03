@@ -1,51 +1,28 @@
 using System;
 using System.Security.Cryptography;
+using System.Text;
 
 namespace AutismEducationPlatform.Helpers
 {
     public static class PasswordHasher
     {
-        private const int SaltSize = 16; // 128 bit
-        private const int KeySize = 32; // 256 bit
-        private const int Iterations = 10000;
+        private const int SaltSize = 16;
+        private const int HashSize = 32;
+        private const int Iterations = 100000;
 
         public static string HashPassword(string password)
         {
-            using (var algorithm = new Rfc2898DeriveBytes(
-                password,
-                SaltSize,
-                Iterations,
-                HashAlgorithmName.SHA512))
+            using (var sha256 = SHA256.Create())
             {
-                var key = Convert.ToBase64String(algorithm.GetBytes(KeySize));
-                var salt = Convert.ToBase64String(algorithm.Salt);
-
-                return $"{Iterations}.{salt}.{key}";
+                var hashedBytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(password));
+                return Convert.ToBase64String(hashedBytes);
             }
         }
 
-        public static bool VerifyPassword(string hash, string password)
+        public static bool VerifyPassword(string password, string hashedPassword)
         {
-            var parts = hash.Split('.', 3);
-
-            if (parts.Length != 3)
-            {
-                return false;
-            }
-
-            var iterations = Convert.ToInt32(parts[0]);
-            var salt = Convert.FromBase64String(parts[1]);
-            var key = Convert.FromBase64String(parts[2]);
-
-            using (var algorithm = new Rfc2898DeriveBytes(
-                password,
-                salt,
-                iterations,
-                HashAlgorithmName.SHA512))
-            {
-                var keyToCheck = algorithm.GetBytes(KeySize);
-                return keyToCheck.SequenceEqual(key);
-            }
+            var hashedInput = HashPassword(password);
+            return hashedInput == hashedPassword;
         }
     }
 } 

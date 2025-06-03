@@ -1,0 +1,179 @@
+@{
+    ViewData["Title"] = "Hakkımızda";
+}
+
+<style>
+    .about-section {
+        background: linear-gradient(135deg, #f6f9fc, #edf2f7);
+        padding: 5rem 0;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .about-section::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: url('data:image/svg+xml,<svg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><circle cx="3" cy="3" r="1.5" fill="rgba(52,152,219,0.1)"/></svg>') repeat;
+        opacity: 0.5;
+    }
+
+    .about-content {
+        position: relative;
+        z-index: 1;
+    }
+
+    .about-title {
+        color: #2c3e50;
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin-bottom: 2rem;
+        text-align: center;
+    }
+
+    .about-text {
+        color: #34495e;
+        font-size: 1.1rem;
+        line-height: 1.8;
+        text-align: justify;
+    }
+
+    .about-image {
+        border-radius: 20px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        transition: transform 0.3s ease;
+    }
+
+    .about-image:hover {
+        transform: translateY(-5px);
+    }
+
+    .feature-card {
+        background: white;
+        border-radius: 15px;
+        padding: 2rem;
+        box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+        transition: all 0.3s ease;
+        height: 100%;
+    }
+
+    .feature-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+    }
+
+    .feature-icon {
+        font-size: 2.5rem;
+        color: #3498db;
+        margin-bottom: 1rem;
+    }
+
+    .developer-section {
+        background: white;
+        padding: 5rem 0;
+    }
+
+    .developer-image {
+        border-radius: 50%;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        transition: transform 0.3s ease;
+        max-width: 250px;
+    }
+
+    .developer-image:hover {
+        transform: scale(1.05);
+    }
+</style>
+
+<div class="about-section">
+    <div class="container about-content">
+        <h1 class="about-title mb-5">
+            <i class="fas fa-puzzle-piece text-primary me-2"></i>
+            Otizm Eğitim Platformu Hakkında
+        </h1>
+
+        <div class="row align-items-center mb-5">
+            <div class="col-lg-6 mb-4 mb-lg-0">
+                <img src="~/images/cocuk.jpg" alt="Otizmli Çocuk Eğitimi" class="img-fluid about-image w-100" style="height: 400px; object-fit: cover;">
+            </div>
+            <div class="col-lg-6">
+                <p class="about-text">
+                    Otizmli bireylerin eğitimine destek olmak amacıyla geliştirilen bu platform, görsel ve işitsel içeriklerle öğrenmeyi kolaylaştırmayı hedefler. Renkler, şekiller, hayvanlar, trafik levhaları gibi temel kavramların öğretildiği uygulamamızda; kullanıcı dostu arayüz, sesli tanıma, etkileşimli ögeler ve chatbot desteği bulunmaktadır.
+                </p>
+            </div>
+        </div>
+
+        <div class="row mb-5">
+            <div class="col-md-3">
+                <div class="feature-card text-center">
+                    <i class="fas fa-paint-brush feature-icon"></i>
+                    <h3 class="h5 mb-3">Görsel İçerikler</h3>
+                    <p class="text-muted mb-0">Renkli ve dikkat çekici görsel materyaller</p>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="feature-card text-center">
+                    <i class="fas fa-volume-up feature-icon"></i>
+                    <h3 class="h5 mb-3">Sesli Tanıma</h3>
+                    <p class="text-muted mb-0">İnteraktif sesli öğrenme deneyimi</p>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="feature-card text-center">
+                    <i class="fas fa-users feature-icon"></i>
+                    <h3 class="h5 mb-3">Etkileşimli Öğrenme</h3>
+                    <p class="text-muted mb-0">Kullanıcı dostu etkileşimli arayüz</p>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="feature-card text-center">
+                    <i class="fas fa-robot feature-icon"></i>
+                    <h3 class="h5 mb-3">Chatbot Desteği</h3>
+                    <p class="text-muted mb-0">Anlık yardım ve destek sistemi</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="row align-items-center">
+            <div class="col-lg-6 order-lg-2 mb-4 mb-lg-0">
+                <img src="~/images/cocuk2.jpg" alt="Otizmli Çocuk Eğitimi" class="img-fluid about-image w-100" style="height: 400px; object-fit: cover;">
+            </div>
+            <div class="col-lg-6 order-lg-1">
+                <p class="about-text">
+                    Platform, çocukların kendi hızlarında öğrenmelerine olanak tanıyan modüler bir yapıya sahiptir. Her bir eğitim modülü, otizmli çocukların özel ihtiyaçları göz önünde bulundurularak tasarlanmıştır. İnteraktif oyunlar ve alıştırmalar sayesinde, öğrenme süreci eğlenceli hale getirilmiştir.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="developer-section">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-4 text-center mb-4 mb-lg-0">
+                <img src="~/images/betul.jpg" alt="Betül Öztürk" class="developer-image img-fluid mb-3">
+            </div>
+            <div class="col-lg-8">
+                <div class="card border-0 shadow-sm">
+                    <div class="card-body p-4">
+                        <h2 class="h3 text-primary mb-3">Geliştirici Hakkında</h2>
+                        <p class="about-text">
+                            Bu platform, bilgisayar mühendisliği öğrencisi Betül Öztürk tarafından bir bitirme projesi kapsamında geliştirilmiş olup, otizmli çocukların bilişsel gelişimine katkı sağlamayı amaçlamaktadır. Eğitimde eşitliği destekleyen bu projede, her çocuğun potansiyeline ulaşabileceği bir öğrenme ortamı sunulması hedeflenmiştir.
+                        </p>
+                        <div class="mt-4">
+                            <a href="https://www.linkedin.com/in/betul-ozturkk/" class="btn btn-outline-primary me-2" target="_blank">
+                                <i class="fab fa-linkedin me-2"></i>LinkedIn
+                            </a>
+                            <a href="https://github.com/betulzzturkk" class="btn btn-outline-primary" target="_blank">
+                                <i class="fab fa-github me-2"></i>GitHub
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> 

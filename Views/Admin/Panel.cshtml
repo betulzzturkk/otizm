@@ -1,120 +1,47 @@
-@model AutismEducationPlatform.Models.AdminPanelViewModel
+@using AutismEducationPlatform.Models.Enums
+@model AutismEducationPlatform.Models.ViewModels.AdminPanelViewModel
 
 @{
-    ViewData["Title"] = "Admin Panel";
+    ViewData["Title"] = "Admin Paneli";
 }
 
-<div class="container-fluid mt-4">
-    <h2 class="mb-4">Admin Kontrol Paneli</h2>
+<div class="container mt-4">
+    <h2>Admin Paneli</h2>
 
-    <div class="row">
-        <!-- Veliler ve Çocuklar Listesi -->
-        <div class="col-md-6">
-            <div class="card">
-                <div class="card-header">
-                    <h5>Veliler ve Çocukları</h5>
-                </div>
+    <div class="row mt-4">
+        <div class="col-md-3">
+            <div class="card bg-primary text-white">
                 <div class="card-body">
-                    @foreach (var veli in Model.Veliler)
-                    {
-                        <div class="mb-4">
-                            <h6>@veli.Ad @veli.Soyad (@veli.Email)</h6>
-                            <div class="ml-4">
-                                @foreach (var cocuk in Model.Cocuklar.Where(c => c.VeliId == veli.Id))
-                                {
-                                    <div class="card mb-2">
-                                        <div class="card-body">
-                                            <h6>@cocuk.Ad @cocuk.Soyad</h6>
-                                            <p class="mb-2">Yaş: @cocuk.Yas</p>
-                                            
-                                            <!-- Çocuk Durumu Ekleme Formu -->
-                                            <form asp-action="CocukDurumuEkle" method="post" class="mb-2">
-                                                <input type="hidden" name="CocukId" value="@cocuk.Id" />
-                                                <div class="input-group">
-                                                    <input type="text" name="Durum" class="form-control" placeholder="Durum..." required />
-                                                    <input type="text" name="Aciklama" class="form-control" placeholder="Açıklama..." required />
-                                                    <div class="input-group-append">
-                                                        <button type="submit" class="btn btn-primary">Durum Ekle</button>
-                                                    </div>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div>
-                                }
-                            </div>
-                            
-                            <!-- Veliye Bilgilendirme Gönderme Formu -->
-                            <form asp-action="VeliyeBilgilendirmeGonder" method="post" class="mt-2">
-                                <input type="hidden" name="veliId" value="@veli.Id" />
-                                <div class="input-group">
-                                    <input type="text" name="mesaj" class="form-control" placeholder="Bilgilendirme mesajı..." required />
-                                    <div class="input-group-append">
-                                        <button type="submit" class="btn btn-info">Bilgilendirme Gönder</button>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                    }
+                    <h5 class="card-title">Kullanıcılar</h5>
+                    <p class="card-text display-4">@ViewBag.UserCount</p>
+                    <a asp-action="Users" class="btn btn-light">Detaylar</a>
                 </div>
             </div>
         </div>
-
-        <!-- Eğitim Modülleri -->
-        <div class="col-md-6">
-            <div class="card">
-                <div class="card-header">
-                    <h5>Eğitim Modülleri</h5>
-                </div>
+        <div class="col-md-3">
+            <div class="card bg-success text-white">
                 <div class="card-body">
-                    <!-- Yeni Eğitim Modülü Ekleme Formu -->
-                    <form asp-action="EgitimModuluEkle" method="post" class="mb-4">
-                        <div class="form-group">
-                            <input type="text" name="ModulAdi" class="form-control" placeholder="Modül Adı" required />
-                        </div>
-                        <div class="form-group">
-                            <textarea name="Aciklama" class="form-control" placeholder="Modül Açıklaması" required></textarea>
-                        </div>
-                        <button type="submit" class="btn btn-success">Modül Ekle</button>
-                    </form>
-
-                    <!-- Mevcut Modüller Listesi -->
-                    <div class="list-group">
-                        @foreach (var modul in Model.EgitimModulleri)
-                        {
-                            <div class="list-group-item">
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <div>
-                                        <h6 class="mb-1">@modul.ModulAdi</h6>
-                                        <p class="mb-1">@modul.Aciklama</p>
-                                    </div>
-                                    <form asp-action="EgitimModuluSil" method="post" style="display: inline;">
-                                        <input type="hidden" name="id" value="@modul.Id" />
-                                        <button type="submit" class="btn btn-danger btn-sm">Sil</button>
-                                    </form>
-                                </div>
-                            </div>
-                        }
-                    </div>
+                    <h5 class="card-title">Çocuklar</h5>
+                    <p class="card-text display-4">@ViewBag.ChildCount</p>
+                    <a asp-action="Children" class="btn btn-light">Detaylar</a>
                 </div>
             </div>
-
-            <!-- Çocuk Durumları -->
-            <div class="card mt-4">
-                <div class="card-header">
-                    <h5>Son Çocuk Durumları</h5>
-                </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card bg-warning text-white">
                 <div class="card-body">
-                    <div class="list-group">
-                        @foreach (var durum in Model.CocukDurumlari)
-                        {
-                            <div class="list-group-item">
-                                <h6 class="mb-1">@durum.Cocuk.Ad @durum.Cocuk.Soyad</h6>
-                                <p class="mb-1">Durum: @durum.Durum</p>
-                                <p class="mb-1">Açıklama: @durum.Aciklama</p>
-                                <small class="text-muted">@durum.TarihSaat.ToString("dd.MM.yyyy HH:mm")</small>
-                            </div>
-                        }
-                    </div>
+                    <h5 class="card-title">Eğitim Modülleri</h5>
+                    <p class="card-text display-4">@ViewBag.ModuleCount</p>
+                    <a asp-action="Modules" class="btn btn-light">Detaylar</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card bg-info text-white">
+                <div class="card-body">
+                    <h5 class="card-title">Haberler</h5>
+                    <p class="card-text display-4">@ViewBag.NewsCount</p>
+                    <a asp-action="News" class="btn btn-light">Detaylar</a>
                 </div>
             </div>
         </div>
@@ -122,7 +49,5 @@
 </div>
 
 @section Scripts {
-    <script>
-        // Gerekli JavaScript kodları buraya eklenebilir
-    </script>
+    <script src="https://kit.fontawesome.com/your-fontawesome-kit.js"></script>
 } 

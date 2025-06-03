@@ -1,0 +1,265 @@
+@{
+    ViewData["Title"] = "Masallar";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <a href="/Education" class="btn btn-primary">
+            <i class="fas fa-arrow-left"></i> Geri Dön
+        </a>
+        <h2 class="text-center mb-0">Masallar</h2>
+        <div style="width: 100px;"></div> <!-- Başlığı ortalamak için boş div -->
+    </div>
+    
+    <div class="row g-4">
+        <!-- Pamuk Prenses ve Yedi Cüceler -->
+        <div class="col-12">
+            <div class="card story-card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="embed-responsive embed-responsive-16by9">
+                                <iframe class="embed-responsive-item w-100" style="height: 400px;"
+                                    src="https://www.youtube.com/embed/XCtzC66zJyo"
+                                    title="Pamuk Prenses ve Yedi Cüceler"
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                    allowfullscreen></iframe>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <h4 class="card-title">Pamuk Prenses ve Yedi Cüceler</h4>
+                            <p class="card-text">Güzel prenses ve yedi cüce arkadaşının unutulmaz hikayesi.</p>
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                <div class="form-check mt-3">
+                                    <input class="form-check-input progress-check" type="checkbox" 
+                                           data-module="Stories" data-item="PamukPrenses" id="progressPamukPrenses">
+                                    <label class="form-check-label" for="progressPamukPrenses">
+                                        Masalı dinledim
+                                    </label>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Uyuyan Güzel -->
+        <div class="col-12">
+            <div class="card story-card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="embed-responsive embed-responsive-16by9">
+                                <iframe class="embed-responsive-item w-100" style="height: 400px;"
+                                    src="https://www.youtube.com/embed/NCQpBenrhJk"
+                                    title="Uyuyan Güzel"
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                    allowfullscreen></iframe>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <h4 class="card-title">Uyuyan Güzel</h4>
+                            <p class="card-text">Prenses Aurora'nın büyülü uykudan uyanış hikayesi.</p>
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                <div class="form-check mt-3">
+                                    <input class="form-check-input progress-check" type="checkbox" 
+                                           data-module="Stories" data-item="UyuyanGuzel" id="progressUyuyanGuzel">
+                                    <label class="form-check-label" for="progressUyuyanGuzel">
+                                        Masalı dinledim
+                                    </label>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tavşan ve Kaplumbağa Masalı -->
+        <div class="col-12">
+            <div class="card story-card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="embed-responsive embed-responsive-16by9">
+                                <iframe class="embed-responsive-item w-100" style="height: 400px;"
+                                    src="https://www.youtube.com/embed/OtAhcLHMvw0"
+                                    title="Tavşan ve Kaplumbağa Masalı"
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                    allowfullscreen></iframe>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <h4 class="card-title">Tavşan ve Kaplumbağa Masalı</h4>
+                            <p class="card-text">Azmin ve kararlılığın zaferi anlatan eğlenceli bir masal.</p>
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                <div class="form-check mt-3">
+                                    <input class="form-check-input progress-check" type="checkbox" 
+                                           data-module="Stories" data-item="TavsanKaplumbaga" id="progressTavsanKaplumbaga">
+                                    <label class="form-check-label" for="progressTavsanKaplumbaga">
+                                        Masalı dinledim
+                                    </label>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Kısa Boylu Zürafa -->
+        <div class="col-12">
+            <div class="card story-card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="embed-responsive embed-responsive-16by9">
+                                <iframe class="embed-responsive-item w-100" style="height: 400px;"
+                                    src="https://www.youtube.com/embed/dJMn3kwCYtc"
+                                    title="Kısa Boylu Zürafa"
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                    allowfullscreen></iframe>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <h4 class="card-title">Kısa Boylu Zürafa</h4>
+                            <p class="card-text">Kendini olduğu gibi kabul etmenin önemini anlatan sevimli bir hikaye.</p>
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                <div class="form-check mt-3">
+                                    <input class="form-check-input progress-check" type="checkbox" 
+                                           data-module="Stories" data-item="KisaBoyluZurafa" id="progressKisaBoyluZurafa">
+                                    <label class="form-check-label" for="progressKisaBoyluZurafa">
+                                        Masalı dinledim
+                                    </label>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- İnatçı Yavru Fil -->
+        <div class="col-12">
+            <div class="card story-card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="embed-responsive embed-responsive-16by9">
+                                <iframe class="embed-responsive-item w-100" style="height: 400px;"
+                                    src="https://www.youtube.com/embed/qaNZkV8d0xs"
+                                    title="İnatçı Yavru Fil"
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                    allowfullscreen></iframe>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <h4 class="card-title">İnatçı Yavru Fil</h4>
+                            <p class="card-text">Dinlemenin ve öğüt almanın önemini anlatan sevimli bir fil hikayesi.</p>
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                <div class="form-check mt-3">
+                                    <input class="form-check-input progress-check" type="checkbox" 
+                                           data-module="Stories" data-item="InatciYavruFil" id="progressInatciYavruFil">
+                                    <label class="form-check-label" for="progressInatciYavruFil">
+                                        Masalı dinledim
+                                    </label>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .story-card {
+        transition: transform 0.3s ease;
+        margin-bottom: 2rem;
+        border-radius: 15px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+
+    .story-card:hover {
+        transform: translateY(-5px);
+    }
+
+    .card-title {
+        color: #2c3e50;
+        margin-bottom: 1rem;
+    }
+
+    .card-text {
+        color: #34495e;
+    }
+
+    .form-check-input:checked {
+        background-color: #28a745;
+        border-color: #28a745;
+    }
+
+    .btn-primary {
+        background-color: #3498db;
+        border-color: #3498db;
+        transition: all 0.3s ease;
+    }
+
+    .btn-primary:hover {
+        background-color: #2980b9;
+        border-color: #2980b9;
+        transform: translateX(-5px);
+    }
+</style>
+
+@section Scripts {
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // İlerleme durumunu yükle
+            if (document.querySelector('.progress-check')) {
+                loadProgress();
+            }
+
+            // İlerleme checkbox'larına event listener ekle
+            document.querySelectorAll('.progress-check').forEach(checkbox => {
+                checkbox.addEventListener('change', function() {
+                    saveProgress(this.dataset.module, this.dataset.item, this.checked);
+                });
+            });
+        });
+
+        function loadProgress() {
+            fetch('/Education/GetProgress?moduleName=Stories')
+                .then(response => response.json())
+                .then(data => {
+                    data.forEach(item => {
+                        const checkbox = document.querySelector(`[data-module="Stories"][data-item="${item.itemName}"]`);
+                        if (checkbox) {
+                            checkbox.checked = item.isCompleted;
+                        }
+                    });
+                });
+        }
+
+        function saveProgress(moduleName, itemName, isCompleted) {
+            fetch('/Education/SaveProgress', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    moduleName: moduleName,
+                    itemName: itemName,
+                    isCompleted: isCompleted
+                })
+            });
+        }
+    </script>
+} 

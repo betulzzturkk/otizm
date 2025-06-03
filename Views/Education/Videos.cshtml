@@ -1,0 +1,298 @@
+@{
+    ViewData["Title"] = "Eğitim Videoları";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <a href="/Education" class="btn btn-primary">
+            <i class="fas fa-arrow-left"></i> Geri Dön
+        </a>
+        <h2 class="text-center mb-0">Eğitim Videoları</h2>
+        <div style="width: 100px;"></div>
+    </div>
+    
+    <div class="row g-4">
+        <!-- Okul Kuralları -->
+        <div class="col-12">
+            <div class="card video-card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="embed-responsive embed-responsive-16by9">
+                                <iframe class="embed-responsive-item w-100" style="height: 400px;"
+                                    src="https://www.youtube.com/embed/HAaJzdxSnk8"
+                                    title="Okul Kuralları"
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                    allowfullscreen></iframe>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <h4 class="card-title">Okul Kuralları</h4>
+                            <p class="card-text">Okuldaki temel davranış ve kuralları öğreniyoruz.</p>
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                <div class="form-check mt-3">
+                                    <input class="form-check-input progress-check" type="checkbox" 
+                                           data-module="Videos" data-item="OkulKurallari" id="progressOkulKurallari">
+                                    <label class="form-check-label" for="progressOkulKurallari">
+                                        Videoyu tamamladım
+                                    </label>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Yemek ve Sofra Adabı -->
+        <div class="col-12">
+            <div class="card video-card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="embed-responsive embed-responsive-16by9">
+                                <iframe class="embed-responsive-item w-100" style="height: 400px;"
+                                    src="https://www.youtube.com/embed/Oj7xzPwvF1I"
+                                    title="Yemek ve Sofra Adabı"
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                    allowfullscreen></iframe>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <h4 class="card-title">Yemek ve Sofra Adabı</h4>
+                            <p class="card-text">Yemek yerken dikkat etmemiz gereken kuralları öğreniyoruz.</p>
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                <div class="form-check mt-3">
+                                    <input class="form-check-input progress-check" type="checkbox" 
+                                           data-module="Videos" data-item="SofraAdabi" id="progressSofraAdabi">
+                                    <label class="form-check-label" for="progressSofraAdabi">
+                                        Videoyu tamamladım
+                                    </label>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sayıları Öğrenme -->
+        <div class="col-12">
+            <div class="card video-card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="embed-responsive embed-responsive-16by9">
+                                <iframe class="embed-responsive-item w-100" style="height: 400px;"
+                                    src="https://www.youtube.com/embed/nxsleDObpYo"
+                                    title="Sayıları Öğrenme"
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                    allowfullscreen></iframe>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <h4 class="card-title">Sayıları Öğrenme</h4>
+                            <p class="card-text">Temel sayıları eğlenceli bir şekilde öğreniyoruz.</p>
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                <div class="form-check mt-3">
+                                    <input class="form-check-input progress-check" type="checkbox" 
+                                           data-module="Videos" data-item="Sayilar" id="progressSayilar">
+                                    <label class="form-check-label" for="progressSayilar">
+                                        Videoyu tamamladım
+                                    </label>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Alfabe Öğrenme -->
+        <div class="col-12">
+            <div class="card video-card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="embed-responsive embed-responsive-16by9">
+                                <iframe class="embed-responsive-item w-100" style="height: 400px;"
+                                    src="https://www.youtube.com/embed/hmw05533CzY"
+                                    title="Alfabe Öğrenme"
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                    allowfullscreen></iframe>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <h4 class="card-title">Alfabe Öğrenme</h4>
+                            <p class="card-text">Türkçe alfabeyi eğlenceli bir şekilde öğreniyoruz.</p>
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                <div class="form-check mt-3">
+                                    <input class="form-check-input progress-check" type="checkbox" 
+                                           data-module="Videos" data-item="Alfabe" id="progressAlfabe">
+                                    <label class="form-check-label" for="progressAlfabe">
+                                        Videoyu tamamladım
+                                    </label>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Temizlik -->
+        <div class="col-12">
+            <div class="card video-card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="embed-responsive embed-responsive-16by9">
+                                <iframe class="embed-responsive-item w-100" style="height: 400px;"
+                                    src="https://www.youtube.com/embed/c3Jyo2oEnY8"
+                                    title="Temizlik"
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                    allowfullscreen></iframe>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <h4 class="card-title">Temizlik</h4>
+                            <p class="card-text">Kişisel temizlik ve hijyen kurallarını öğreniyoruz.</p>
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                <div class="form-check mt-3">
+                                    <input class="form-check-input progress-check" type="checkbox" 
+                                           data-module="Videos" data-item="Temizlik" id="progressTemizlik">
+                                    <label class="form-check-label" for="progressTemizlik">
+                                        Videoyu tamamladım
+                                    </label>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Şekilleri Öğreniyorum -->
+        <div class="col-12">
+            <div class="card video-card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="embed-responsive embed-responsive-16by9">
+                                <iframe class="embed-responsive-item w-100" style="height: 400px;"
+                                    src="https://www.youtube.com/embed/r51qLBGRF7I"
+                                    title="Şekilleri Öğreniyorum"
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                    allowfullscreen></iframe>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <h4 class="card-title">Şekilleri Öğreniyorum</h4>
+                            <p class="card-text">Temel geometrik şekilleri eğlenceli bir şekilde öğreniyoruz.</p>
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                <div class="form-check mt-3">
+                                    <input class="form-check-input progress-check" type="checkbox" 
+                                           data-module="Videos" data-item="SekillerOgreniyorum" id="progressSekiller">
+                                    <label class="form-check-label" for="progressSekiller">
+                                        Videoyu tamamladım
+                                    </label>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .video-card {
+        transition: transform 0.3s ease;
+        margin-bottom: 2rem;
+        border-radius: 15px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+
+    .video-card:hover {
+        transform: translateY(-5px);
+    }
+
+    .card-title {
+        color: #2c3e50;
+        margin-bottom: 1rem;
+    }
+
+    .card-text {
+        color: #34495e;
+    }
+
+    .form-check-input:checked {
+        background-color: #28a745;
+        border-color: #28a745;
+    }
+
+    .btn-primary {
+        background-color: #3498db;
+        border-color: #3498db;
+        transition: all 0.3s ease;
+    }
+
+    .btn-primary:hover {
+        background-color: #2980b9;
+        border-color: #2980b9;
+        transform: translateX(-5px);
+    }
+</style>
+
+@section Scripts {
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // İlerleme durumunu yükle
+            if (document.querySelector('.progress-check')) {
+                loadProgress();
+            }
+
+            // İlerleme checkbox'larına event listener ekle
+            document.querySelectorAll('.progress-check').forEach(checkbox => {
+                checkbox.addEventListener('change', function() {
+                    saveProgress(this.dataset.module, this.dataset.item, this.checked);
+                });
+            });
+        });
+
+        function loadProgress() {
+            fetch('/Education/GetProgress?moduleName=Videos')
+                .then(response => response.json())
+                .then(data => {
+                    data.forEach(item => {
+                        const checkbox = document.querySelector(`[data-module="Videos"][data-item="${item.itemName}"]`);
+                        if (checkbox) {
+                            checkbox.checked = item.isCompleted;
+                        }
+                    });
+                });
+        }
+
+        function saveProgress(moduleName, itemName, isCompleted) {
+            fetch('/Education/SaveProgress', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    moduleName: moduleName,
+                    itemName: itemName,
+                    isCompleted: isCompleted
+                })
+            });
+        }
+    </script>
+} 

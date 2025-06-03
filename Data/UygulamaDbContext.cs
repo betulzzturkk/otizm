@@ -10,48 +10,50 @@ namespace AutismEducationPlatform.Data
         {
         }
 
-        public DbSet<Kullanici> Kullanicilar { get; set; }
-        public DbSet<EgitimModulu> EgitimModulleri { get; set; }
-        public DbSet<ModulIcerik> ModulIcerikleri { get; set; }
-        public DbSet<Cocuk> Cocuklar { get; set; }
-        public DbSet<CocukDurumu> CocukDurumlari { get; set; }
-        public DbSet<VeliBilgilendirme> VeliBilgilendirmeler { get; set; }
+        public DbSet<User> Users { get; set; }
+        public DbSet<Child> Children { get; set; }
+        public DbSet<News> News { get; set; }
+        public DbSet<LearningModule> LearningModules { get; set; }
+        public DbSet<ModuleContent> ModuleContents { get; set; }
+        public DbSet<LearningProgress> LearningProgress { get; set; }
+        public DbSet<Message> Messages { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
 
-            // Kullanıcı tipi için kısıtlama
-            modelBuilder.Entity<Kullanici>()
-                .Property(k => k.KullaniciTipi)
-                .HasMaxLength(20)
-                .IsRequired();
+            // User email unique index
+            modelBuilder.Entity<User>()
+                .HasIndex(u => u.Email)
+                .IsUnique();
 
-            // Çocuk-Veli ilişkisi
-            modelBuilder.Entity<Cocuk>()
-                .HasOne(c => c.Veli)
-                .WithMany()
-                .HasForeignKey(c => c.VeliId)
-                .OnDelete(DeleteBehavior.Restrict);
+            // User - Child ilişkisi
+            modelBuilder.Entity<User>()
+                .HasMany(u => u.Children)
+                .WithOne(c => c.Parent)
+                .HasForeignKey(c => c.ParentId)
+                .OnDelete(DeleteBehavior.Cascade);
 
-            // Admin kullanıcısını seed data olarak ekle
-            modelBuilder.Entity<Kullanici>().HasData(
-                new Kullanici
-                {
-                    Id = 1,
-                    Ad = "Admin",
-                    Soyad = "Admin",
-                    Email = "admin@gmail.com",
-                    Sifre = "admin1234",
-                    KullaniciTipi = "Admin"
-                }
-            );
+            // Child - LearningProgress ilişkisi
+            modelBuilder.Entity<Child>()
+                .HasMany(c => c.LearningProgress)
+                .WithOne(lp => lp.Child)
+                .HasForeignKey(lp => lp.ChildId)
+                .OnDelete(DeleteBehavior.Cascade);
 
-            // EgitimModulu - ModulIcerik ilişkisi
-            modelBuilder.Entity<ModulIcerik>()
-                .HasOne(mi => mi.EgitimModulu)
-                .WithMany(em => em.Icerikler)
-                .HasForeignKey(mi => mi.EgitimModuluId);
+            // LearningModule - ModuleContent ilişkisi
+            modelBuilder.Entity<LearningModule>()
+                .HasMany(m => m.Contents)
+                .WithOne(c => c.Module)
+                .HasForeignKey(c => c.ModuleId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            // LearningModule - LearningProgress ilişkisi
+            modelBuilder.Entity<LearningModule>()
+                .HasMany(m => m.LearningProgress)
+                .WithOne(lp => lp.Module)
+                .HasForeignKey(lp => lp.ModuleId)
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 } 
