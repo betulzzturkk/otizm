@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600">
+    <!-- Background -->
+    <defs>
+        <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" style="stop-color:#f5f7fa;stop-opacity:1" />
+            <stop offset="100%" style="stop-color:#c3cfe2;stop-opacity:1" />
+        </linearGradient>
+    </defs>
+    <rect width="800" height="600" fill="url(#grad1)"/>
+    
+    <!-- Main illustration -->
+    <g transform="translate(100, 50)">
+        <!-- Team illustration -->
+        <g transform="translate(0, 100)">
+            <!-- Person 1 (Teacher) -->
+            <g class="person">
+                <circle cx="200" cy="150" r="50" fill="#4A90E2"/>
+                <circle cx="200" cy="90" r="30" fill="#FFFFFF"/>
+                <!-- Simple face -->
+                <circle cx="190" cy="85" r="3" fill="#333"/>
+                <circle cx="210" cy="85" r="3" fill="#333"/>
+                <path d="M 190 100 Q 200 110 210 100" fill="none" stroke="#333" stroke-width="2"/>
+                <!-- Teaching gesture -->
+                <path d="M 250 150 Q 270 160 290 150" fill="none" stroke="#4A90E2" stroke-width="4"/>
+            </g>
+
+            <!-- Person 2 (Child) -->
+            <g class="person" transform="translate(150, 50)">
+                <circle cx="200" cy="150" r="40" fill="#50B83C"/>
+                <circle cx="200" cy="100" r="25" fill="#FFFFFF"/>
+                <!-- Simple face -->
+                <circle cx="190" cy="95" r="3" fill="#333"/>
+                <circle cx="210" cy="95" r="3" fill="#333"/>
+                <path d="M 190 110 Q 200 120 210 110" fill="none" stroke="#333" stroke-width="2"/>
+            </g>
+
+            <!-- Educational symbols -->
+            <g class="symbols">
+                <!-- Heart -->
+                <path d="M 400 150 Q 420 120 440 150 T 480 150 L 440 200 L 400 150" 
+                      fill="#FF6B6B"/>
+                
+                <!-- Star -->
+                <path d="M 350 250 L 365 220 L 380 250 L 350 235 L 380 235 Z" 
+                      fill="#FFD93D"/>
+                
+                <!-- Speech bubble -->
+                <path d="M 450 250 Q 480 250 480 280 L 480 300 Q 480 330 450 330 L 420 330 L 410 350 L 400 330 L 390 330 Q 360 330 360 300 L 360 280 Q 360 250 390 250 Z" 
+                      fill="#4A90E2" opacity="0.8"/>
+            </g>
+        </g>
+    </g>
+    
+    <!-- Decorative elements -->
+    <g transform="translate(50, 500)">
+        <circle cx="50" cy="0" r="20" fill="#4A90E2" opacity="0.2"/>
+        <circle cx="150" cy="20" r="15" fill="#50B83C" opacity="0.2"/>
+        <circle cx="250" cy="10" r="25" fill="#F5A623" opacity="0.2"/>
+    </g>
+    
+    <!-- Text elements -->
+    <g transform="translate(400, 400)">
+        <text x="0" y="0" font-family="Arial" font-size="24" fill="#333" opacity="0.6">Sevgi</text>
+        <text x="100" y="0" font-family="Arial" font-size="24" fill="#333" opacity="0.6">Eğitim</text>
+        <text x="200" y="0" font-family="Arial" font-size="24" fill="#333" opacity="0.6">Gelişim</text>
+    </g>
+</svg> 

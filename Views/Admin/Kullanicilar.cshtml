@@ -40,7 +40,7 @@
                             <tr>
                                 <td>@kullanici.FirstName @kullanici.LastName</td>
                                 <td>@kullanici.Email</td>
-                                <td>@(kullanici.UserType == UserType.Parent ? "Veli" : "Eğitmen")</td>
+                                <td>@(kullanici.UserType == UserType.Parent ? "Veli" : "Admin")</td>
                                 <td>@kullanici.CreatedAt.ToString("dd.MM.yyyy HH:mm")</td>
                                 <td>
                                     <form asp-action="KullaniciSil" method="post" style="display: inline;"

@@ -1,38 +1,23 @@
 using Microsoft.AspNetCore.Mvc;
-using AutismEducationPlatform.Data;
+using System.Diagnostics;
 using AutismEducationPlatform.Models;
+using AutismEducationPlatform.Data;
 
 namespace AutismEducationPlatform.Controllers;
 
 public class HomeController : Controller
 {
+    private readonly ILogger<HomeController> _logger;
     private readonly UygulamaDbContext _context;
 
-    public HomeController(UygulamaDbContext context)
+    public HomeController(ILogger<HomeController> logger, UygulamaDbContext context)
     {
+        _logger = logger;
         _context = context;
     }
 
     public IActionResult Index()
     {
-        // Eğer kullanıcı giriş yapmışsa
-        if (User.Identity?.IsAuthenticated == true)
-        {
-            if (User.IsInRole("Admin"))
-            {
-                return RedirectToAction("Index", "Admin");
-            }
-            else if (User.IsInRole("Parent"))
-            {
-                return RedirectToAction("Index", "Parent");
-            }
-            else if (User.IsInRole("Instructor"))
-            {
-                return RedirectToAction("Index", "Instructor");
-            }
-        }
-
-        // Giriş yapmamış kullanıcılar için hoşgeldiniz sayfası
         return View();
     }
 
@@ -57,12 +42,20 @@ public class HomeController : Controller
     }
 
     [HttpPost]
-    public async Task<IActionResult> SaveMessage([FromBody] Message message)
+    public async Task<IActionResult> SaveMessage([FromBody] ContactViewModel model)
     {
         if (ModelState.IsValid)
         {
-            message.CreatedAt = DateTime.Now;
-            message.IsRead = false;
+            var message = new Message
+            {
+                SenderName = model.Name,
+                Email = model.Email,
+                Subject = model.Subject,
+                Content = model.Message,
+                CreatedAt = DateTime.Now,
+                IsRead = false
+            };
+
             await _context.Messages.AddAsync(message);
             await _context.SaveChangesAsync();
             return Json(new { success = true });
@@ -73,6 +66,6 @@ public class HomeController : Controller
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()
     {
-        return View();
+        return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
     }
 }

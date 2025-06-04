@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+    <!-- Background -->
+    <circle cx="100" cy="100" r="100" fill="#4A90E2"/>
+    
+    <!-- Person illustration -->
+    <g transform="translate(50, 40)">
+        <!-- Head -->
+        <circle cx="50" cy="50" r="35" fill="#FFFFFF"/>
+        
+        <!-- Hair -->
+        <path d="M 20 40 Q 50 0 80 40" fill="#333333"/>
+        
+        <!-- Face -->
+        <circle cx="40" cy="45" r="3" fill="#333333"/> <!-- Left eye -->
+        <circle cx="60" cy="45" r="3" fill="#333333"/> <!-- Right eye -->
+        <path d="M 40 60 Q 50 70 60 60" fill="none" stroke="#333333" stroke-width="2"/> <!-- Smile -->
+        
+        <!-- Glasses -->
+        <circle cx="40" cy="45" r="8" fill="none" stroke="#333333" stroke-width="2"/>
+        <circle cx="60" cy="45" r="8" fill="none" stroke="#333333" stroke-width="2"/>
+        <line x1="48" y1="45" x2="52" y2="45" stroke="#333333" stroke-width="2"/>
+    </g>
+</svg> 

@@ -102,18 +102,23 @@ namespace AutismEducationPlatform.Controllers
         {
             if (ModelState.IsValid)
             {
-                var userId = int.Parse(HttpContext.Session.GetString("UserId"));
+                var userIdStr = HttpContext.Session.GetString("UserId");
+                if (string.IsNullOrEmpty(userIdStr) || !int.TryParse(userIdStr, out int userId))
+                {
+                    return RedirectToAction("Login");
+                }
+
                 var child = new Child
                 {
-                    FirstName = model.FirstName,
-                    LastName = model.LastName,
+                    FirstName = model.FirstName ?? string.Empty,
+                    LastName = model.LastName ?? string.Empty,
                     DateOfBirth = model.DateOfBirth,
-                    Gender = model.Gender,
+                    Gender = model.Gender ?? string.Empty,
                     DiagnosisDate = model.DiagnosisDate,
-                    SpecialNotes = model.SpecialNotes,
-                    Medications = model.Medications,
-                    Allergies = model.Allergies,
-                    EducationalHistory = model.EducationalHistory,
+                    SpecialNotes = model.SpecialNotes ?? string.Empty,
+                    Medications = model.Medications ?? string.Empty,
+                    Allergies = model.Allergies ?? string.Empty,
+                    EducationalHistory = model.EducationalHistory ?? string.Empty,
                     ParentId = userId,
                     CreatedAt = DateTime.UtcNow
                 };
@@ -129,17 +134,32 @@ namespace AutismEducationPlatform.Controllers
 
         public async Task<IActionResult> Dashboard()
         {
-            var userId = int.Parse(HttpContext.Session.GetString("UserId"));
+            var userIdStr = HttpContext.Session.GetString("UserId");
+            if (string.IsNullOrEmpty(userIdStr) || !int.TryParse(userIdStr, out int userId))
+            {
+                return RedirectToAction("Login");
+            }
+
             var user = await _context.Users
                 .Include(u => u.Children)
                 .FirstOrDefaultAsync(u => u.Id == userId);
+
+            if (user == null)
+            {
+                return RedirectToAction("Login");
+            }
 
             return View(user);
         }
 
         public async Task<IActionResult> ToggleChildMode()
         {
-            var userId = int.Parse(HttpContext.Session.GetString("UserId"));
+            var userIdStr = HttpContext.Session.GetString("UserId");
+            if (string.IsNullOrEmpty(userIdStr) || !int.TryParse(userIdStr, out int userId))
+            {
+                return RedirectToAction("Login");
+            }
+
             var user = await _context.Users.FindAsync(userId);
             
             if (user != null)
@@ -159,7 +179,12 @@ namespace AutismEducationPlatform.Controllers
 
         public async Task<IActionResult> Reports()
         {
-            var userId = int.Parse(HttpContext.Session.GetString("UserId"));
+            var userIdStr = HttpContext.Session.GetString("UserId");
+            if (string.IsNullOrEmpty(userIdStr) || !int.TryParse(userIdStr, out int userId))
+            {
+                return RedirectToAction("Login");
+            }
+
             var childProgress = await _context.Children
                 .Where(c => c.ParentId == userId)
                 .Include(c => c.LearningProgress)

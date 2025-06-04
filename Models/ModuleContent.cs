@@ -10,22 +10,25 @@ namespace AutismEducationPlatform.Models
         public int Id { get; set; }
 
         [Required]
-        public string Title { get; set; }
+        public string Title { get; set; } = string.Empty;
 
         [Required]
-        public string Description { get; set; }
+        public string Description { get; set; } = string.Empty;
 
         [Required]
-        public string ContentType { get; set; }
+        public string ContentType { get; set; } = string.Empty;
 
-        public string ContentUrl { get; set; }
+        [Required]
+        public string ContentUrl { get; set; } = string.Empty;
 
         public int OrderIndex { get; set; }
 
         public bool IsActive { get; set; }
 
         public int ModuleId { get; set; }
-        public LearningModule Module { get; set; }
+
+        [Required]
+        public LearningModule Module { get; set; } = null!;
 
         public DateTime CreatedAt { get; set; }
     }

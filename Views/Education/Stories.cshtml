@@ -30,7 +30,7 @@
                         <div class="col-md-4">
                             <h4 class="card-title">Pamuk Prenses ve Yedi Cüceler</h4>
                             <p class="card-text">Güzel prenses ve yedi cüce arkadaşının unutulmaz hikayesi.</p>
-                            @if (User.Identity.IsAuthenticated)
+                            @if (User?.Identity?.IsAuthenticated == true)
                             {
                                 <div class="form-check mt-3">
                                     <input class="form-check-input progress-check" type="checkbox" 
@@ -63,7 +63,7 @@
                         <div class="col-md-4">
                             <h4 class="card-title">Uyuyan Güzel</h4>
                             <p class="card-text">Prenses Aurora'nın büyülü uykudan uyanış hikayesi.</p>
-                            @if (User.Identity.IsAuthenticated)
+                            @if (User?.Identity?.IsAuthenticated == true)
                             {
                                 <div class="form-check mt-3">
                                     <input class="form-check-input progress-check" type="checkbox" 
@@ -96,7 +96,7 @@
                         <div class="col-md-4">
                             <h4 class="card-title">Tavşan ve Kaplumbağa Masalı</h4>
                             <p class="card-text">Azmin ve kararlılığın zaferi anlatan eğlenceli bir masal.</p>
-                            @if (User.Identity.IsAuthenticated)
+                            @if (User?.Identity?.IsAuthenticated == true)
                             {
                                 <div class="form-check mt-3">
                                     <input class="form-check-input progress-check" type="checkbox" 
@@ -129,7 +129,7 @@
                         <div class="col-md-4">
                             <h4 class="card-title">Kısa Boylu Zürafa</h4>
                             <p class="card-text">Kendini olduğu gibi kabul etmenin önemini anlatan sevimli bir hikaye.</p>
-                            @if (User.Identity.IsAuthenticated)
+                            @if (User?.Identity?.IsAuthenticated == true)
                             {
                                 <div class="form-check mt-3">
                                     <input class="form-check-input progress-check" type="checkbox" 
@@ -162,7 +162,7 @@
                         <div class="col-md-4">
                             <h4 class="card-title">İnatçı Yavru Fil</h4>
                             <p class="card-text">Dinlemenin ve öğüt almanın önemini anlatan sevimli bir fil hikayesi.</p>
-                            @if (User.Identity.IsAuthenticated)
+                            @if (User?.Identity?.IsAuthenticated == true)
                             {
                                 <div class="form-check mt-3">
                                     <input class="form-check-input progress-check" type="checkbox" 

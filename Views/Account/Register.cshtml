@@ -4,89 +4,251 @@
     ViewData["Title"] = "Kayıt Ol";
 }
 
-<div class="container">
+<div class="container py-5">
     <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card mt-5">
-                <div class="card-body">
-                    <h2 class="card-title text-center mb-4">@ViewData["Title"]</h2>
-                    <form asp-action="Register" method="post">
-                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                        
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group mb-3">
-                                    <label asp-for="FirstName" class="control-label"></label>
-                                    <input asp-for="FirstName" class="form-control" />
-                                    <span asp-validation-for="FirstName" class="text-danger"></span>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group mb-3">
-                                    <label asp-for="LastName" class="control-label"></label>
-                                    <input asp-for="LastName" class="form-control" />
-                                    <span asp-validation-for="LastName" class="text-danger"></span>
-                                </div>
-                            </div>
+        <div class="col-lg-6">
+            <div class="card border-0 shadow-lg">
+                <div class="card-body p-5">
+                    <div class="text-center mb-5">
+                        <div class="avatar-icon mb-4">
+                            <i class="fas fa-user-plus fa-4x text-primary"></i>
                         </div>
+                        <h1 class="h3">Aramıza Katılın!</h1>
+                        <p class="text-muted">Ücretsiz hesap oluşturarak eğitime hemen başlayın.</p>
+                    </div>
 
-                        <div class="form-group mb-3">
-                            <label asp-for="Email" class="control-label"></label>
-                            <input asp-for="Email" class="form-control" />
-                            <span asp-validation-for="Email" class="text-danger"></span>
-                        </div>
-
-                        <div class="row">
+                    <form id="registerForm" method="post" asp-action="Register" asp-controller="Account">
+                        <div class="row g-4">
                             <div class="col-md-6">
-                                <div class="form-group mb-3">
-                                    <label asp-for="Password" class="control-label"></label>
-                                    <input asp-for="Password" class="form-control" />
-                                    <span asp-validation-for="Password" class="text-danger"></span>
+                                <div class="form-floating">
+                                    <input type="text" class="form-control" id="firstName" name="FirstName" placeholder="Adınız" required>
+                                    <label for="firstName">Adınız</label>
+                                    <div class="icon-wrapper">
+                                        <i class="fas fa-user text-muted"></i>
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-md-6">
-                                <div class="form-group mb-3">
-                                    <label asp-for="ConfirmPassword" class="control-label"></label>
-                                    <input asp-for="ConfirmPassword" class="form-control" />
-                                    <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                                <div class="form-floating">
+                                    <input type="text" class="form-control" id="lastName" name="LastName" placeholder="Soyadınız" required>
+                                    <label for="lastName">Soyadınız</label>
+                                    <div class="icon-wrapper">
+                                        <i class="fas fa-user text-muted"></i>
+                                    </div>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="form-group mb-3">
-                            <label asp-for="UserType" class="control-label"></label>
-                            <select asp-for="UserType" class="form-control" asp-items="Html.GetEnumSelectList<AutismEducationPlatform.Models.Enums.UserType>()">
-                                <option value="">Seçiniz...</option>
-                            </select>
-                            <span asp-validation-for="UserType" class="text-danger"></span>
+                        <div class="form-floating mt-4">
+                            <input type="email" class="form-control" id="email" name="Email" placeholder="name@example.com" required>
+                            <label for="email">E-posta Adresiniz</label>
+                            <div class="icon-wrapper">
+                                <i class="fas fa-envelope text-muted"></i>
+                            </div>
                         </div>
 
-                        <div class="form-group mb-3">
-                            <label asp-for="PhoneNumber" class="control-label"></label>
-                            <input asp-for="PhoneNumber" class="form-control" />
-                            <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                        <div class="form-floating mt-4">
+                            <input type="password" class="form-control" id="password" name="Password" placeholder="Şifreniz" required>
+                            <label for="password">Şifreniz</label>
+                            <div class="icon-wrapper">
+                                <i class="fas fa-lock text-muted"></i>
+                            </div>
+                            <button type="button" class="btn btn-link password-toggle" onclick="togglePassword('password')">
+                                <i class="fas fa-eye"></i>
+                            </button>
                         </div>
 
-                        <div class="form-group mb-3">
-                            <label asp-for="Address" class="control-label"></label>
-                            <textarea asp-for="Address" class="form-control" rows="3"></textarea>
-                            <span asp-validation-for="Address" class="text-danger"></span>
+                        <div class="form-floating mt-4">
+                            <input type="password" class="form-control" id="confirmPassword" name="ConfirmPassword" placeholder="Şifre Tekrar" required>
+                            <label for="confirmPassword">Şifre Tekrar</label>
+                            <div class="icon-wrapper">
+                                <i class="fas fa-lock text-muted"></i>
+                            </div>
+                            <button type="button" class="btn btn-link password-toggle" onclick="togglePassword('confirmPassword')">
+                                <i class="fas fa-eye"></i>
+                            </button>
                         </div>
 
-                        <div class="form-group text-center">
-                            <button type="submit" class="btn btn-primary">Kayıt Ol</button>
+                        <div class="form-check mt-4">
+                            <input class="form-check-input" type="checkbox" id="terms" required>
+                            <label class="form-check-label text-muted" for="terms">
+                                <small>
+                                    <a href="#" class="text-primary text-decoration-none">Kullanım Koşulları</a>'nı ve
+                                    <a href="#" class="text-primary text-decoration-none">Gizlilik Politikası</a>'nı kabul ediyorum.
+                                </small>
+                            </label>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary w-100 mt-4">
+                            <i class="fas fa-user-plus me-2"></i>Kayıt Ol
+                        </button>
+
+                        <div class="text-center mt-4">
+                            <p class="text-muted">
+                                Zaten hesabınız var mı? 
+                                <a href="@Url.Action("Login", "Account")" class="text-primary text-decoration-none">
+                                    Giriş Yapın
+                                </a>
+                            </p>
                         </div>
                     </form>
-                    
-                    <div class="mt-3 text-center">
-                        <p>Zaten hesabınız var mı? <a asp-action="Login">Giriş Yap</a></p>
-                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
 
+<style>
+    .card {
+        border-radius: 20px;
+        transition: transform 0.3s ease;
+    }
+
+    .card:hover {
+        transform: translateY(-5px);
+    }
+
+    .avatar-icon {
+        width: 80px;
+        height: 80px;
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        background-color: rgba(13, 110, 253, 0.1);
+    }
+
+    .form-floating {
+        position: relative;
+    }
+
+    .form-control {
+        height: 60px;
+        border-radius: 10px;
+        padding-left: 2.5rem !important;
+        border: 2px solid #e0e0e0;
+        transition: all 0.3s ease;
+    }
+
+    .form-floating label {
+        padding-left: 2.5rem;
+    }
+
+    .icon-wrapper {
+        position: absolute;
+        top: 50%;
+        left: 0.75rem;
+        transform: translateY(-50%);
+        z-index: 3;
+    }
+
+    .password-toggle {
+        position: absolute;
+        top: 50%;
+        right: 15px;
+        transform: translateY(-50%);
+        z-index: 3;
+        padding: 0;
+        color: #6c757d;
+    }
+
+    .password-toggle:hover {
+        color: #0d6efd;
+    }
+
+    .btn-primary {
+        height: 50px;
+        border-radius: 10px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+    }
+
+    .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(13, 110, 253, 0.3);
+    }
+
+    .form-check-input:checked {
+        background-color: #0d6efd;
+        border-color: #0d6efd;
+    }
+
+    @@keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    .card {
+        animation: fadeIn 0.5s ease-out;
+    }
+
+    /* Password strength indicator */
+    .password-strength {
+        height: 5px;
+        margin-top: 5px;
+        border-radius: 2px;
+        transition: all 0.3s ease;
+    }
+
+    .strength-weak { background-color: #dc3545; width: 33%; }
+    .strength-medium { background-color: #ffc107; width: 66%; }
+    .strength-strong { background-color: #198754; width: 100%; }
+</style>
+
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        function togglePassword(inputId) {
+            const passwordInput = document.getElementById(inputId);
+            const toggleButton = passwordInput.parentElement.querySelector('.password-toggle i');
+            
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                toggleButton.classList.remove('fa-eye');
+                toggleButton.classList.add('fa-eye-slash');
+            } else {
+                passwordInput.type = 'password';
+                toggleButton.classList.remove('fa-eye-slash');
+                toggleButton.classList.add('fa-eye');
+            }
+        }
+
+        // Form animasyonu
+        document.getElementById('registerForm').addEventListener('submit', function(e) {
+            const button = this.querySelector('button[type="submit"]');
+            button.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Kayıt Yapılıyor...';
+            button.disabled = true;
+        });
+
+        // Şifre gücü kontrolü
+        document.getElementById('password').addEventListener('input', function() {
+            const password = this.value;
+            let strength = 0;
+            
+            // En az 8 karakter
+            if(password.length >= 8) strength++;
+            // Büyük harf içeriyor
+            if(/[A-Z]/.test(password)) strength++;
+            // Sayı içeriyor
+            if(/[0-9]/.test(password)) strength++;
+            // Özel karakter içeriyor
+            if(/[^A-Za-z0-9]/.test(password)) strength++;
+
+            const strengthIndicator = this.parentElement.querySelector('.password-strength') 
+                || document.createElement('div');
+            strengthIndicator.className = 'password-strength';
+            
+            if(!this.parentElement.querySelector('.password-strength')) {
+                this.parentElement.appendChild(strengthIndicator);
+            }
+
+            if(strength < 2) {
+                strengthIndicator.classList.add('strength-weak');
+            } else if(strength < 4) {
+                strengthIndicator.classList.add('strength-medium');
+            } else {
+                strengthIndicator.classList.add('strength-strong');
+            }
+        });
+    </script>
 } 

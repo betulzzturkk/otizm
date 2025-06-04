@@ -1,24 +1,197 @@
-html {
-  font-size: 14px;
+:root {
+    --primary-color: #4A90E2;
+    --success-color: #50B83C;
+    --warning-color: #F5A623;
+    --danger-color: #FF6B6B;
+    --dark-color: #2C3E50;
+    --light-color: #F5F7FA;
+    --gray-color: #8492A6;
 }
 
+html {
+    font-size: 14px;
+    height: 100%;
+}
+
+body {
+    font-family: 'Nunito', sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    color: var(--dark-color);
+    background-color: var(--light-color);
+    position: relative;
+    margin: 0;
+    padding-bottom: 60px; /* Footer yüksekliği kadar padding */
+}
+
+main {
+    flex: 1 0 auto;
+}
+
+/* Buttons */
+.btn {
+    border-radius: 30px;
+    padding: 0.8rem 1.5rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+.btn-success {
+    background-color: var(--success-color);
+    border-color: var(--success-color);
+}
+
+/* Cards */
+.card {
+    border: none;
+    border-radius: 15px;
+    transition: all 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+}
+
+/* Navigation */
+.navbar {
+    background-color: white !important;
+    box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+}
+
+.navbar-brand {
+    font-weight: 700;
+    color: var(--primary-color) !important;
+}
+
+.nav-link {
+    font-weight: 600;
+    color: var(--dark-color) !important;
+    transition: all 0.3s ease;
+}
+
+.nav-link:hover {
+    color: var(--primary-color) !important;
+    transform: translateY(-2px);
+}
+
+/* Forms */
+.form-control {
+    border-radius: 10px;
+    padding: 0.8rem;
+    border: 1px solid #e1e8ef;
+}
+
+.form-control:focus {
+    box-shadow: 0 0 0 0.2rem rgba(74, 144, 226, 0.25);
+    border-color: var(--primary-color);
+}
+
+/* Animations */
+.animate-float {
+    animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-20px); }
+    100% { transform: translateY(0px); }
+}
+
+/* Custom Classes */
+.text-primary {
+    color: var(--primary-color) !important;
+}
+
+.text-success {
+    color: var(--success-color) !important;
+}
+
+.text-warning {
+    color: var(--warning-color) !important;
+}
+
+.bg-light {
+    background-color: var(--light-color) !important;
+}
+
+.shadow-sm {
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05) !important;
+}
+
+/* Footer */
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 60px;
+    line-height: 60px;
+    background-color: white;
+    box-shadow: 0 -2px 15px rgba(0,0,0,0.05);
+}
+
+/* Responsive */
 @media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+    html {
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 768px) {
+    .navbar {
+        padding: 1rem;
+    }
+    
+    .btn {
+        padding: 0.6rem 1.2rem;
+    }
+    
+    .display-4 {
+        font-size: 2.5rem;
+    }
+
+    body {
+        padding-bottom: 80px; /* Mobilde footer için daha fazla padding */
+    }
+}
+
+/* Accessibility */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0,0,0,0);
+    border: 0;
+}
+
+/* Print styles */
+@media print {
+    .no-print {
+        display: none !important;
+    }
+    
+    .container {
+        width: 100% !important;
+        max-width: none !important;
+    }
 }
 
 .btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
   box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
-}
-
-html {
-  position: relative;
-  min-height: 100%;
-}
-
-body {
-  margin-bottom: 60px;
 }
 
 .form-floating > .form-control-plaintext::placeholder, .form-floating > .form-control::placeholder {

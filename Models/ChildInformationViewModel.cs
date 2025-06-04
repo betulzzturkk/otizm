@@ -7,11 +7,11 @@ namespace AutismEducationPlatform.Models
     {
         [Required(ErrorMessage = "Çocuğun adı zorunludur")]
         [Display(Name = "Çocuğun Adı")]
-        public string FirstName { get; set; }
+        public string FirstName { get; set; } = string.Empty;
 
         [Required(ErrorMessage = "Çocuğun soyadı zorunludur")]
         [Display(Name = "Çocuğun Soyadı")]
-        public string LastName { get; set; }
+        public string LastName { get; set; } = string.Empty;
 
         [Required(ErrorMessage = "Doğum tarihi zorunludur")]
         [DataType(DataType.Date)]
@@ -20,7 +20,7 @@ namespace AutismEducationPlatform.Models
 
         [Required(ErrorMessage = "Cinsiyet seçimi zorunludur")]
         [Display(Name = "Cinsiyet")]
-        public string Gender { get; set; }
+        public string Gender { get; set; } = string.Empty;
 
         [Required(ErrorMessage = "Tanı tarihi zorunludur")]
         [DataType(DataType.Date)]
@@ -28,15 +28,15 @@ namespace AutismEducationPlatform.Models
         public DateTime DiagnosisDate { get; set; }
 
         [Display(Name = "Özel Notlar")]
-        public string SpecialNotes { get; set; }
+        public string SpecialNotes { get; set; } = string.Empty;
 
         [Display(Name = "Kullanılan İlaçlar")]
-        public string Medications { get; set; }
+        public string Medications { get; set; } = string.Empty;
 
         [Display(Name = "Alerjiler")]
-        public string Allergies { get; set; }
+        public string Allergies { get; set; } = string.Empty;
 
         [Display(Name = "Eğitim Geçmişi")]
-        public string EducationalHistory { get; set; }
+        public string EducationalHistory { get; set; } = string.Empty;
     }
 } 

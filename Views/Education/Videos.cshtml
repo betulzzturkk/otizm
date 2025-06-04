@@ -30,7 +30,7 @@
                         <div class="col-md-4">
                             <h4 class="card-title">Okul Kuralları</h4>
                             <p class="card-text">Okuldaki temel davranış ve kuralları öğreniyoruz.</p>
-                            @if (User.Identity.IsAuthenticated)
+                            @if (User?.Identity?.IsAuthenticated == true)
                             {
                                 <div class="form-check mt-3">
                                     <input class="form-check-input progress-check" type="checkbox" 
@@ -63,7 +63,7 @@
                         <div class="col-md-4">
                             <h4 class="card-title">Yemek ve Sofra Adabı</h4>
                             <p class="card-text">Yemek yerken dikkat etmemiz gereken kuralları öğreniyoruz.</p>
-                            @if (User.Identity.IsAuthenticated)
+                            @if (User?.Identity?.IsAuthenticated == true)
                             {
                                 <div class="form-check mt-3">
                                     <input class="form-check-input progress-check" type="checkbox" 
@@ -96,7 +96,7 @@
                         <div class="col-md-4">
                             <h4 class="card-title">Sayıları Öğrenme</h4>
                             <p class="card-text">Temel sayıları eğlenceli bir şekilde öğreniyoruz.</p>
-                            @if (User.Identity.IsAuthenticated)
+                            @if (User?.Identity?.IsAuthenticated == true)
                             {
                                 <div class="form-check mt-3">
                                     <input class="form-check-input progress-check" type="checkbox" 
@@ -129,7 +129,7 @@
                         <div class="col-md-4">
                             <h4 class="card-title">Alfabe Öğrenme</h4>
                             <p class="card-text">Türkçe alfabeyi eğlenceli bir şekilde öğreniyoruz.</p>
-                            @if (User.Identity.IsAuthenticated)
+                            @if (User?.Identity?.IsAuthenticated == true)
                             {
                                 <div class="form-check mt-3">
                                     <input class="form-check-input progress-check" type="checkbox" 
@@ -162,7 +162,7 @@
                         <div class="col-md-4">
                             <h4 class="card-title">Temizlik</h4>
                             <p class="card-text">Kişisel temizlik ve hijyen kurallarını öğreniyoruz.</p>
-                            @if (User.Identity.IsAuthenticated)
+                            @if (User?.Identity?.IsAuthenticated == true)
                             {
                                 <div class="form-check mt-3">
                                     <input class="form-check-input progress-check" type="checkbox" 
@@ -195,7 +195,7 @@
                         <div class="col-md-4">
                             <h4 class="card-title">Şekilleri Öğreniyorum</h4>
                             <p class="card-text">Temel geometrik şekilleri eğlenceli bir şekilde öğreniyoruz.</p>
-                            @if (User.Identity.IsAuthenticated)
+                            @if (User?.Identity?.IsAuthenticated == true)
                             {
                                 <div class="form-check mt-3">
                                     <input class="form-check-input progress-check" type="checkbox" 

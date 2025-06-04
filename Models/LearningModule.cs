@@ -10,12 +10,13 @@ namespace AutismEducationPlatform.Models
         public int Id { get; set; }
 
         [Required]
-        public string Name { get; set; }
+        public string Name { get; set; } = string.Empty;
 
         [Required]
-        public string Description { get; set; }
+        public string Description { get; set; } = string.Empty;
 
-        public string ImageUrl { get; set; }
+        [Required]
+        public string ImageUrl { get; set; } = string.Empty;
 
         public int OrderIndex { get; set; }
 
@@ -23,8 +24,8 @@ namespace AutismEducationPlatform.Models
 
         public DateTime CreatedAt { get; set; }
 
-        public ICollection<ModuleContent> Contents { get; set; }
+        public ICollection<ModuleContent> Contents { get; set; } = new List<ModuleContent>();
 
-        public ICollection<LearningProgress> LearningProgress { get; set; }
+        public ICollection<LearningProgress> LearningProgress { get; set; } = new List<LearningProgress>();
     }
 } 

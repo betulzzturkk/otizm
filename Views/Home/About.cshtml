@@ -2,178 +2,196 @@
     ViewData["Title"] = "Hakkımızda";
 }
 
-<style>
-    .about-section {
-        background: linear-gradient(135deg, #f6f9fc, #edf2f7);
-        padding: 5rem 0;
-        position: relative;
-        overflow: hidden;
-    }
-
-    .about-section::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: url('data:image/svg+xml,<svg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><circle cx="3" cy="3" r="1.5" fill="rgba(52,152,219,0.1)"/></svg>') repeat;
-        opacity: 0.5;
-    }
-
-    .about-content {
-        position: relative;
-        z-index: 1;
-    }
-
-    .about-title {
-        color: #2c3e50;
-        font-size: 2.5rem;
-        font-weight: 700;
-        margin-bottom: 2rem;
-        text-align: center;
-    }
-
-    .about-text {
-        color: #34495e;
-        font-size: 1.1rem;
-        line-height: 1.8;
-        text-align: justify;
-    }
-
-    .about-image {
-        border-radius: 20px;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-        transition: transform 0.3s ease;
-    }
-
-    .about-image:hover {
-        transform: translateY(-5px);
-    }
-
-    .feature-card {
-        background: white;
-        border-radius: 15px;
-        padding: 2rem;
-        box-shadow: 0 5px 20px rgba(0,0,0,0.05);
-        transition: all 0.3s ease;
-        height: 100%;
-    }
-
-    .feature-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 8px 25px rgba(0,0,0,0.1);
-    }
-
-    .feature-icon {
-        font-size: 2.5rem;
-        color: #3498db;
-        margin-bottom: 1rem;
-    }
-
-    .developer-section {
-        background: white;
-        padding: 5rem 0;
-    }
-
-    .developer-image {
-        border-radius: 50%;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-        transition: transform 0.3s ease;
-        max-width: 250px;
-    }
-
-    .developer-image:hover {
-        transform: scale(1.05);
-    }
-</style>
-
-<div class="about-section">
-    <div class="container about-content">
-        <h1 class="about-title mb-5">
-            <i class="fas fa-puzzle-piece text-primary me-2"></i>
-            Otizm Eğitim Platformu Hakkında
-        </h1>
-
-        <div class="row align-items-center mb-5">
-            <div class="col-lg-6 mb-4 mb-lg-0">
-                <img src="~/images/cocuk.jpg" alt="Otizmli Çocuk Eğitimi" class="img-fluid about-image w-100" style="height: 400px; object-fit: cover;">
-            </div>
-            <div class="col-lg-6">
-                <p class="about-text">
-                    Otizmli bireylerin eğitimine destek olmak amacıyla geliştirilen bu platform, görsel ve işitsel içeriklerle öğrenmeyi kolaylaştırmayı hedefler. Renkler, şekiller, hayvanlar, trafik levhaları gibi temel kavramların öğretildiği uygulamamızda; kullanıcı dostu arayüz, sesli tanıma, etkileşimli ögeler ve chatbot desteği bulunmaktadır.
-                </p>
-            </div>
-        </div>
-
-        <div class="row mb-5">
-            <div class="col-md-3">
-                <div class="feature-card text-center">
-                    <i class="fas fa-paint-brush feature-icon"></i>
-                    <h3 class="h5 mb-3">Görsel İçerikler</h3>
-                    <p class="text-muted mb-0">Renkli ve dikkat çekici görsel materyaller</p>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="feature-card text-center">
-                    <i class="fas fa-volume-up feature-icon"></i>
-                    <h3 class="h5 mb-3">Sesli Tanıma</h3>
-                    <p class="text-muted mb-0">İnteraktif sesli öğrenme deneyimi</p>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="feature-card text-center">
-                    <i class="fas fa-users feature-icon"></i>
-                    <h3 class="h5 mb-3">Etkileşimli Öğrenme</h3>
-                    <p class="text-muted mb-0">Kullanıcı dostu etkileşimli arayüz</p>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="feature-card text-center">
-                    <i class="fas fa-robot feature-icon"></i>
-                    <h3 class="h5 mb-3">Chatbot Desteği</h3>
-                    <p class="text-muted mb-0">Anlık yardım ve destek sistemi</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="row align-items-center">
-            <div class="col-lg-6 order-lg-2 mb-4 mb-lg-0">
-                <img src="~/images/cocuk2.jpg" alt="Otizmli Çocuk Eğitimi" class="img-fluid about-image w-100" style="height: 400px; object-fit: cover;">
-            </div>
-            <div class="col-lg-6 order-lg-1">
-                <p class="about-text">
-                    Platform, çocukların kendi hızlarında öğrenmelerine olanak tanıyan modüler bir yapıya sahiptir. Her bir eğitim modülü, otizmli çocukların özel ihtiyaçları göz önünde bulundurularak tasarlanmıştır. İnteraktif oyunlar ve alıştırmalar sayesinde, öğrenme süreci eğlenceli hale getirilmiştir.
-                </p>
-            </div>
+<div class="container py-5">
+    <div class="row">
+        <div class="col-lg-8 mx-auto text-center">
+            <h1 class="display-4 mb-4">Hakkımızda</h1>
+            <p class="lead mb-5">
+                Bu platform, İstanbul Gelişim Üniversitesi Bilgisayar Mühendisliği Bölümü bitirme projesi kapsamında, 
+                otizmli çocukların eğitim sürecini desteklemek amacıyla geliştirilmiştir.
+            </p>
         </div>
     </div>
-</div>
 
-<div class="developer-section">
-    <div class="container">
-        <div class="row align-items-center">
-            <div class="col-lg-4 text-center mb-4 mb-lg-0">
-                <img src="~/images/betul.jpg" alt="Betül Öztürk" class="developer-image img-fluid mb-3">
-            </div>
-            <div class="col-lg-8">
-                <div class="card border-0 shadow-sm">
-                    <div class="card-body p-4">
-                        <h2 class="h3 text-primary mb-3">Geliştirici Hakkında</h2>
-                        <p class="about-text">
-                            Bu platform, bilgisayar mühendisliği öğrencisi Betül Öztürk tarafından bir bitirme projesi kapsamında geliştirilmiş olup, otizmli çocukların bilişsel gelişimine katkı sağlamayı amaçlamaktadır. Eğitimde eşitliği destekleyen bu projede, her çocuğun potansiyeline ulaşabileceği bir öğrenme ortamı sunulması hedeflenmiştir.
-                        </p>
-                        <div class="mt-4">
-                            <a href="https://www.linkedin.com/in/betul-ozturkk/" class="btn btn-outline-primary me-2" target="_blank">
-                                <i class="fab fa-linkedin me-2"></i>LinkedIn
-                            </a>
-                            <a href="https://github.com/betulzzturkk" class="btn btn-outline-primary" target="_blank">
-                                <i class="fab fa-github me-2"></i>GitHub
-                            </a>
+    <div class="row mb-5">
+        <div class="col-lg-12">
+            <div class="card border-0 shadow-sm">
+                <div class="card-body p-5">
+                    <h2 class="h3 mb-4 text-center">Otizm Hakkında</h2>
+                    
+                    <div class="row g-4 mb-5">
+                        <div class="col-md-4">
+                            <div class="info-card h-100">
+                                <div class="icon-wrapper mb-3">
+                                    <i class="fas fa-brain fa-2x text-primary"></i>
+                                </div>
+                                <h3 class="h5">Otizm Nedir?</h3>
+                                <p class="text-muted">
+                                    Otizm, erken çocukluk döneminde başlayan ve yaşam boyu devam eden, sosyal etkileşim, 
+                                    iletişim, davranış ve ilgi alanlarında belirgin farklılıklarla kendini gösteren 
+                                    nörogelişimsel bir farklılıktır.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="info-card h-100">
+                                <div class="icon-wrapper mb-3">
+                                    <i class="fas fa-search fa-2x text-success"></i>
+                                </div>
+                                <h3 class="h5">Erken Tanı</h3>
+                                <p class="text-muted">
+                                    Otizmin erken tanısı ve müdahalesi, çocukların gelişimi için kritik öneme sahiptir. 
+                                    İlk belirtiler genellikle 18-24 ay arasında gözlemlenebilir. Erken tanı, erken 
+                                    müdahale şansını artırır.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="info-card h-100">
+                                <div class="icon-wrapper mb-3">
+                                    <i class="fas fa-hands-helping fa-2x text-warning"></i>
+                                </div>
+                                <h3 class="h5">Bireysel Farklılıklar</h3>
+                                <p class="text-muted">
+                                    Her otizmli birey benzersizdir ve farklı güçlü yönlere sahiptir. Bireysel farklılıklar 
+                                    göz önünde bulundurularak hazırlanan eğitim programları daha etkili sonuçlar verir.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row g-4">
+                        <div class="col-md-6">
+                            <div class="info-card h-100">
+                                <div class="icon-wrapper mb-3">
+                                    <i class="fas fa-chalkboard-teacher fa-2x text-info"></i>
+                                </div>
+                                <h3 class="h5">Eğitimciler İçin</h3>
+                                <ul class="text-muted list-unstyled">
+                                    <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Bireyselleştirilmiş eğitim programları oluşturun</li>
+                                    <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Görsel destekli öğrenme materyalleri kullanın</li>
+                                    <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Rutinler ve tekrarlar oluşturun</li>
+                                    <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Duyusal hassasiyetleri göz önünde bulundurun</li>
+                                    <li><i class="fas fa-check text-success me-2"></i>Aile ile sürekli iletişim halinde olun</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="info-card h-100">
+                                <div class="icon-wrapper mb-3">
+                                    <i class="fas fa-home fa-2x text-danger"></i>
+                                </div>
+                                <h3 class="h5">Aileler İçin</h3>
+                                <ul class="text-muted list-unstyled">
+                                    <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Çocuğunuzun güçlü yönlerine odaklanın</li>
+                                    <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Günlük rutinler oluşturun ve takip edin</li>
+                                    <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Eğitim sürecine aktif katılım sağlayın</li>
+                                    <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Diğer ailelerle deneyim paylaşımında bulunun</li>
+                                    <li><i class="fas fa-check text-success me-2"></i>Uzman desteği almaktan çekinmeyin</li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div> 
+
+    <div class="row mb-5">
+        <div class="col-lg-8 mx-auto">
+            <div class="card border-0 shadow-sm">
+                <div class="card-body p-5">
+                    <h2 class="h3 mb-4">Proje Ekibi</h2>
+                    <div class="team-member d-flex align-items-center mb-4">
+                        <img src="/images/betul.jpg" alt="Betül Öztürk" class="rounded-circle me-4" style="width: 100px; height: 100px; object-fit: cover;">
+                        <div>
+                            <h3 class="h5 mb-2">Betül Öztürk</h3>
+                            <p class="text-muted mb-2">Proje Geliştiricisi</p>
+                            <div class="social-links">
+                                <a href="https://www.linkedin.com/in/betul-ozturkk/" target="_blank" class="me-3 text-decoration-none">
+                                    <i class="fab fa-linkedin"></i> LinkedIn
+                                </a>
+                                <a href="https://github.com/betulzzturkk" target="_blank" class="me-3 text-decoration-none">
+                                    <i class="fab fa-github"></i> GitHub
+                                </a>
+                                <a href="mailto:betul.ozturk@ogr.gelisim.edu.tr" class="text-decoration-none">
+                                    <i class="fas fa-envelope"></i> E-posta
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-8 mx-auto">
+            <div class="card border-0 shadow-sm">
+                <div class="card-body p-5">
+                    <h2 class="h3 mb-4">Projemizin Amacı</h2>
+                    <p class="mb-4">
+                        Otizmli çocukların eğitim sürecini desteklemek ve ailelerine yardımcı olmak amacıyla geliştirilen 
+                        bu platform, modern teknolojileri kullanarak interaktif bir öğrenme deneyimi sunmaktadır.
+                    </p>
+                    <p>
+                        Platformumuz, çocukların bireysel öğrenme hızlarına uygun, eğlenceli ve etkileşimli içerikler 
+                        sunarak gelişimlerini desteklemeyi hedeflemektedir.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .social-links a {
+        color: #666;
+        transition: color 0.3s ease;
+    }
+
+    .social-links a:hover {
+        color: #0d6efd;
+    }
+
+    .card {
+        transition: transform 0.3s ease;
+    }
+
+    .card:hover {
+        transform: translateY(-5px);
+    }
+
+    .info-card {
+        padding: 1.5rem;
+        border-radius: 15px;
+        background: #fff;
+        box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        transition: all 0.3s ease;
+    }
+
+    .info-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    }
+
+    .icon-wrapper {
+        width: 60px;
+        height: 60px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        background-color: rgba(13, 110, 253, 0.1);
+        margin-bottom: 1rem;
+    }
+
+    .list-unstyled li {
+        padding: 0.5rem 0;
+        border-bottom: 1px solid rgba(0,0,0,0.1);
+    }
+
+    .list-unstyled li:last-child {
+        border-bottom: none;
+    }
+</style> 

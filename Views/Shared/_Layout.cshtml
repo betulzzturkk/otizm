@@ -10,106 +10,58 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container">
-                <a class="navbar-brand" asp-controller="Home" asp-action="Index">Otizm Eğitim Platformu</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
+                    <i class="fas fa-puzzle-piece text-primary me-2"></i>Otizm Eğitim Platformu
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
-                        @{
-                            var userId = HttpContextAccessor.HttpContext?.Session.GetString("UserId");
-                            if (!string.IsNullOrEmpty(userId))
-                            {
-                                var isInChildMode = HttpContextAccessor.HttpContext?.Session.GetString("IsInChildMode") == "True";
-                                
-                                if (isInChildMode)
-                                {
-                                    <li class="nav-item">
-                                        <a class="nav-link text-dark" asp-controller="Education" asp-action="Index">Eğitimler</a>
-                                    </li>
-                                }
-                                else
-                                {
-                                    <li class="nav-item">
-                                        <a class="nav-link text-dark" asp-controller="Parent" asp-action="Dashboard">Ana Sayfa</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link text-dark" asp-controller="Parent" asp-action="Reports">Raporlar</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link text-dark" asp-controller="Parent" asp-action="News">Haberler</a>
-                                    </li>
-                                }
-                            }
-                        }
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Ana Sayfa</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="About">Hakkımızda</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Contact">İletişim</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="FAQ">SSS</a>
+                        </li>
                     </ul>
-                    <ul class="navbar-nav">
-                        @{
-                            if (!string.IsNullOrEmpty(userId))
-                            {
-                                var userName = HttpContextAccessor.HttpContext?.Session.GetString("UserName");
-                                var isInChildMode = HttpContextAccessor.HttpContext?.Session.GetString("IsInChildMode") == "True";
-                                
-                                <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle text-dark" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown">
-                                        <i class="fas fa-user me-2"></i>@userName
-                                    </a>
-                                    <ul class="dropdown-menu dropdown-menu-end">
-                                        <li>
-                                            <a class="dropdown-item" asp-controller="Parent" asp-action="ToggleChildMode">
-                                                @if (isInChildMode)
-                                                {
-                                                    <text><i class="fas fa-user me-2"></i>Veli Moduna Geç</text>
-                                                }
-                                                else
-                                                {
-                                                    <text><i class="fas fa-child me-2"></i>Çocuk Moduna Geç</text>
-                                                }
-                                            </a>
-                                        </li>
-                                        <li><hr class="dropdown-divider"></li>
-                                        <li>
-                                            <a class="dropdown-item" asp-controller="Account" asp-action="Logout">
-                                                <i class="fas fa-sign-out-alt me-2"></i>Çıkış Yap
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </li>
-                            }
-                            else
-                            {
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-controller="Parent" asp-action="Login">
-                                        <i class="fas fa-sign-in-alt me-2"></i>Giriş Yap
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-controller="Parent" asp-action="Register">
-                                        <i class="fas fa-user-plus me-2"></i>Kayıt Ol
-                                    </a>
-                                </li>
-                            }
-                        }
-                    </ul>
+                    <div class="d-flex">
+                        <a href="@Url.Action("Login", "Account")" class="btn btn-outline-primary">
+                            <i class="fas fa-sign-in-alt me-2"></i>Giriş Yap
+                        </a>
+                    </div>
                 </div>
             </div>
         </nav>
     </header>
 
-    <main role="main" class="pb-3">
-        <div class="container">
-            @RenderBody()
-        </div>
+    <main role="main">
+        @RenderBody()
     </main>
 
-    <footer class="border-top footer text-muted">
-        <div class="container text-center">
-            &copy; @DateTime.Now.Year - Otizm Eğitim Platformu
+    <footer class="footer text-muted">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    &copy; 2025 - İGÜ - Otizm Eğitim Platformu - Tüm hakları saklıdır.
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <a href="@Url.Action("Privacy", "Home")" class="text-dark text-decoration-none">Gizlilik</a>
+                </div>
+            </div>
         </div>
     </footer>
 
@@ -119,3 +71,55 @@
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
+
+<style>
+    body {
+        font-family: 'Nunito', sans-serif;
+    }
+
+    .navbar {
+        transition: all 0.3s ease;
+    }
+
+    .navbar-brand {
+        font-size: 1.3rem;
+        white-space: normal;
+        line-height: 1.2;
+    }
+
+    .nav-link {
+        font-weight: 600;
+        transition: all 0.3s ease;
+    }
+
+    .nav-link:hover {
+        transform: translateY(-2px);
+    }
+
+    .btn {
+        border-radius: 20px;
+        padding: 8px 20px;
+        transition: all 0.3s ease;
+    }
+
+    .btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+
+    .footer {
+        border-top: 1px solid #eee;
+    }
+
+    @@media (max-width: 768px) {
+        .navbar-brand {
+            font-size: 1.1rem;
+            max-width: 200px;
+        }
+
+        .btn {
+            padding: 6px 15px;
+            font-size: 0.9rem;
+        }
+    }
+</style>

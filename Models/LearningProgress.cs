@@ -37,6 +37,6 @@ namespace AutismEducationPlatform.Models
 
         public DateTime CreatedAt { get; set; }
 
-        public string Notes { get; set; }
+        public string Notes { get; set; } = string.Empty;
     }
 } 
