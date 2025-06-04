@@ -3,309 +3,373 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="container mt-4">
-    <div class="d-flex justify-content-between align-items-center mb-4">
-        <a href="/Education" class="btn btn-primary">
+<div class="traffic-container">
+    <div class="traffic-header text-center py-4 animate__animated animate__bounceIn">
+        <h1 class="display-4 fw-bold">
+            <i class="fas fa-traffic-light text-primary me-3"></i>
+            Trafik İşaretleri
+            <i class="fas fa-traffic-light text-primary ms-3"></i>
+        </h1>
+        <p class="lead">Trafik işaretlerini öğrenmeye hazır mısın? 🚦</p>
+        <a href="/Education" class="btn btn-outline-primary btn-lg mt-2 rounded-pill">
             <i class="fas fa-arrow-left"></i> Geri Dön
         </a>
-        <h2 class="text-center mb-0">Trafik İşaretleri</h2>
-        <div style="width: 100px;"></div>
+        @await Html.PartialAsync("_LoginInfoPartial")
     </div>
 
-    <div class="container py-5">
-        <div class="row mb-4">
-            <div class="col text-center">
-                <h1 class="display-4">Trafik Levhaları</h1>
-                <p class="lead text-muted">Trafik levhalarını tanıyalım ve öğrenelim</p>
+    @if (User?.Identity?.IsAuthenticated == true)
+    {
+        <div class="progress-wrapper mx-auto mb-4 animate__animated animate__fadeIn">
+            <div class="progress" style="height: 25px;">
+                <div class="progress-bar bg-success progress-bar-striped progress-bar-animated" 
+                     id="moduleProgress" role="progressbar" style="width: 0%;" 
+                     aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+                    <span class="progress-text">0%</span>
+                </div>
+            </div>
+        </div>
+    }
+
+    <div class="traffic-grid">
+        <!-- Dur -->
+        <div class="traffic-card animate__animated animate__fadeInUp" data-sign="dur">
+            <div class="sign-image-wrapper">
+                <img src="~/images/traffic/dur.png" alt="Dur İşareti" class="sign-image">
+                <div class="sign-overlay">
+                    <button class="sound-btn" onclick="playSignSound('dur')">
+                        <i class="fas fa-volume-up"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="sign-info">
+                <h3>Dur</h3>
+                <p class="sign-description">Durmak zorunludur 🛑</p>
+                @if (User?.Identity?.IsAuthenticated == true)
+                {
+                    <div class="completion-badge">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                }
             </div>
         </div>
 
-        @if (User?.Identity?.IsAuthenticated == true)
-        {
-            <div class="row mb-4">
-                <div class="col">
-                    <div class="progress" style="height: 30px;">
-                        <div class="progress-bar bg-success progress-bar-striped" id="moduleProgress" 
-                             role="progressbar" style="width: 0%;" 
-                             aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
-                            0%
-                        </div>
-                    </div>
+        <!-- Yaya Geçidi -->
+        <div class="traffic-card animate__animated animate__fadeInUp" data-sign="yaya">
+            <div class="sign-image-wrapper">
+                <img src="~/images/traffic/yaya.png" alt="Yaya Geçidi" class="sign-image">
+                <div class="sign-overlay">
+                    <button class="sound-btn" onclick="playSignSound('yaya')">
+                        <i class="fas fa-volume-up"></i>
+                    </button>
                 </div>
             </div>
-        }
-        else
-        {
-            <div class="row mb-4">
-                <div class="col">
-                    <div class="alert alert-info" role="alert">
-                        <i class="fas fa-info-circle"></i>
-                        İlerlemenizin kaydedilmesi için <a href="/Account/Login" class="alert-link">giriş yapın</a> veya 
-                        <a href="/Account/Register" class="alert-link">kayıt olun</a>.
+            <div class="sign-info">
+                <h3>Yaya Geçidi</h3>
+                <p class="sign-description">Yayalara yol ver 🚶</p>
+                @if (User?.Identity?.IsAuthenticated == true)
+                {
+                    <div class="completion-badge">
+                        <i class="fas fa-check-circle"></i>
                     </div>
-                </div>
+                }
             </div>
-        }
+        </div>
 
-        <div class="row g-4" id="signCards">
-            <!-- Dur -->
-            <div class="col-md-3 col-sm-6">
-                <div class="card h-100 sign-card" data-sign="dur">
-                    <img src="~/images/dur.png" class="card-img-top" alt="Dur İşareti" style="height: 200px; object-fit: contain;">
-                    <div class="card-body text-center">
-                        <h5 class="card-title">Dur</h5>
-                        <p class="card-text text-muted small mb-3">Dur işareti, aracın tamamen durmasını gerektirir</p>
-                        <button class="btn btn-primary play-sound" onclick="playSignSound('dur')">
-                            <i class="fas fa-volume-up"></i> Sesi Çal
-                        </button>
-                        @if (User?.Identity?.IsAuthenticated == true)
-                        {
-                            <div class="mt-2">
-                                <i class="fas fa-check-circle text-success completion-icon" style="display: none;"></i>
-                            </div>
-                        }
-                    </div>
+        <!-- Park -->
+        <div class="traffic-card animate__animated animate__fadeInUp" data-sign="park">
+            <div class="sign-image-wrapper">
+                <img src="~/images/traffic/park.png" alt="Park" class="sign-image">
+                <div class="sign-overlay">
+                    <button class="sound-btn" onclick="playSignSound('park')">
+                        <i class="fas fa-volume-up"></i>
+                    </button>
                 </div>
             </div>
-
-            <!-- Yaya Geçidi -->
-            <div class="col-md-3 col-sm-6">
-                <div class="card h-100 sign-card" data-sign="yaya-gecidi">
-                    <img src="~/images/yaya-gecidi.jpg" class="card-img-top" alt="Yaya Geçidi" style="height: 200px; object-fit: contain;">
-                    <div class="card-body text-center">
-                        <h5 class="card-title">Yaya Geçidi</h5>
-                        <p class="card-text text-muted small mb-3">Yayaların karşıdan karşıya geçtiği yer</p>
-                        <button class="btn btn-primary play-sound" onclick="playSignSound('yaya-gecidi')">
-                            <i class="fas fa-volume-up"></i> Sesi Çal
-                        </button>
-                        @if (User?.Identity?.IsAuthenticated == true)
-                        {
-                            <div class="mt-2">
-                                <i class="fas fa-check-circle text-success completion-icon" style="display: none;"></i>
-                            </div>
-                        }
+            <div class="sign-info">
+                <h3>Park</h3>
+                <p class="sign-description">Park edilebilir 🅿️</p>
+                @if (User?.Identity?.IsAuthenticated == true)
+                {
+                    <div class="completion-badge">
+                        <i class="fas fa-check-circle"></i>
                     </div>
+                }
+            </div>
+        </div>
+
+        <!-- Okul Geçidi -->
+        <div class="traffic-card animate__animated animate__fadeInUp" data-sign="okul">
+            <div class="sign-image-wrapper">
+                <img src="~/images/traffic/okul.png" alt="Okul Geçidi" class="sign-image">
+                <div class="sign-overlay">
+                    <button class="sound-btn" onclick="playSignSound('okul')">
+                        <i class="fas fa-volume-up"></i>
+                    </button>
                 </div>
             </div>
-
-            <!-- Park Yasak -->
-            <div class="col-md-3 col-sm-6">
-                <div class="card h-100 sign-card" data-sign="park-yasak">
-                    <img src="~/images/park-yasak.jpg" class="card-img-top" alt="Park Yasak" style="height: 200px; object-fit: contain;">
-                    <div class="card-body text-center">
-                        <h5 class="card-title">Park Yasak</h5>
-                        <p class="card-text text-muted small mb-3">Araç park edilmesi yasak olan bölge</p>
-                        <button class="btn btn-primary play-sound" onclick="playSignSound('park-yasak')">
-                            <i class="fas fa-volume-up"></i> Sesi Çal
-                        </button>
-                        @if (User?.Identity?.IsAuthenticated == true)
-                        {
-                            <div class="mt-2">
-                                <i class="fas fa-check-circle text-success completion-icon" style="display: none;"></i>
-                            </div>
-                        }
+            <div class="sign-info">
+                <h3>Okul Geçidi</h3>
+                <p class="sign-description">Dikkat, okul var! 🏫</p>
+                @if (User?.Identity?.IsAuthenticated == true)
+                {
+                    <div class="completion-badge">
+                        <i class="fas fa-check-circle"></i>
                     </div>
+                }
+            </div>
+        </div>
+
+        <!-- Trafik Işıkları -->
+        <div class="traffic-card animate__animated animate__fadeInUp" data-sign="isik">
+            <div class="sign-image-wrapper">
+                <img src="~/images/traffic/isik.png" alt="Trafik Işıkları" class="sign-image">
+                <div class="sign-overlay">
+                    <button class="sound-btn" onclick="playSignSound('isik')">
+                        <i class="fas fa-volume-up"></i>
+                    </button>
                 </div>
             </div>
-
-            <!-- Okul Geçidi -->
-            <div class="col-md-3 col-sm-6">
-                <div class="card h-100 sign-card" data-sign="okul-gecidi">
-                    <img src="~/images/okul-gecidi.jpg" class="card-img-top" alt="Okul Geçidi" style="height: 200px; object-fit: contain;">
-                    <div class="card-body text-center">
-                        <h5 class="card-title">Okul Geçidi</h5>
-                        <p class="card-text text-muted small mb-3">Okul yakınında, öğrencilerin geçiş yaptığı yer</p>
-                        <button class="btn btn-primary play-sound" onclick="playSignSound('okul-gecidi')">
-                            <i class="fas fa-volume-up"></i> Sesi Çal
-                        </button>
-                        @if (User?.Identity?.IsAuthenticated == true)
-                        {
-                            <div class="mt-2">
-                                <i class="fas fa-check-circle text-success completion-icon" style="display: none;"></i>
-                            </div>
-                        }
+            <div class="sign-info">
+                <h3>Trafik Işıkları</h3>
+                <p class="sign-description">Kırmızı: Dur, Yeşil: Geç 🚦</p>
+                @if (User?.Identity?.IsAuthenticated == true)
+                {
+                    <div class="completion-badge">
+                        <i class="fas fa-check-circle"></i>
                     </div>
+                }
+            </div>
+        </div>
+
+        <!-- Bisiklet Yolu -->
+        <div class="traffic-card animate__animated animate__fadeInUp" data-sign="bisiklet">
+            <div class="sign-image-wrapper">
+                <img src="~/images/traffic/bisiklet.png" alt="Bisiklet Yolu" class="sign-image">
+                <div class="sign-overlay">
+                    <button class="sound-btn" onclick="playSignSound('bisiklet')">
+                        <i class="fas fa-volume-up"></i>
+                    </button>
                 </div>
             </div>
-
-            <!-- Hız Limiti -->
-            <div class="col-md-3 col-sm-6">
-                <div class="card h-100 sign-card" data-sign="hiz-limiti">
-                    <img src="~/images/hiz-limiti.jpg" class="card-img-top" alt="Hız Limiti" style="height: 200px; object-fit: contain;">
-                    <div class="card-body text-center">
-                        <h5 class="card-title">Hız Limiti</h5>
-                        <p class="card-text text-muted small mb-3">Araçların uyması gereken hız sınırı</p>
-                        <button class="btn btn-primary play-sound" onclick="playSignSound('hiz-limiti')">
-                            <i class="fas fa-volume-up"></i> Sesi Çal
-                        </button>
-                        @if (User?.Identity?.IsAuthenticated == true)
-                        {
-                            <div class="mt-2">
-                                <i class="fas fa-check-circle text-success completion-icon" style="display: none;"></i>
-                            </div>
-                        }
+            <div class="sign-info">
+                <h3>Bisiklet Yolu</h3>
+                <p class="sign-description">Bisiklet yolu var 🚲</p>
+                @if (User?.Identity?.IsAuthenticated == true)
+                {
+                    <div class="completion-badge">
+                        <i class="fas fa-check-circle"></i>
                     </div>
-                </div>
-            </div>
-
-            <!-- Girilmez -->
-            <div class="col-md-3 col-sm-6">
-                <div class="card h-100 sign-card" data-sign="girilmez">
-                    <img src="~/images/girilmez.jpg" class="card-img-top" alt="Girilmez" style="height: 200px; object-fit: contain;">
-                    <div class="card-body text-center">
-                        <h5 class="card-title">Girilmez</h5>
-                        <p class="card-text text-muted small mb-3">Bu yöne araç girişi yasaktır</p>
-                        <button class="btn btn-primary play-sound" onclick="playSignSound('girilmez')">
-                            <i class="fas fa-volume-up"></i> Sesi Çal
-                        </button>
-                        @if (User?.Identity?.IsAuthenticated == true)
-                        {
-                            <div class="mt-2">
-                                <i class="fas fa-check-circle text-success completion-icon" style="display: none;"></i>
-                            </div>
-                        }
-                    </div>
-                </div>
-            </div>
-
-            <!-- Sağa Dön -->
-            <div class="col-md-3 col-sm-6">
-                <div class="card h-100 sign-card" data-sign="saga-don">
-                    <img src="~/images/saga-don.jpg" class="card-img-top" alt="Sağa Dön" style="height: 200px; object-fit: contain;">
-                    <div class="card-body text-center">
-                        <h5 class="card-title">Sağa Dön</h5>
-                        <p class="card-text text-muted small mb-3">Araçların sağa dönmesi gereken yer</p>
-                        <button class="btn btn-primary play-sound" onclick="playSignSound('saga-don')">
-                            <i class="fas fa-volume-up"></i> Sesi Çal
-                        </button>
-                        @if (User?.Identity?.IsAuthenticated == true)
-                        {
-                            <div class="mt-2">
-                                <i class="fas fa-check-circle text-success completion-icon" style="display: none;"></i>
-                            </div>
-                        }
-                    </div>
-                </div>
-            </div>
-
-            <!-- Sola Dön -->
-            <div class="col-md-3 col-sm-6">
-                <div class="card h-100 sign-card" data-sign="sola-don">
-                    <img src="~/images/sola-don.jpg" class="card-img-top" alt="Sola Dön" style="height: 200px; object-fit: contain;">
-                    <div class="card-body text-center">
-                        <h5 class="card-title">Sola Dön</h5>
-                        <p class="card-text text-muted small mb-3">Araçların sola dönmesi gereken yer</p>
-                        <button class="btn btn-primary play-sound" onclick="playSignSound('sola-don')">
-                            <i class="fas fa-volume-up"></i> Sesi Çal
-                        </button>
-                        @if (User?.Identity?.IsAuthenticated == true)
-                        {
-                            <div class="mt-2">
-                                <i class="fas fa-check-circle text-success completion-icon" style="display: none;"></i>
-                            </div>
-                        }
-                    </div>
-                </div>
-            </div>
-
-            <!-- Hastane -->
-            <div class="col-md-3 col-sm-6">
-                <div class="card h-100 sign-card" data-sign="hastane">
-                    <img src="~/images/hastane.jpg" class="card-img-top" alt="Hastane" style="height: 200px; object-fit: contain;">
-                    <div class="card-body text-center">
-                        <h5 class="card-title">Hastane</h5>
-                        <p class="card-text text-muted small mb-3">Hastane bölgesi, dikkatli ve sessiz olunmalı</p>
-                        <button class="btn btn-primary play-sound" onclick="playSignSound('hastane')">
-                            <i class="fas fa-volume-up"></i> Sesi Çal
-                        </button>
-                        @if (User?.Identity?.IsAuthenticated == true)
-                        {
-                            <div class="mt-2">
-                                <i class="fas fa-check-circle text-success completion-icon" style="display: none;"></i>
-                            </div>
-                        }
-                    </div>
-                </div>
-            </div>
-
-            <!-- Işıklı İşaret -->
-            <div class="col-md-3 col-sm-6">
-                <div class="card h-100 sign-card" data-sign="isikli-isaret">
-                    <img src="~/images/isikli-isaret.jpg" class="card-img-top" alt="Işıklı İşaret" style="height: 200px; object-fit: contain;">
-                    <div class="card-body text-center">
-                        <h5 class="card-title">Işıklı İşaret</h5>
-                        <p class="card-text text-muted small mb-3">Trafik ışıkları ile kontrollü geçiş</p>
-                        <button class="btn btn-primary play-sound" onclick="playSignSound('isikli-isaret')">
-                            <i class="fas fa-volume-up"></i> Sesi Çal
-                        </button>
-                        @if (User?.Identity?.IsAuthenticated == true)
-                        {
-                            <div class="mt-2">
-                                <i class="fas fa-check-circle text-success completion-icon" style="display: none;"></i>
-                            </div>
-                        }
-                    </div>
-                </div>
+                }
             </div>
         </div>
     </div>
 </div>
 
 <style>
-    .card {
-        transition: transform 0.2s, box-shadow 0.2s;
+    .traffic-container {
+        background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        min-height: 100vh;
+        padding: 2rem;
     }
 
-    .card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+    .traffic-header {
+        margin-bottom: 3rem;
     }
 
-    .card-title {
-        color: #dc3545;
-        font-weight: 600;
+    .progress-wrapper {
+        max-width: 600px;
+        margin-bottom: 2rem;
     }
 
-    .card-text {
-        color: #6c757d;
+    .progress {
+        border-radius: 15px;
+        background-color: #e9ecef;
+        overflow: hidden;
     }
 
-    .btn-primary {
-        background-color: #3498db;
-        border-color: #3498db;
+    .progress-text {
+        font-weight: bold;
+        text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+    }
+
+    .traffic-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 2rem;
+        padding: 1rem;
+    }
+
+    .traffic-card {
+        background: white;
+        border-radius: 20px;
+        overflow: hidden;
+        box-shadow: 0 10px 20px rgba(0,0,0,0.1);
         transition: all 0.3s ease;
+        position: relative;
     }
 
-    .btn-primary:hover {
-        background-color: #2980b9;
-        border-color: #2980b9;
-        transform: translateX(-5px);
+    .traffic-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+    }
+
+    .sign-image-wrapper {
+        position: relative;
+        padding-top: 75%;
+        overflow: hidden;
+    }
+
+    .sign-image {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        padding: 1rem;
+        transition: transform 0.3s ease;
+    }
+
+    .traffic-card:hover .sign-image {
+        transform: scale(1.1);
+    }
+
+    .sign-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0,0,0,0.1);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+
+    .traffic-card:hover .sign-overlay {
+        opacity: 1;
+    }
+
+    .sound-btn {
+        background: white;
+        border: none;
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        font-size: 24px;
+        color: #007bff;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    }
+
+    .sound-btn:hover {
+        transform: scale(1.1);
+        background: #007bff;
+        color: white;
+    }
+
+    .sign-info {
+        padding: 1.5rem;
+        text-align: center;
+        position: relative;
+    }
+
+    .sign-info h3 {
+        margin: 0;
+        font-size: 1.5rem;
+        color: #2c3e50;
+    }
+
+    .sign-description {
+        margin: 0.5rem 0 0;
+        color: #666;
+        font-size: 1.1rem;
+    }
+
+    .completion-badge {
+        position: absolute;
+        top: -15px;
+        right: 15px;
+        color: #28a745;
+        font-size: 24px;
+        display: none;
+    }
+
+    .completion-badge.completed {
+        display: block;
+        animation: popIn 0.3s ease;
+    }
+
+    @@keyframes popIn {
+        0% { transform: scale(0); }
+        50% { transform: scale(1.2); }
+        100% { transform: scale(1); }
+    }
+
+    @@media (max-width: 768px) {
+        .traffic-grid {
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .sign-info h3 {
+            font-size: 1.2rem;
+        }
+
+        .sign-description {
+            font-size: 1rem;
+        }
+
+        .sound-btn {
+            width: 50px;
+            height: 50px;
+            font-size: 20px;
+        }
     }
 </style>
 
 @section Scripts {
     <script>
+        // Trafik işareti seslerini çalma ve ilerlemeyi kaydetme
         function playSignSound(sign) {
-            const audio = new Audio(`/sounds/traffic-signs/${sign}.mp3`);
+            const card = document.querySelector(`[data-sign="${sign}"]`);
+            const soundBtn = card.querySelector('.sound-btn');
+            const audio = new Audio(`/sounds/traffic/${sign}.mp3`);
+            
+            // Buton animasyonu
+            soundBtn.style.transform = 'scale(0.9)';
+            setTimeout(() => soundBtn.style.transform = 'scale(1)', 200);
             
             audio.onended = function() {
-                if (@Json.Serialize(User?.Identity?.IsAuthenticated == true)) {
+                if (@Json.Serialize(User?.Identity?.IsAuthenticated)) {
                     markAsCompleted(sign);
                 }
             };
             
-            audio.play();
+            audio.play().catch(error => {
+                console.error('Ses çalınamadı:', error);
+            });
         }
 
+        // Tamamlanan işaretleri işaretleme
         function markAsCompleted(sign) {
             const card = document.querySelector(`[data-sign="${sign}"]`);
-            const icon = card.querySelector('.completion-icon');
-            icon.style.display = 'inline-block';
-
-            saveProgress(sign);
-            updateProgress();
+            const badge = card.querySelector('.completion-badge');
+            
+            if (!badge.classList.contains('completed')) {
+                badge.classList.add('completed');
+                saveProgress(sign);
+                updateProgress();
+            }
         }
 
+        // İlerleme durumunu sunucuya kaydetme
         function saveProgress(sign) {
             fetch('/Education/SaveProgress', {
                 method: 'POST',
@@ -320,35 +384,24 @@
             });
         }
 
+        // İlerleme çubuğunu güncelleme
         function updateProgress() {
-            const totalSigns = document.querySelectorAll('.sign-card').length;
-            const completedSigns = document.querySelectorAll('.completion-icon[style="display: inline-block"]').length;
-            const progressPercentage = (completedSigns / totalSigns) * 100;
-
+            const completedBadges = document.querySelectorAll('.completion-badge.completed');
+            const totalSigns = document.querySelectorAll('.traffic-card').length;
+            const progress = (completedBadges.length / totalSigns) * 100;
+            
             const progressBar = document.getElementById('moduleProgress');
-            if (progressBar) {
-                progressBar.style.width = `${progressPercentage}%`;
-                progressBar.textContent = `${Math.round(progressPercentage)}%`;
-                progressBar.setAttribute('aria-valuenow', progressPercentage);
-            }
+            const progressText = progressBar.querySelector('.progress-text');
+            
+            progressBar.style.width = `${progress}%`;
+            progressBar.setAttribute('aria-valuenow', progress);
+            progressText.textContent = `${Math.round(progress)}%`;
         }
 
+        // Sayfa yüklendiğinde mevcut ilerlemeyi göster
         document.addEventListener('DOMContentLoaded', function() {
-            if (@Json.Serialize(User?.Identity?.IsAuthenticated == true)) {
-                fetch('/Education/GetProgress?moduleName=TrafficSigns')
-                    .then(response => response.json())
-                    .then(data => {
-                        data.forEach(item => {
-                            if (item.isCompleted) {
-                                const card = document.querySelector(`[data-sign="${item.itemName}"]`);
-                                if (card) {
-                                    const icon = card.querySelector('.completion-icon');
-                                    icon.style.display = 'inline-block';
-                                }
-                            }
-                        });
-                        updateProgress();
-                    });
+            if (@Json.Serialize(User?.Identity?.IsAuthenticated)) {
+                updateProgress();
             }
         });
     </script>

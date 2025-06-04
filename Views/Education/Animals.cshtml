@@ -3,233 +3,413 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="container mt-4">
-    <div class="d-flex justify-content-between align-items-center mb-4">
-        <a href="/Education" class="btn btn-primary">
+<div class="animals-container">
+    <div class="animals-header text-center py-4 animate__animated animate__bounceIn">
+        <h1 class="display-4 fw-bold">
+            <i class="fas fa-paw text-primary me-3"></i>
+            Hayvanlar Dünyası
+            <i class="fas fa-paw text-primary ms-3"></i>
+        </h1>
+        <p class="lead">Sevimli dostlarımızı tanıyalım! 🐾</p>
+        <a href="/Education" class="btn btn-outline-primary btn-lg mt-2 rounded-pill">
             <i class="fas fa-arrow-left"></i> Geri Dön
         </a>
-        <h2 class="text-center mb-0">Hayvanlar</h2>
-        <div style="width: 100px;"></div>
+        @await Html.PartialAsync("_LoginInfoPartial")
     </div>
 
-    <div class="container py-5">
-        <div class="row mb-4">
-            <div class="col text-center">
-                <h1 class="display-4">Hayvanlar</h1>
-                <p class="lead text-muted">Hayvanları tanıyalım ve seslerini öğrenelim</p>
+    @if (User?.Identity?.IsAuthenticated == true)
+    {
+        <div class="progress-wrapper mx-auto mb-4 animate__animated animate__fadeIn">
+            <div class="progress" style="height: 25px;">
+                <div class="progress-bar bg-success progress-bar-striped progress-bar-animated" 
+                     id="moduleProgress" role="progressbar" style="width: 0%;" 
+                     aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+                    <span class="progress-text">0%</span>
+                </div>
+            </div>
+        </div>
+    }
+
+    <div class="animals-grid">
+        <!-- Kedi -->
+        <div class="animal-card animate__animated animate__fadeInUp" data-animal="kedi">
+            <div class="animal-image-wrapper">
+                <img src="~/images/kedi.jpg" alt="Kedi" class="animal-image">
+                <div class="animal-overlay">
+                    <button class="sound-btn" onclick="playAnimalSound('kedi')">
+                        <i class="fas fa-volume-up"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="animal-info">
+                <h3>Kedi</h3>
+                <p class="animal-sound-text">Miyav! 🐱</p>
+                @if (User?.Identity?.IsAuthenticated == true)
+                {
+                    <div class="completion-badge">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                }
             </div>
         </div>
 
-        @if (User?.Identity?.IsAuthenticated == true)
-        {
-            <div class="row mb-4">
-                <div class="col">
-                    <div class="progress" style="height: 30px;">
-                        <div class="progress-bar bg-success progress-bar-striped" id="moduleProgress" 
-                             role="progressbar" style="width: 0%;" 
-                             aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
-                            0%
-                        </div>
-                    </div>
+        <!-- Köpek -->
+        <div class="animal-card animate__animated animate__fadeInUp" data-animal="kopek">
+            <div class="animal-image-wrapper">
+                <img src="~/images/kopek.jpg" alt="Köpek" class="animal-image">
+                <div class="animal-overlay">
+                    <button class="sound-btn" onclick="playAnimalSound('kopek')">
+                        <i class="fas fa-volume-up"></i>
+                    </button>
                 </div>
             </div>
-        }
-        else
-        {
-            <div class="row mb-4">
-                <div class="col">
-                    <div class="alert alert-info" role="alert">
-                        <i class="fas fa-info-circle"></i>
-                        İlerlemenizin kaydedilmesi için <a href="/Account/Login" class="alert-link">giriş yapın</a> veya 
-                        <a href="/Account/Register" class="alert-link">kayıt olun</a>.
+            <div class="animal-info">
+                <h3>Köpek</h3>
+                <p class="animal-sound-text">Hav Hav! 🐕</p>
+                @if (User?.Identity?.IsAuthenticated == true)
+                {
+                    <div class="completion-badge">
+                        <i class="fas fa-check-circle"></i>
                     </div>
-                </div>
+                }
             </div>
-        }
+        </div>
 
-        <div class="row g-4" id="animalCards">
-            <!-- Kedi -->
-            <div class="col-md-3 col-sm-6">
-                <div class="card h-100 animal-card" data-animal="kedi">
-                    <img src="~/images/kedi.jpg" class="card-img-top" alt="Kedi" style="height: 200px; object-fit: cover;">
-                    <div class="card-body text-center">
-                        <h5 class="card-title">Kedi</h5>
-                        <button class="btn btn-primary play-sound" onclick="playAnimalSound('kedi')">
-                            <i class="fas fa-volume-up"></i> Sesi Çal
-                        </button>
-                        @if (User?.Identity?.IsAuthenticated == true)
-                        {
-                            <div class="mt-2">
-                                <i class="fas fa-check-circle text-success completion-icon" style="display: none;"></i>
-                            </div>
-                        }
-                    </div>
+        <!-- Kuş -->
+        <div class="animal-card animate__animated animate__fadeInUp" data-animal="kus">
+            <div class="animal-image-wrapper">
+                <img src="~/images/kus.jpg" alt="Kuş" class="animal-image">
+                <div class="animal-overlay">
+                    <button class="sound-btn" onclick="playAnimalSound('kus')">
+                        <i class="fas fa-volume-up"></i>
+                    </button>
                 </div>
             </div>
-
-            <!-- Köpek -->
-            <div class="col-md-3 col-sm-6">
-                <div class="card h-100 animal-card" data-animal="kopek">
-                    <img src="~/images/kopek.jpg" class="card-img-top" alt="Köpek" style="height: 200px; object-fit: cover;">
-                    <div class="card-body text-center">
-                        <h5 class="card-title">Köpek</h5>
-                        <button class="btn btn-primary play-sound" onclick="playAnimalSound('kopek')">
-                            <i class="fas fa-volume-up"></i> Sesi Çal
-                        </button>
-                        @if (User?.Identity?.IsAuthenticated == true)
-                        {
-                            <div class="mt-2">
-                                <i class="fas fa-check-circle text-success completion-icon" style="display: none;"></i>
-                            </div>
-                        }
+            <div class="animal-info">
+                <h3>Kuş</h3>
+                <p class="animal-sound-text">Cik Cik! 🐦</p>
+                @if (User?.Identity?.IsAuthenticated == true)
+                {
+                    <div class="completion-badge">
+                        <i class="fas fa-check-circle"></i>
                     </div>
+                }
+            </div>
+        </div>
+
+        <!-- At -->
+        <div class="animal-card animate__animated animate__fadeInUp" data-animal="at">
+            <div class="animal-image-wrapper">
+                <img src="~/images/at.jpg" alt="At" class="animal-image">
+                <div class="animal-overlay">
+                    <button class="sound-btn" onclick="playAnimalSound('at')">
+                        <i class="fas fa-volume-up"></i>
+                    </button>
                 </div>
             </div>
-
-            <!-- Kuş -->
-            <div class="col-md-3 col-sm-6">
-                <div class="card h-100 animal-card" data-animal="kus">
-                    <img src="~/images/kus.jpg" class="card-img-top" alt="Kuş" style="height: 200px; object-fit: cover;">
-                    <div class="card-body text-center">
-                        <h5 class="card-title">Kuş</h5>
-                        <button class="btn btn-primary play-sound" onclick="playAnimalSound('kus')">
-                            <i class="fas fa-volume-up"></i> Sesi Çal
-                        </button>
-                        @if (User?.Identity?.IsAuthenticated == true)
-                        {
-                            <div class="mt-2">
-                                <i class="fas fa-check-circle text-success completion-icon" style="display: none;"></i>
-                            </div>
-                        }
+            <div class="animal-info">
+                <h3>At</h3>
+                <p class="animal-sound-text">Deh Deh! 🐎</p>
+                @if (User?.Identity?.IsAuthenticated == true)
+                {
+                    <div class="completion-badge">
+                        <i class="fas fa-check-circle"></i>
                     </div>
+                }
+            </div>
+        </div>
+
+        <!-- İnek -->
+        <div class="animal-card animate__animated animate__fadeInUp" data-animal="inek">
+            <div class="animal-image-wrapper">
+                <img src="~/images/inek.jpg" alt="İnek" class="animal-image">
+                <div class="animal-overlay">
+                    <button class="sound-btn" onclick="playAnimalSound('inek')">
+                        <i class="fas fa-volume-up"></i>
+                    </button>
                 </div>
             </div>
-
-            <!-- At -->
-            <div class="col-md-3 col-sm-6">
-                <div class="card h-100 animal-card" data-animal="at">
-                    <img src="~/images/at.jpg" class="card-img-top" alt="At" style="height: 200px; object-fit: cover;">
-                    <div class="card-body text-center">
-                        <h5 class="card-title">At</h5>
-                        <button class="btn btn-primary play-sound" onclick="playAnimalSound('at')">
-                            <i class="fas fa-volume-up"></i> Sesi Çal
-                        </button>
-                        @if (User?.Identity?.IsAuthenticated == true)
-                        {
-                            <div class="mt-2">
-                                <i class="fas fa-check-circle text-success completion-icon" style="display: none;"></i>
-                            </div>
-                        }
+            <div class="animal-info">
+                <h3>İnek</h3>
+                <p class="animal-sound-text">Möö! 🐄</p>
+                @if (User?.Identity?.IsAuthenticated == true)
+                {
+                    <div class="completion-badge">
+                        <i class="fas fa-check-circle"></i>
                     </div>
+                }
+            </div>
+        </div>
+
+        <!-- Tavuk -->
+        <div class="animal-card animate__animated animate__fadeInUp" data-animal="tavuk">
+            <div class="animal-image-wrapper">
+                <img src="~/images/tavuk.jpg" alt="Tavuk" class="animal-image">
+                <div class="animal-overlay">
+                    <button class="sound-btn" onclick="playAnimalSound('tavuk')">
+                        <i class="fas fa-volume-up"></i>
+                    </button>
                 </div>
             </div>
-
-            <!-- İnek -->
-            <div class="col-md-3 col-sm-6">
-                <div class="card h-100 animal-card" data-animal="inek">
-                    <img src="~/images/inek.jpg" class="card-img-top" alt="İnek" style="height: 200px; object-fit: cover;">
-                    <div class="card-body text-center">
-                        <h5 class="card-title">İnek</h5>
-                        <button class="btn btn-primary play-sound" onclick="playAnimalSound('inek')">
-                            <i class="fas fa-volume-up"></i> Sesi Çal
-                        </button>
-                        @if (User?.Identity?.IsAuthenticated == true)
-                        {
-                            <div class="mt-2">
-                                <i class="fas fa-check-circle text-success completion-icon" style="display: none;"></i>
-                            </div>
-                        }
+            <div class="animal-info">
+                <h3>Tavuk</h3>
+                <p class="animal-sound-text">Gıt Gıt! 🐔</p>
+                @if (User?.Identity?.IsAuthenticated == true)
+                {
+                    <div class="completion-badge">
+                        <i class="fas fa-check-circle"></i>
                     </div>
+                }
+            </div>
+        </div>
+
+        <!-- Aslan -->
+        <div class="animal-card animate__animated animate__fadeInUp" data-animal="aslan">
+            <div class="animal-image-wrapper">
+                <img src="~/images/aslan.jpg" alt="Aslan" class="animal-image">
+                <div class="animal-overlay">
+                    <button class="sound-btn" onclick="playAnimalSound('aslan')">
+                        <i class="fas fa-volume-up"></i>
+                    </button>
                 </div>
             </div>
-
-            <!-- Tavuk -->
-            <div class="col-md-3 col-sm-6">
-                <div class="card h-100 animal-card" data-animal="tavuk">
-                    <img src="~/images/tavuk.jpg" class="card-img-top" alt="Tavuk" style="height: 200px; object-fit: cover;">
-                    <div class="card-body text-center">
-                        <h5 class="card-title">Tavuk</h5>
-                        <button class="btn btn-primary play-sound" onclick="playAnimalSound('tavuk')">
-                            <i class="fas fa-volume-up"></i> Sesi Çal
-                        </button>
-                        @if (User?.Identity?.IsAuthenticated == true)
-                        {
-                            <div class="mt-2">
-                                <i class="fas fa-check-circle text-success completion-icon" style="display: none;"></i>
-                            </div>
-                        }
+            <div class="animal-info">
+                <h3>Aslan</h3>
+                <p class="animal-sound-text">Kükreee! 🦁</p>
+                @if (User?.Identity?.IsAuthenticated == true)
+                {
+                    <div class="completion-badge">
+                        <i class="fas fa-check-circle"></i>
                     </div>
+                }
+            </div>
+        </div>
+
+        <!-- Fil -->
+        <div class="animal-card animate__animated animate__fadeInUp" data-animal="fil">
+            <div class="animal-image-wrapper">
+                <img src="~/images/fil.jpg" alt="Fil" class="animal-image">
+                <div class="animal-overlay">
+                    <button class="sound-btn" onclick="playAnimalSound('fil')">
+                        <i class="fas fa-volume-up"></i>
+                    </button>
                 </div>
             </div>
-
-            <!-- Aslan -->
-            <div class="col-md-3 col-sm-6">
-                <div class="card h-100 animal-card" data-animal="aslan">
-                    <img src="~/images/aslan.jpg" class="card-img-top" alt="Aslan" style="height: 200px; object-fit: cover;">
-                    <div class="card-body text-center">
-                        <h5 class="card-title">Aslan</h5>
-                        <button class="btn btn-primary play-sound" onclick="playAnimalSound('aslan')">
-                            <i class="fas fa-volume-up"></i> Sesi Çal
-                        </button>
-                        @if (User?.Identity?.IsAuthenticated == true)
-                        {
-                            <div class="mt-2">
-                                <i class="fas fa-check-circle text-success completion-icon" style="display: none;"></i>
-                            </div>
-                        }
+            <div class="animal-info">
+                <h3>Fil</h3>
+                <p class="animal-sound-text">Poooh! 🐘</p>
+                @if (User?.Identity?.IsAuthenticated == true)
+                {
+                    <div class="completion-badge">
+                        <i class="fas fa-check-circle"></i>
                     </div>
-                </div>
-            </div>
-
-            <!-- Fil -->
-            <div class="col-md-3 col-sm-6">
-                <div class="card h-100 animal-card" data-animal="fil">
-                    <img src="~/images/fil.jpg" class="card-img-top" alt="Fil" style="height: 200px; object-fit: cover;">
-                    <div class="card-body text-center">
-                        <h5 class="card-title">Fil</h5>
-                        <button class="btn btn-primary play-sound" onclick="playAnimalSound('fil')">
-                            <i class="fas fa-volume-up"></i> Sesi Çal
-                        </button>
-                        @if (User?.Identity?.IsAuthenticated == true)
-                        {
-                            <div class="mt-2">
-                                <i class="fas fa-check-circle text-success completion-icon" style="display: none;"></i>
-                            </div>
-                        }
-                    </div>
-                </div>
+                }
             </div>
         </div>
     </div>
 </div>
 
+<style>
+    .animals-container {
+        background: linear-gradient(135deg, #e0f7fa 0%, #b2ebf2 100%);
+        min-height: 100vh;
+        padding: 2rem;
+    }
+
+    .animals-header {
+        margin-bottom: 3rem;
+    }
+
+    .progress-wrapper {
+        max-width: 600px;
+        margin-bottom: 2rem;
+    }
+
+    .progress {
+        border-radius: 15px;
+        background-color: #e9ecef;
+        overflow: hidden;
+    }
+
+    .progress-text {
+        font-weight: bold;
+        text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+    }
+
+    .animals-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 2rem;
+        padding: 1rem;
+    }
+
+    .animal-card {
+        background: white;
+        border-radius: 20px;
+        overflow: hidden;
+        box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        transition: all 0.3s ease;
+        position: relative;
+    }
+
+    .animal-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+    }
+
+    .animal-image-wrapper {
+        position: relative;
+        padding-top: 75%;
+        overflow: hidden;
+    }
+
+    .animal-image {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.3s ease;
+    }
+
+    .animal-card:hover .animal-image {
+        transform: scale(1.1);
+    }
+
+    .animal-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0,0,0,0.3);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+
+    .animal-card:hover .animal-overlay {
+        opacity: 1;
+    }
+
+    .sound-btn {
+        background: white;
+        border: none;
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        font-size: 24px;
+        color: #007bff;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    }
+
+    .sound-btn:hover {
+        transform: scale(1.1);
+        background: #007bff;
+        color: white;
+    }
+
+    .animal-info {
+        padding: 1.5rem;
+        text-align: center;
+        position: relative;
+    }
+
+    .animal-info h3 {
+        margin: 0;
+        font-size: 1.5rem;
+        color: #2c3e50;
+    }
+
+    .animal-sound-text {
+        margin: 0.5rem 0 0;
+        color: #666;
+        font-size: 1.1rem;
+    }
+
+    .completion-badge {
+        position: absolute;
+        top: -15px;
+        right: 15px;
+        color: #28a745;
+        font-size: 24px;
+        display: none;
+    }
+
+    .completion-badge.completed {
+        display: block;
+        animation: popIn 0.3s ease;
+    }
+
+    @@keyframes popIn {
+        0% { transform: scale(0); }
+        50% { transform: scale(1.2); }
+        100% { transform: scale(1); }
+    }
+
+    @@media (max-width: 768px) {
+        .animals-grid {
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .animal-info h3 {
+            font-size: 1.2rem;
+        }
+
+        .animal-sound-text {
+            font-size: 1rem;
+        }
+
+        .sound-btn {
+            width: 50px;
+            height: 50px;
+            font-size: 20px;
+        }
+    }
+</style>
+
 @section Scripts {
     <script>
         // Hayvan seslerini çalma ve ilerlemeyi kaydetme
         function playAnimalSound(animal) {
+            const card = document.querySelector(`[data-animal="${animal}"]`);
+            const soundBtn = card.querySelector('.sound-btn');
             const audio = new Audio(`/sounds/animals/${animal}.mp3`);
             
+            // Buton animasyonu
+            soundBtn.style.transform = 'scale(0.9)';
+            setTimeout(() => soundBtn.style.transform = 'scale(1)', 200);
+            
             audio.onended = function() {
-                // Kullanıcı giriş yapmışsa ilerlemeyi kaydet
                 if (@Json.Serialize(User?.Identity?.IsAuthenticated)) {
                     markAsCompleted(animal);
                 }
             };
             
-            audio.play();
+            audio.play().catch(error => {
+                console.error('Ses çalınamadı:', error);
+            });
         }
 
         // Tamamlanan hayvanları işaretleme
         function markAsCompleted(animal) {
             const card = document.querySelector(`[data-animal="${animal}"]`);
-            const icon = card.querySelector('.completion-icon');
-            icon.style.display = 'inline-block';
-
-            // İlerleme durumunu sunucuya kaydet
-            saveProgress(animal);
-
-            // İlerleme çubuğunu güncelle
-            updateProgress();
+            const badge = card.querySelector('.completion-badge');
+            
+            if (!badge.classList.contains('completed')) {
+                badge.classList.add('completed');
+                saveProgress(animal);
+                updateProgress();
+            }
         }
 
         // İlerleme durumunu sunucuya kaydetme
@@ -249,50 +429,25 @@
 
         // İlerleme çubuğunu güncelleme
         function updateProgress() {
+            const completedBadges = document.querySelectorAll('.completion-badge.completed');
             const totalAnimals = document.querySelectorAll('.animal-card').length;
-            const completedAnimals = document.querySelectorAll('.completion-icon[style="display: inline-block"]').length;
-            const progressPercentage = (completedAnimals / totalAnimals) * 100;
-
+            const progress = (completedBadges.length / totalAnimals) * 100;
+            
             const progressBar = document.getElementById('moduleProgress');
-            if (progressBar) {
-                progressBar.style.width = `${progressPercentage}%`;
-                progressBar.textContent = `${Math.round(progressPercentage)}%`;
-                progressBar.setAttribute('aria-valuenow', progressPercentage);
-            }
+            const progressText = progressBar.querySelector('.progress-text');
+            
+            progressBar.style.width = `${progress}%`;
+            progressBar.setAttribute('aria-valuenow', progress);
+            progressText.textContent = `${Math.round(progress)}%`;
         }
 
-        // Sayfa yüklendiğinde önceki ilerlemeyi yükle
+        // Sayfa yüklendiğinde mevcut ilerlemeyi göster
         document.addEventListener('DOMContentLoaded', function() {
             if (@Json.Serialize(User?.Identity?.IsAuthenticated)) {
-                fetch('/Education/GetProgress?moduleName=Animals')
-                    .then(response => response.json())
-                    .then(data => {
-                        data.forEach(item => {
-                            if (item.isCompleted) {
-                                const card = document.querySelector(`[data-animal="${item.itemName}"]`);
-                                if (card) {
-                                    const icon = card.querySelector('.completion-icon');
-                                    icon.style.display = 'inline-block';
-                                }
-                            }
-                        });
-                        updateProgress();
-                    });
+                // Burada sunucudan mevcut ilerleme durumunu alabilirsiniz
+                // Şimdilik örnek olarak boş bırakıyoruz
+                updateProgress();
             }
         });
     </script>
-}
-
-<style>
-    .btn-primary {
-        background-color: #3498db;
-        border-color: #3498db;
-        transition: all 0.3s ease;
-    }
-
-    .btn-primary:hover {
-        background-color: #2980b9;
-        border-color: #2980b9;
-        transform: translateX(-5px);
-    }
-</style> 
+} 

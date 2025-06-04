@@ -3,303 +3,458 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="container mt-4">
-    <div class="d-flex justify-content-between align-items-center mb-4">
-        <a href="/Education" class="btn btn-primary">
+<div class="numbers-container">
+    <div class="numbers-header text-center py-4 animate__animated animate__bounceIn">
+        <h1 class="display-4 fw-bold">
+            <i class="fas fa-calculator text-primary me-3"></i>
+            Sayılar Dünyası
+            <i class="fas fa-calculator text-primary ms-3"></i>
+        </h1>
+        <p class="lead">Sayıları öğrenmeye hazır mısın? 🔢</p>
+        <a href="/Education" class="btn btn-outline-primary btn-lg mt-2 rounded-pill">
             <i class="fas fa-arrow-left"></i> Geri Dön
         </a>
-        <h2 class="text-center mb-0">Sayılar</h2>
-        <div style="width: 100px;"></div>
+        @await Html.PartialAsync("_LoginInfoPartial")
     </div>
 
-    @if (User.Identity?.IsAuthenticated == true)
+    @if (User?.Identity?.IsAuthenticated == true)
     {
-        <div class="row mb-4">
-            <div class="col">
-                <div class="progress" style="height: 30px;">
-                    <div class="progress-bar bg-success progress-bar-striped" id="moduleProgress" 
-                         role="progressbar" style="width: 0%;" 
-                         aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
-                        0%
-                    </div>
-                </div>
-            </div>
-        </div>
-    }
-    else
-    {
-        <div class="row mb-4">
-            <div class="col">
-                <div class="alert alert-info" role="alert">
-                    <i class="fas fa-info-circle"></i>
-                    İlerlemenizin kaydedilmesi için <a href="/Account/Login" class="alert-link">giriş yapın</a> veya 
-                    <a href="/Account/Register" class="alert-link">kayıt olun</a>.
+        <div class="progress-wrapper mx-auto mb-4 animate__animated animate__fadeIn">
+            <div class="progress" style="height: 25px;">
+                <div class="progress-bar bg-success progress-bar-striped progress-bar-animated" 
+                     id="moduleProgress" role="progressbar" style="width: 0%;" 
+                     aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+                    <span class="progress-text">0%</span>
                 </div>
             </div>
         </div>
     }
 
-    <div class="row g-4" id="numberCards">
-        <!-- 0 -->
-        <div class="col-md-3 col-sm-6">
-            <div class="card h-100 number-card" data-number="sifir">
-                <div class="card-img-top text-center py-4" style="font-size: 72px; background-color: #f8f9fa;">
-                    0
-                </div>
-                <div class="card-body text-center">
-                    <h5 class="card-title">Sıfır</h5>
-                    <button class="btn btn-primary play-sound" onclick="playNumberSound('sifir')">
-                        <i class="fas fa-volume-up"></i> Sesi Çal
-                    </button>
-                    @if (User.Identity?.IsAuthenticated == true)
-                    {
-                        <div class="mt-2">
-                            <i class="fas fa-check-circle text-success completion-icon" style="display: none;"></i>
-                        </div>
-                    }
-                </div>
-            </div>
-        </div>
-
+    <div class="numbers-grid">
         <!-- 1 -->
-        <div class="col-md-3 col-sm-6">
-            <div class="card h-100 number-card" data-number="bir">
-                <div class="card-img-top text-center py-4" style="font-size: 72px; background-color: #f8f9fa;">
-                    1
-                </div>
-                <div class="card-body text-center">
-                    <h5 class="card-title">Bir</h5>
-                    <button class="btn btn-primary play-sound" onclick="playNumberSound('bir')">
-                        <i class="fas fa-volume-up"></i> Sesi Çal
+        <div class="number-card animate__animated animate__fadeInUp" data-number="bir">
+            <div class="number-display">
+                <span class="number">1</span>
+                <div class="number-overlay">
+                    <button class="sound-btn" onclick="playNumberSound('bir')">
+                        <i class="fas fa-volume-up"></i>
                     </button>
-                    @if (User.Identity?.IsAuthenticated == true)
-                    {
-                        <div class="mt-2">
-                            <i class="fas fa-check-circle text-success completion-icon" style="display: none;"></i>
-                        </div>
-                    }
                 </div>
+            </div>
+            <div class="number-info">
+                <h3>Bir</h3>
+                <p class="number-example">1 tane 🎈</p>
+                @if (User?.Identity?.IsAuthenticated == true)
+                {
+                    <div class="completion-badge">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                }
             </div>
         </div>
 
         <!-- 2 -->
-        <div class="col-md-3 col-sm-6">
-            <div class="card h-100 number-card" data-number="iki">
-                <div class="card-img-top text-center py-4" style="font-size: 72px; background-color: #f8f9fa;">
-                    2
-                </div>
-                <div class="card-body text-center">
-                    <h5 class="card-title">İki</h5>
-                    <button class="btn btn-primary play-sound" onclick="playNumberSound('iki')">
-                        <i class="fas fa-volume-up"></i> Sesi Çal
+        <div class="number-card animate__animated animate__fadeInUp" data-number="iki">
+            <div class="number-display">
+                <span class="number">2</span>
+                <div class="number-overlay">
+                    <button class="sound-btn" onclick="playNumberSound('iki')">
+                        <i class="fas fa-volume-up"></i>
                     </button>
-                    @if (User.Identity?.IsAuthenticated == true)
-                    {
-                        <div class="mt-2">
-                            <i class="fas fa-check-circle text-success completion-icon" style="display: none;"></i>
-                        </div>
-                    }
                 </div>
+            </div>
+            <div class="number-info">
+                <h3>İki</h3>
+                <p class="number-example">2 tane 🎈🎈</p>
+                @if (User?.Identity?.IsAuthenticated == true)
+                {
+                    <div class="completion-badge">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                }
             </div>
         </div>
 
         <!-- 3 -->
-        <div class="col-md-3 col-sm-6">
-            <div class="card h-100 number-card" data-number="uc">
-                <div class="card-img-top text-center py-4" style="font-size: 72px; background-color: #f8f9fa;">
-                    3
-                </div>
-                <div class="card-body text-center">
-                    <h5 class="card-title">Üç</h5>
-                    <button class="btn btn-primary play-sound" onclick="playNumberSound('uc')">
-                        <i class="fas fa-volume-up"></i> Sesi Çal
+        <div class="number-card animate__animated animate__fadeInUp" data-number="uc">
+            <div class="number-display">
+                <span class="number">3</span>
+                <div class="number-overlay">
+                    <button class="sound-btn" onclick="playNumberSound('uc')">
+                        <i class="fas fa-volume-up"></i>
                     </button>
-                    @if (User.Identity?.IsAuthenticated == true)
-                    {
-                        <div class="mt-2">
-                            <i class="fas fa-check-circle text-success completion-icon" style="display: none;"></i>
-                        </div>
-                    }
                 </div>
+            </div>
+            <div class="number-info">
+                <h3>Üç</h3>
+                <p class="number-example">3 tane 🎈🎈🎈</p>
+                @if (User?.Identity?.IsAuthenticated == true)
+                {
+                    <div class="completion-badge">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                }
             </div>
         </div>
 
         <!-- 4 -->
-        <div class="col-md-3 col-sm-6">
-            <div class="card h-100 number-card" data-number="dort">
-                <div class="card-img-top text-center py-4" style="font-size: 72px; background-color: #f8f9fa;">
-                    4
-                </div>
-                <div class="card-body text-center">
-                    <h5 class="card-title">Dört</h5>
-                    <button class="btn btn-primary play-sound" onclick="playNumberSound('dort')">
-                        <i class="fas fa-volume-up"></i> Sesi Çal
+        <div class="number-card animate__animated animate__fadeInUp" data-number="dort">
+            <div class="number-display">
+                <span class="number">4</span>
+                <div class="number-overlay">
+                    <button class="sound-btn" onclick="playNumberSound('dort')">
+                        <i class="fas fa-volume-up"></i>
                     </button>
-                    @if (User.Identity?.IsAuthenticated == true)
-                    {
-                        <div class="mt-2">
-                            <i class="fas fa-check-circle text-success completion-icon" style="display: none;"></i>
-                        </div>
-                    }
                 </div>
+            </div>
+            <div class="number-info">
+                <h3>Dört</h3>
+                <p class="number-example">4 tane 🎈🎈🎈🎈</p>
+                @if (User?.Identity?.IsAuthenticated == true)
+                {
+                    <div class="completion-badge">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                }
             </div>
         </div>
 
         <!-- 5 -->
-        <div class="col-md-3 col-sm-6">
-            <div class="card h-100 number-card" data-number="bes">
-                <div class="card-img-top text-center py-4" style="font-size: 72px; background-color: #f8f9fa;">
-                    5
-                </div>
-                <div class="card-body text-center">
-                    <h5 class="card-title">Beş</h5>
-                    <button class="btn btn-primary play-sound" onclick="playNumberSound('bes')">
-                        <i class="fas fa-volume-up"></i> Sesi Çal
+        <div class="number-card animate__animated animate__fadeInUp" data-number="bes">
+            <div class="number-display">
+                <span class="number">5</span>
+                <div class="number-overlay">
+                    <button class="sound-btn" onclick="playNumberSound('bes')">
+                        <i class="fas fa-volume-up"></i>
                     </button>
-                    @if (User.Identity?.IsAuthenticated == true)
-                    {
-                        <div class="mt-2">
-                            <i class="fas fa-check-circle text-success completion-icon" style="display: none;"></i>
-                        </div>
-                    }
                 </div>
+            </div>
+            <div class="number-info">
+                <h3>Beş</h3>
+                <p class="number-example">5 tane 🎈🎈🎈🎈🎈</p>
+                @if (User?.Identity?.IsAuthenticated == true)
+                {
+                    <div class="completion-badge">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                }
             </div>
         </div>
 
         <!-- 6 -->
-        <div class="col-md-3 col-sm-6">
-            <div class="card h-100 number-card" data-number="alti">
-                <div class="card-img-top text-center py-4" style="font-size: 72px; background-color: #f8f9fa;">
-                    6
-                </div>
-                <div class="card-body text-center">
-                    <h5 class="card-title">Altı</h5>
-                    <button class="btn btn-primary play-sound" onclick="playNumberSound('alti')">
-                        <i class="fas fa-volume-up"></i> Sesi Çal
+        <div class="number-card animate__animated animate__fadeInUp" data-number="alti">
+            <div class="number-display">
+                <span class="number">6</span>
+                <div class="number-overlay">
+                    <button class="sound-btn" onclick="playNumberSound('alti')">
+                        <i class="fas fa-volume-up"></i>
                     </button>
-                    @if (User.Identity?.IsAuthenticated == true)
-                    {
-                        <div class="mt-2">
-                            <i class="fas fa-check-circle text-success completion-icon" style="display: none;"></i>
-                        </div>
-                    }
                 </div>
+            </div>
+            <div class="number-info">
+                <h3>Altı</h3>
+                <p class="number-example">6 tane 🎈🎈🎈🎈🎈🎈</p>
+                @if (User?.Identity?.IsAuthenticated == true)
+                {
+                    <div class="completion-badge">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                }
             </div>
         </div>
 
         <!-- 7 -->
-        <div class="col-md-3 col-sm-6">
-            <div class="card h-100 number-card" data-number="yedi">
-                <div class="card-img-top text-center py-4" style="font-size: 72px; background-color: #f8f9fa;">
-                    7
-                </div>
-                <div class="card-body text-center">
-                    <h5 class="card-title">Yedi</h5>
-                    <button class="btn btn-primary play-sound" onclick="playNumberSound('yedi')">
-                        <i class="fas fa-volume-up"></i> Sesi Çal
+        <div class="number-card animate__animated animate__fadeInUp" data-number="yedi">
+            <div class="number-display">
+                <span class="number">7</span>
+                <div class="number-overlay">
+                    <button class="sound-btn" onclick="playNumberSound('yedi')">
+                        <i class="fas fa-volume-up"></i>
                     </button>
-                    @if (User.Identity?.IsAuthenticated == true)
-                    {
-                        <div class="mt-2">
-                            <i class="fas fa-check-circle text-success completion-icon" style="display: none;"></i>
-                        </div>
-                    }
                 </div>
+            </div>
+            <div class="number-info">
+                <h3>Yedi</h3>
+                <p class="number-example">7 tane 🎈🎈🎈🎈🎈🎈🎈</p>
+                @if (User?.Identity?.IsAuthenticated == true)
+                {
+                    <div class="completion-badge">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                }
             </div>
         </div>
 
         <!-- 8 -->
-        <div class="col-md-3 col-sm-6">
-            <div class="card h-100 number-card" data-number="sekiz">
-                <div class="card-img-top text-center py-4" style="font-size: 72px; background-color: #f8f9fa;">
-                    8
-                </div>
-                <div class="card-body text-center">
-                    <h5 class="card-title">Sekiz</h5>
-                    <button class="btn btn-primary play-sound" onclick="playNumberSound('sekiz')">
-                        <i class="fas fa-volume-up"></i> Sesi Çal
+        <div class="number-card animate__animated animate__fadeInUp" data-number="sekiz">
+            <div class="number-display">
+                <span class="number">8</span>
+                <div class="number-overlay">
+                    <button class="sound-btn" onclick="playNumberSound('sekiz')">
+                        <i class="fas fa-volume-up"></i>
                     </button>
-                    @if (User.Identity?.IsAuthenticated == true)
-                    {
-                        <div class="mt-2">
-                            <i class="fas fa-check-circle text-success completion-icon" style="display: none;"></i>
-                        </div>
-                    }
                 </div>
+            </div>
+            <div class="number-info">
+                <h3>Sekiz</h3>
+                <p class="number-example">8 tane 🎈🎈🎈🎈🎈🎈🎈🎈</p>
+                @if (User?.Identity?.IsAuthenticated == true)
+                {
+                    <div class="completion-badge">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                }
             </div>
         </div>
 
         <!-- 9 -->
-        <div class="col-md-3 col-sm-6">
-            <div class="card h-100 number-card" data-number="dokuz">
-                <div class="card-img-top text-center py-4" style="font-size: 72px; background-color: #f8f9fa;">
-                    9
-                </div>
-                <div class="card-body text-center">
-                    <h5 class="card-title">Dokuz</h5>
-                    <button class="btn btn-primary play-sound" onclick="playNumberSound('dokuz')">
-                        <i class="fas fa-volume-up"></i> Sesi Çal
+        <div class="number-card animate__animated animate__fadeInUp" data-number="dokuz">
+            <div class="number-display">
+                <span class="number">9</span>
+                <div class="number-overlay">
+                    <button class="sound-btn" onclick="playNumberSound('dokuz')">
+                        <i class="fas fa-volume-up"></i>
                     </button>
-                    @if (User.Identity?.IsAuthenticated == true)
-                    {
-                        <div class="mt-2">
-                            <i class="fas fa-check-circle text-success completion-icon" style="display: none;"></i>
-                        </div>
-                    }
                 </div>
+            </div>
+            <div class="number-info">
+                <h3>Dokuz</h3>
+                <p class="number-example">9 tane 🎈🎈🎈🎈🎈🎈🎈🎈🎈</p>
+                @if (User?.Identity?.IsAuthenticated == true)
+                {
+                    <div class="completion-badge">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                }
             </div>
         </div>
 
         <!-- 10 -->
-        <div class="col-md-3 col-sm-6">
-            <div class="card h-100 number-card" data-number="on">
-                <div class="card-img-top text-center py-4" style="font-size: 72px; background-color: #f8f9fa;">
-                    10
-                </div>
-                <div class="card-body text-center">
-                    <h5 class="card-title">On</h5>
-                    <button class="btn btn-primary play-sound" onclick="playNumberSound('on')">
-                        <i class="fas fa-volume-up"></i> Sesi Çal
+        <div class="number-card animate__animated animate__fadeInUp" data-number="on">
+            <div class="number-display">
+                <span class="number">10</span>
+                <div class="number-overlay">
+                    <button class="sound-btn" onclick="playNumberSound('on')">
+                        <i class="fas fa-volume-up"></i>
                     </button>
-                    @if (User.Identity?.IsAuthenticated == true)
-                    {
-                        <div class="mt-2">
-                            <i class="fas fa-check-circle text-success completion-icon" style="display: none;"></i>
-                        </div>
-                    }
                 </div>
+            </div>
+            <div class="number-info">
+                <h3>On</h3>
+                <p class="number-example">10 tane 🎈🎈🎈🎈🎈🎈🎈🎈🎈🎈</p>
+                @if (User?.Identity?.IsAuthenticated == true)
+                {
+                    <div class="completion-badge">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                }
             </div>
         </div>
     </div>
 </div>
 
+<style>
+    .numbers-container {
+        background: linear-gradient(135deg, #f5f0ff 0%, #f0f0ff 100%);
+        min-height: 100vh;
+        padding: 2rem;
+    }
+
+    .numbers-header {
+        margin-bottom: 3rem;
+    }
+
+    .progress-wrapper {
+        max-width: 600px;
+        margin-bottom: 2rem;
+    }
+
+    .progress {
+        border-radius: 15px;
+        background-color: #e9ecef;
+        overflow: hidden;
+    }
+
+    .progress-text {
+        font-weight: bold;
+        text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+    }
+
+    .numbers-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 2rem;
+        padding: 1rem;
+    }
+
+    .number-card {
+        background: white;
+        border-radius: 20px;
+        overflow: hidden;
+        box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        transition: all 0.3s ease;
+        position: relative;
+    }
+
+    .number-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+    }
+
+    .number-display {
+        position: relative;
+        height: 200px;
+        background: linear-gradient(45deg, #6c5ce7, #a367dc);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+    }
+
+    .number {
+        font-size: 100px;
+        color: white;
+        font-weight: bold;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    }
+
+    .number-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0,0,0,0.3);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+
+    .number-card:hover .number-overlay {
+        opacity: 1;
+    }
+
+    .sound-btn {
+        background: white;
+        border: none;
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        font-size: 24px;
+        color: #007bff;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    }
+
+    .sound-btn:hover {
+        transform: scale(1.1);
+        background: #007bff;
+        color: white;
+    }
+
+    .number-info {
+        padding: 1.5rem;
+        text-align: center;
+        position: relative;
+    }
+
+    .number-info h3 {
+        margin: 0;
+        font-size: 1.5rem;
+        color: #2c3e50;
+    }
+
+    .number-example {
+        margin: 0.5rem 0 0;
+        color: #666;
+        font-size: 1.1rem;
+    }
+
+    .completion-badge {
+        position: absolute;
+        top: -15px;
+        right: 15px;
+        color: #28a745;
+        font-size: 24px;
+        display: none;
+    }
+
+    .completion-badge.completed {
+        display: block;
+        animation: popIn 0.3s ease;
+    }
+
+    @@keyframes popIn {
+        0% { transform: scale(0); }
+        50% { transform: scale(1.2); }
+        100% { transform: scale(1); }
+    }
+
+    @@media (max-width: 768px) {
+        .numbers-grid {
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+        }
+
+        .number {
+            font-size: 80px;
+        }
+
+        .number-info h3 {
+            font-size: 1.2rem;
+        }
+
+        .number-example {
+            font-size: 1rem;
+        }
+
+        .sound-btn {
+            width: 50px;
+            height: 50px;
+            font-size: 20px;
+        }
+    }
+</style>
+
 @section Scripts {
     <script>
         // Sayı seslerini çalma ve ilerlemeyi kaydetme
         function playNumberSound(number) {
+            const card = document.querySelector(`[data-number="${number}"]`);
+            const soundBtn = card.querySelector('.sound-btn');
             const audio = new Audio(`/sounds/numbers/${number}.mp3`);
             
+            // Buton animasyonu
+            soundBtn.style.transform = 'scale(0.9)';
+            setTimeout(() => soundBtn.style.transform = 'scale(1)', 200);
+            
             audio.onended = function() {
-                // Kullanıcı giriş yapmışsa ilerlemeyi kaydet
-                if (@Json.Serialize(User.Identity?.IsAuthenticated == true)) {
+                if (@Json.Serialize(User?.Identity?.IsAuthenticated)) {
                     markAsCompleted(number);
                 }
             };
             
-            audio.play();
+            audio.play().catch(error => {
+                console.error('Ses çalınamadı:', error);
+            });
         }
 
         // Tamamlanan sayıları işaretleme
         function markAsCompleted(number) {
             const card = document.querySelector(`[data-number="${number}"]`);
-            const icon = card.querySelector('.completion-icon');
-            icon.style.display = 'inline-block';
-
-            // İlerleme durumunu sunucuya kaydet
-            saveProgress(number);
-
-            // İlerleme çubuğunu güncelle
-            updateProgress();
+            const badge = card.querySelector('.completion-badge');
+            
+            if (!badge.classList.contains('completed')) {
+                badge.classList.add('completed');
+                saveProgress(number);
+                updateProgress();
+            }
         }
 
         // İlerleme durumunu sunucuya kaydetme
@@ -319,50 +474,23 @@
 
         // İlerleme çubuğunu güncelleme
         function updateProgress() {
+            const completedBadges = document.querySelectorAll('.completion-badge.completed');
             const totalNumbers = document.querySelectorAll('.number-card').length;
-            const completedNumbers = document.querySelectorAll('.completion-icon[style="display: inline-block"]').length;
-            const progressPercentage = (completedNumbers / totalNumbers) * 100;
-
+            const progress = (completedBadges.length / totalNumbers) * 100;
+            
             const progressBar = document.getElementById('moduleProgress');
-            if (progressBar) {
-                progressBar.style.width = `${progressPercentage}%`;
-                progressBar.textContent = `${Math.round(progressPercentage)}%`;
-                progressBar.setAttribute('aria-valuenow', progressPercentage);
-            }
+            const progressText = progressBar.querySelector('.progress-text');
+            
+            progressBar.style.width = `${progress}%`;
+            progressBar.setAttribute('aria-valuenow', progress);
+            progressText.textContent = `${Math.round(progress)}%`;
         }
 
-        // Sayfa yüklendiğinde önceki ilerlemeyi yükle
+        // Sayfa yüklendiğinde mevcut ilerlemeyi göster
         document.addEventListener('DOMContentLoaded', function() {
-            if (@Json.Serialize(User.Identity?.IsAuthenticated == true)) {
-                fetch('/Education/GetProgress?moduleName=Numbers')
-                    .then(response => response.json())
-                    .then(data => {
-                        data.forEach(item => {
-                            if (item.isCompleted) {
-                                const card = document.querySelector(`[data-number="${item.itemName}"]`);
-                                if (card) {
-                                    const icon = card.querySelector('.completion-icon');
-                                    icon.style.display = 'inline-block';
-                                }
-                            }
-                        });
-                        updateProgress();
-                    });
+            if (@Json.Serialize(User?.Identity?.IsAuthenticated)) {
+                updateProgress();
             }
         });
     </script>
-}
-
-<style>
-    .btn-primary {
-        background-color: #3498db;
-        border-color: #3498db;
-        transition: all 0.3s ease;
-    }
-
-    .btn-primary:hover {
-        background-color: #2980b9;
-        border-color: #2980b9;
-        transform: translateX(-5px);
-    }
-</style> 
+} 

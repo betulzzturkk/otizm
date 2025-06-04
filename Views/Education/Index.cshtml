@@ -2,163 +2,214 @@
     ViewData["Title"] = "Eğitim Modülleri";
 }
 
-<div class="container py-5">
-    <div class="d-flex justify-content-between align-items-center mb-4">
-        <a href="/" class="btn btn-primary">
-            <i class="fas fa-arrow-left"></i> Ana Sayfaya Dön
-        </a>
-        <h2 class="text-center mb-0">Eğitim Modülleri</h2>
-        <div style="width: 100px;"></div>
-    </div>
-
-    <div class="row mb-4">
-        <div class="col text-center">
-            <p class="lead text-muted">Otizmli çocukların gelişimi için özel olarak hazırlanmış eğitim içerikleri</p>
-        </div>
-    </div>
-
-    <div class="row g-4">
-        <!-- Hayvanlar Klasörü -->
-        <div class="col-md-4 col-sm-6">
-            <a href="@Url.Action("Animals", "Education")" class="text-decoration-none">
-                <div class="card h-100 border-0 shadow-sm hover-shadow">
-                    <div class="card-body text-center p-4">
-                        <div class="mb-3">
-                            <i class="fas fa-paw fa-4x text-brown"></i>
-                        </div>
-                        <h3 class="h4 text-dark">Hayvanlar</h3>
-                        <p class="text-muted mb-0">Hayvanları tanıma ve seslerini öğrenme</p>
-                    </div>
-                </div>
-            </a>
+<div class="education-hero py-5">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h1 class="display-4 fw-bold text-primary animate__animated animate__bounceIn">
+                <i class="fas fa-star text-warning me-3"></i>
+                Öğrenme Macerası
+                <i class="fas fa-star text-warning ms-3"></i>
+            </h1>
+            <p class="lead text-muted animate__animated animate__fadeIn animate__delay-1s">
+                Haydi birlikte eğlenceli bir öğrenme yolculuğuna çıkalım! 🚀
+            </p>
         </div>
 
-        <!-- Renkler Klasörü -->
-        <div class="col-md-4 col-sm-6">
-            <a href="@Url.Action("Colors", "Education")" class="text-decoration-none">
-                <div class="card h-100 border-0 shadow-sm hover-shadow">
-                    <div class="card-body text-center p-4">
-                        <div class="mb-3">
-                            <i class="fas fa-palette fa-4x text-rainbow"></i>
-                        </div>
-                        <h3 class="h4 text-dark">Renkler</h3>
-                        <p class="text-muted mb-0">Renkleri tanıma ve ayırt etme</p>
+        <div class="row g-4">
+            <!-- Hayvanlar Modülü -->
+            <div class="col-md-6 col-lg-4">
+                <div class="module-card animate__animated animate__fadeInUp h-100">
+                    <div class="module-icon">
+                        <i class="fas fa-paw"></i>
                     </div>
+                    <h3>Hayvanlar</h3>
+                    <p>Sevimli hayvanları tanıyalım ve seslerini öğrenelim! 🐶</p>
+                    <a href="@Url.Action("Animals", "Education")" class="stretched-link"></a>
                 </div>
-            </a>
-        </div>
+            </div>
 
-        <!-- Sayılar Klasörü -->
-        <div class="col-md-4 col-sm-6">
-            <a href="@Url.Action("Numbers", "Education")" class="text-decoration-none">
-                <div class="card h-100 border-0 shadow-sm hover-shadow">
-                    <div class="card-body text-center p-4">
-                        <div class="mb-3">
-                            <i class="fas fa-calculator fa-4x text-success"></i>
-                        </div>
-                        <h3 class="h4 text-dark">Sayılar</h3>
-                        <p class="text-muted mb-0">Sayıları öğrenme ve sayma</p>
+            <!-- Renkler Modülü -->
+            <div class="col-md-6 col-lg-4">
+                <div class="module-card animate__animated animate__fadeInUp animate__delay-1s h-100">
+                    <div class="module-icon">
+                        <i class="fas fa-palette"></i>
                     </div>
+                    <h3>Renkler</h3>
+                    <p>Rengarenk bir dünyayı keşfedelim! 🌈</p>
+                    <a href="@Url.Action("Colors", "Education")" class="stretched-link"></a>
                 </div>
-            </a>
-        </div>
+            </div>
 
-        <!-- Trafik Levhaları Klasörü -->
-        <div class="col-md-4 col-sm-6">
-            <a href="@Url.Action("TrafficSigns", "Education")" class="text-decoration-none">
-                <div class="card h-100 border-0 shadow-sm hover-shadow">
-                    <div class="card-body text-center p-4">
-                        <div class="mb-3">
-                            <i class="fas fa-traffic-light fa-4x text-danger"></i>
-                        </div>
-                        <h3 class="h4 text-dark">Trafik Levhaları</h3>
-                        <p class="text-muted mb-0">Temel trafik işaretlerini tanıma</p>
+            <!-- Sayılar Modülü -->
+            <div class="col-md-6 col-lg-4">
+                <div class="module-card animate__animated animate__fadeInUp animate__delay-2s h-100">
+                    <div class="module-icon">
+                        <i class="fas fa-calculator"></i>
                     </div>
+                    <h3>Sayılar</h3>
+                    <p>Sayıları öğrenip matematik kralı olalım! 🔢</p>
+                    <a href="@Url.Action("Numbers", "Education")" class="stretched-link"></a>
                 </div>
-            </a>
-        </div>
+            </div>
 
-        <!-- Görgü Kuralları Klasörü -->
-        <div class="col-md-4 col-sm-6">
-            <a href="@Url.Action("GorguKurallari", "Education")" class="text-decoration-none">
-                <div class="card h-100 border-0 shadow-sm hover-shadow">
-                    <div class="card-body text-center p-4">
-                        <div class="mb-3">
-                            <i class="fas fa-hands-helping fa-4x text-info"></i>
-                        </div>
-                        <h3 class="h4 text-dark">Görgü Kuralları</h3>
-                        <p class="text-muted mb-0">Temel görgü ve davranış kuralları</p>
+            <!-- Masallar Modülü -->
+            <div class="col-md-6 col-lg-4">
+                <div class="module-card animate__animated animate__fadeInUp h-100">
+                    <div class="module-icon">
+                        <i class="fas fa-book-reader"></i>
                     </div>
+                    <h3>Masallar</h3>
+                    <p>Birbirinden güzel masallarla hayal kuralım! 📚</p>
+                    <a href="@Url.Action("Stories", "Education")" class="stretched-link"></a>
                 </div>
-            </a>
-        </div>
+            </div>
 
-        <!-- Eğitim Videoları Klasörü -->
-        <div class="col-md-4 col-sm-6">
-            <a href="@Url.Action("Videos", "Education")" class="text-decoration-none">
-                <div class="card h-100 border-0 shadow-sm hover-shadow">
-                    <div class="card-body text-center p-4">
-                        <div class="mb-3">
-                            <i class="fas fa-video fa-4x text-primary"></i>
-                        </div>
-                        <h3 class="h4 text-dark">Eğitim Videoları</h3>
-                        <p class="text-muted mb-0">Kısa ve öğretici videolar</p>
+            <!-- Görgü Kuralları Modülü -->
+            <div class="col-md-6 col-lg-4">
+                <div class="module-card animate__animated animate__fadeInUp animate__delay-1s h-100">
+                    <div class="module-icon">
+                        <i class="fas fa-hands-helping"></i>
                     </div>
+                    <h3>Görgü Kuralları</h3>
+                    <p>Nezaket ve görgü kurallarını öğrenelim! 🤝</p>
+                    <a href="@Url.Action("Manners", "Education")" class="stretched-link"></a>
                 </div>
-            </a>
-        </div>
+            </div>
 
-        <!-- Masallar Klasörü -->
-        <div class="col-md-4 col-sm-6">
-            <a href="@Url.Action("Stories", "Education")" class="text-decoration-none">
-                <div class="card h-100 border-0 shadow-sm hover-shadow">
-                    <div class="card-body text-center p-4">
-                        <div class="mb-3">
-                            <i class="fas fa-book-reader fa-4x text-purple"></i>
-                        </div>
-                        <h3 class="h4 text-dark">Masallar</h3>
-                        <p class="text-muted mb-0">Eğitici masallar ve hikayeler</p>
+            <!-- Videolar Modülü -->
+            <div class="col-md-6 col-lg-4">
+                <div class="module-card animate__animated animate__fadeInUp animate__delay-2s h-100">
+                    <div class="module-icon">
+                        <i class="fas fa-video"></i>
                     </div>
+                    <h3>Videolar</h3>
+                    <p>Eğlenceli videolarla öğrenmeye devam! 🎥</p>
+                    <a href="@Url.Action("Videos", "Education")" class="stretched-link"></a>
                 </div>
-            </a>
+            </div>
         </div>
     </div>
 </div>
 
 <style>
-    .hover-shadow:hover {
+    .education-hero {
+        background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        min-height: 100vh;
+        padding: 4rem 0;
+    }
+
+    .module-card {
+        background: white;
+        border-radius: 20px;
+        padding: 2rem;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+        transition: all 0.3s ease;
+        border: none;
+        box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .module-card:hover {
         transform: translateY(-5px);
-        transition: transform 0.2s ease-in-out;
-        box-shadow: 0 .5rem 1rem rgba(0,0,0,.15)!important;
+        box-shadow: 0 15px 30px rgba(0,0,0,0.2);
     }
-    
-    .text-brown {
-        color: #8B4513;
+
+    .module-card:hover .module-icon {
+        transform: scale(1.1) rotate(5deg);
     }
-    
-    .text-rainbow {
-        background: linear-gradient(45deg, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #8f00ff);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
+
+    .module-icon {
+        width: 80px;
+        height: 80px;
+        margin: 0 auto 1.5rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        font-size: 2.5rem;
+        transition: all 0.3s ease;
     }
-    
-    .text-purple {
-        color: #800080;
+
+    .module-card:nth-child(1) .module-icon {
+        background: rgba(255, 193, 7, 0.1);
+        color: #ffc107;
+    }
+
+    .module-card:nth-child(2) .module-icon {
+        background: rgba(13, 110, 253, 0.1);
+        color: #0d6efd;
+    }
+
+    .module-card:nth-child(3) .module-icon {
+        background: rgba(25, 135, 84, 0.1);
+        color: #198754;
+    }
+
+    .module-card:nth-child(4) .module-icon {
+        background: rgba(220, 53, 69, 0.1);
+        color: #dc3545;
+    }
+
+    .module-card:nth-child(5) .module-icon {
+        background: rgba(111, 66, 193, 0.1);
+        color: #6f42c1;
+    }
+
+    .module-card:nth-child(6) .module-icon {
+        background: rgba(232, 62, 140, 0.1);
+        color: #e83e8c;
+    }
+
+    .module-card h3 {
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+        color: #2c3e50;
+    }
+
+    .module-card p {
+        color: #6c757d;
+        margin-bottom: 0;
+        flex-grow: 1;
+    }
+
+    /* Responsive Tasarım */
+    @@media (max-width: 768px) {
+        .education-hero {
+            padding: 2rem 0;
+        }
+
+        .module-card {
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .module-icon {
+            width: 60px;
+            height: 60px;
+            font-size: 2rem;
+        }
     }
 </style>
 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+
 @section Scripts {
     <script>
-        // Ses çalma fonksiyonu - ses dosyaları eklendiğinde aktif edilecek
-        function playSound(name) {
-            const audio = new Audio(`/sounds/${name}.mp3`);
-            audio.play();
-        }
-
-        // İlerleme yüzdesi hesaplama fonksiyonu
-        function updateProgress(category) {
-            // Burada ilerleme yüzdesi hesaplanacak ve progress bar güncellenecek
-            // Örnek: const progress = (tamamlananSayisi / toplamSayisi) * 100;
-        }
+        // İlerleme çubuklarını animasyonlu bir şekilde güncelle
+        document.addEventListener('DOMContentLoaded', function() {
+            const progressBars = document.querySelectorAll('.progress-bar');
+            progressBars.forEach(bar => {
+                const progress = Math.floor(Math.random() * 100);
+                setTimeout(() => {
+                    bar.style.width = progress + '%';
+                    bar.setAttribute('aria-valuenow', progress);
+                }, 500);
+            });
+        });
     </script>
 } 

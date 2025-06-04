@@ -3,282 +3,391 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="container mt-4">
-    <div class="d-flex justify-content-between align-items-center mb-4">
-        <a href="/Education" class="btn btn-primary">
+<div class="colors-container">
+    <div class="colors-header text-center py-4 animate__animated animate__bounceIn">
+        <h1 class="display-4 fw-bold">
+            <i class="fas fa-palette text-primary me-3"></i>
+            Rengarenk Dünya
+            <i class="fas fa-palette text-primary ms-3"></i>
+        </h1>
+        <p class="lead">Renkleri öğrenmeye hazır mısın? 🌈</p>
+        <a href="/Education" class="btn btn-outline-primary btn-lg mt-2 rounded-pill">
             <i class="fas fa-arrow-left"></i> Geri Dön
         </a>
-        <h2 class="text-center mb-0">Renkler</h2>
-        <div style="width: 100px;"></div>
+        @await Html.PartialAsync("_LoginInfoPartial")
     </div>
 
-    @if (User.Identity?.IsAuthenticated == true)
+    @if (User?.Identity?.IsAuthenticated == true)
     {
-        <div class="row mb-4">
-            <div class="col">
-                <div class="progress" style="height: 30px;">
-                    <div class="progress-bar bg-success progress-bar-striped" id="moduleProgress" 
-                         role="progressbar" style="width: 0%;" 
-                         aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
-                        0%
-                    </div>
-                </div>
-            </div>
-        </div>
-    }
-    else
-    {
-        <div class="row mb-4">
-            <div class="col">
-                <div class="alert alert-info" role="alert">
-                    <i class="fas fa-info-circle"></i>
-                    İlerlemenizin kaydedilmesi için <a href="/Account/Login" class="alert-link">giriş yapın</a> veya 
-                    <a href="/Account/Register" class="alert-link">kayıt olun</a>.
+        <div class="progress-wrapper mx-auto mb-4 animate__animated animate__fadeIn">
+            <div class="progress" style="height: 25px;">
+                <div class="progress-bar bg-success progress-bar-striped progress-bar-animated" 
+                     id="moduleProgress" role="progressbar" style="width: 0%;" 
+                     aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+                    <span class="progress-text">0%</span>
                 </div>
             </div>
         </div>
     }
 
-    <div class="row g-4" id="colorCards">
+    <div class="colors-grid">
         <!-- Kırmızı -->
-        <div class="col-md-3 col-sm-6">
-            <div class="card h-100 color-card" data-color="kirmizi">
-                <div class="card-img-top text-center py-4" style="background-color: #dc3545;">
-                    <div style="width: 100px; height: 100px; margin: auto;"></div>
-                </div>
-                <div class="card-body text-center">
-                    <h5 class="card-title">Kırmızı</h5>
-                    <button class="btn btn-primary play-sound" onclick="playColorSound('kirmizi')">
-                        <i class="fas fa-volume-up"></i> Sesi Çal
+        <div class="color-card animate__animated animate__fadeInUp" data-color="kirmizi">
+            <div class="color-display" style="background-color: #ff4444;">
+                <div class="color-overlay">
+                    <button class="sound-btn" onclick="playColorSound('kirmizi')">
+                        <i class="fas fa-volume-up"></i>
                     </button>
-                    @if (User.Identity?.IsAuthenticated == true)
-                    {
-                        <div class="mt-2">
-                            <i class="fas fa-check-circle text-success completion-icon" style="display: none;"></i>
-                        </div>
-                    }
                 </div>
+            </div>
+            <div class="color-info">
+                <h3>Kırmızı</h3>
+                <p class="color-example">Elma gibi 🍎</p>
+                @if (User?.Identity?.IsAuthenticated == true)
+                {
+                    <div class="completion-badge">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                }
             </div>
         </div>
 
         <!-- Mavi -->
-        <div class="col-md-3 col-sm-6">
-            <div class="card h-100 color-card" data-color="mavi">
-                <div class="card-img-top text-center py-4" style="background-color: #007bff;">
-                    <div style="width: 100px; height: 100px; margin: auto;"></div>
-                </div>
-                <div class="card-body text-center">
-                    <h5 class="card-title">Mavi</h5>
-                    <button class="btn btn-primary play-sound" onclick="playColorSound('mavi')">
-                        <i class="fas fa-volume-up"></i> Sesi Çal
+        <div class="color-card animate__animated animate__fadeInUp" data-color="mavi">
+            <div class="color-display" style="background-color: #4444ff;">
+                <div class="color-overlay">
+                    <button class="sound-btn" onclick="playColorSound('mavi')">
+                        <i class="fas fa-volume-up"></i>
                     </button>
-                    @if (User.Identity?.IsAuthenticated == true)
-                    {
-                        <div class="mt-2">
-                            <i class="fas fa-check-circle text-success completion-icon" style="display: none;"></i>
-                        </div>
-                    }
                 </div>
+            </div>
+            <div class="color-info">
+                <h3>Mavi</h3>
+                <p class="color-example">Gökyüzü gibi ☁️</p>
+                @if (User?.Identity?.IsAuthenticated == true)
+                {
+                    <div class="completion-badge">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                }
             </div>
         </div>
 
         <!-- Sarı -->
-        <div class="col-md-3 col-sm-6">
-            <div class="card h-100 color-card" data-color="sari">
-                <div class="card-img-top text-center py-4" style="background-color: #ffc107;">
-                    <div style="width: 100px; height: 100px; margin: auto;"></div>
-                </div>
-                <div class="card-body text-center">
-                    <h5 class="card-title">Sarı</h5>
-                    <button class="btn btn-primary play-sound" onclick="playColorSound('sari')">
-                        <i class="fas fa-volume-up"></i> Sesi Çal
+        <div class="color-card animate__animated animate__fadeInUp" data-color="sari">
+            <div class="color-display" style="background-color: #ffff44;">
+                <div class="color-overlay">
+                    <button class="sound-btn" onclick="playColorSound('sari')">
+                        <i class="fas fa-volume-up"></i>
                     </button>
-                    @if (User.Identity?.IsAuthenticated == true)
-                    {
-                        <div class="mt-2">
-                            <i class="fas fa-check-circle text-success completion-icon" style="display: none;"></i>
-                        </div>
-                    }
                 </div>
+            </div>
+            <div class="color-info">
+                <h3>Sarı</h3>
+                <p class="color-example">Güneş gibi ☀️</p>
+                @if (User?.Identity?.IsAuthenticated == true)
+                {
+                    <div class="completion-badge">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                }
             </div>
         </div>
 
         <!-- Yeşil -->
-        <div class="col-md-3 col-sm-6">
-            <div class="card h-100 color-card" data-color="yesil">
-                <div class="card-img-top text-center py-4" style="background-color: #28a745;">
-                    <div style="width: 100px; height: 100px; margin: auto;"></div>
-                </div>
-                <div class="card-body text-center">
-                    <h5 class="card-title">Yeşil</h5>
-                    <button class="btn btn-primary play-sound" onclick="playColorSound('yesil')">
-                        <i class="fas fa-volume-up"></i> Sesi Çal
+        <div class="color-card animate__animated animate__fadeInUp" data-color="yesil">
+            <div class="color-display" style="background-color: #44ff44;">
+                <div class="color-overlay">
+                    <button class="sound-btn" onclick="playColorSound('yesil')">
+                        <i class="fas fa-volume-up"></i>
                     </button>
-                    @if (User.Identity?.IsAuthenticated == true)
-                    {
-                        <div class="mt-2">
-                            <i class="fas fa-check-circle text-success completion-icon" style="display: none;"></i>
-                        </div>
-                    }
                 </div>
             </div>
-        </div>
-
-        <!-- Beyaz -->
-        <div class="col-md-3 col-sm-6">
-            <div class="card h-100 color-card" data-color="beyaz">
-                <div class="card-img-top text-center py-4" style="background-color: #ffffff; border: 1px solid #dee2e6;">
-                    <div style="width: 100px; height: 100px; margin: auto;"></div>
-                </div>
-                <div class="card-body text-center">
-                    <h5 class="card-title">Beyaz</h5>
-                    <button class="btn btn-primary play-sound" onclick="playColorSound('beyaz')">
-                        <i class="fas fa-volume-up"></i> Sesi Çal
-                    </button>
-                    @if (User.Identity?.IsAuthenticated == true)
-                    {
-                        <div class="mt-2">
-                            <i class="fas fa-check-circle text-success completion-icon" style="display: none;"></i>
-                        </div>
-                    }
-                </div>
-            </div>
-        </div>
-
-        <!-- Siyah -->
-        <div class="col-md-3 col-sm-6">
-            <div class="card h-100 color-card" data-color="siyah">
-                <div class="card-img-top text-center py-4" style="background-color: #000000;">
-                    <div style="width: 100px; height: 100px; margin: auto;"></div>
-                </div>
-                <div class="card-body text-center">
-                    <h5 class="card-title">Siyah</h5>
-                    <button class="btn btn-primary play-sound" onclick="playColorSound('siyah')">
-                        <i class="fas fa-volume-up"></i> Sesi Çal
-                    </button>
-                    @if (User.Identity?.IsAuthenticated == true)
-                    {
-                        <div class="mt-2">
-                            <i class="fas fa-check-circle text-success completion-icon" style="display: none;"></i>
-                        </div>
-                    }
-                </div>
-            </div>
-        </div>
-
-        <!-- Mor -->
-        <div class="col-md-3 col-sm-6">
-            <div class="card h-100 color-card" data-color="mor">
-                <div class="card-img-top text-center py-4" style="background-color: #6f42c1;">
-                    <div style="width: 100px; height: 100px; margin: auto;"></div>
-                </div>
-                <div class="card-body text-center">
-                    <h5 class="card-title">Mor</h5>
-                    <button class="btn btn-primary play-sound" onclick="playColorSound('mor')">
-                        <i class="fas fa-volume-up"></i> Sesi Çal
-                    </button>
-                    @if (User.Identity?.IsAuthenticated == true)
-                    {
-                        <div class="mt-2">
-                            <i class="fas fa-check-circle text-success completion-icon" style="display: none;"></i>
-                        </div>
-                    }
-                </div>
+            <div class="color-info">
+                <h3>Yeşil</h3>
+                <p class="color-example">Ağaç gibi 🌳</p>
+                @if (User?.Identity?.IsAuthenticated == true)
+                {
+                    <div class="completion-badge">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                }
             </div>
         </div>
 
         <!-- Turuncu -->
-        <div class="col-md-3 col-sm-6">
-            <div class="card h-100 color-card" data-color="turuncu">
-                <div class="card-img-top text-center py-4" style="background-color: #fd7e14;">
-                    <div style="width: 100px; height: 100px; margin: auto;"></div>
-                </div>
-                <div class="card-body text-center">
-                    <h5 class="card-title">Turuncu</h5>
-                    <button class="btn btn-primary play-sound" onclick="playColorSound('turuncu')">
-                        <i class="fas fa-volume-up"></i> Sesi Çal
+        <div class="color-card animate__animated animate__fadeInUp" data-color="turuncu">
+            <div class="color-display" style="background-color: #ff8844;">
+                <div class="color-overlay">
+                    <button class="sound-btn" onclick="playColorSound('turuncu')">
+                        <i class="fas fa-volume-up"></i>
                     </button>
-                    @if (User.Identity?.IsAuthenticated == true)
-                    {
-                        <div class="mt-2">
-                            <i class="fas fa-check-circle text-success completion-icon" style="display: none;"></i>
-                        </div>
-                    }
                 </div>
+            </div>
+            <div class="color-info">
+                <h3>Turuncu</h3>
+                <p class="color-example">Portakal gibi 🍊</p>
+                @if (User?.Identity?.IsAuthenticated == true)
+                {
+                    <div class="completion-badge">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                }
+            </div>
+        </div>
+
+        <!-- Mor -->
+        <div class="color-card animate__animated animate__fadeInUp" data-color="mor">
+            <div class="color-display" style="background-color: #8844ff;">
+                <div class="color-overlay">
+                    <button class="sound-btn" onclick="playColorSound('mor')">
+                        <i class="fas fa-volume-up"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="color-info">
+                <h3>Mor</h3>
+                <p class="color-example">Patlıcan gibi 🍆</p>
+                @if (User?.Identity?.IsAuthenticated == true)
+                {
+                    <div class="completion-badge">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                }
             </div>
         </div>
 
         <!-- Pembe -->
-        <div class="col-md-3 col-sm-6">
-            <div class="card h-100 color-card" data-color="pembe">
-                <div class="card-img-top text-center py-4" style="background-color: #e83e8c;">
-                    <div style="width: 100px; height: 100px; margin: auto;"></div>
-                </div>
-                <div class="card-body text-center">
-                    <h5 class="card-title">Pembe</h5>
-                    <button class="btn btn-primary play-sound" onclick="playColorSound('pembe')">
-                        <i class="fas fa-volume-up"></i> Sesi Çal
+        <div class="color-card animate__animated animate__fadeInUp" data-color="pembe">
+            <div class="color-display" style="background-color: #ff44ff;">
+                <div class="color-overlay">
+                    <button class="sound-btn" onclick="playColorSound('pembe')">
+                        <i class="fas fa-volume-up"></i>
                     </button>
-                    @if (User.Identity?.IsAuthenticated == true)
-                    {
-                        <div class="mt-2">
-                            <i class="fas fa-check-circle text-success completion-icon" style="display: none;"></i>
-                        </div>
-                    }
                 </div>
+            </div>
+            <div class="color-info">
+                <h3>Pembe</h3>
+                <p class="color-example">Çiçek gibi 🌸</p>
+                @if (User?.Identity?.IsAuthenticated == true)
+                {
+                    <div class="completion-badge">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                }
             </div>
         </div>
 
         <!-- Kahverengi -->
-        <div class="col-md-3 col-sm-6">
-            <div class="card h-100 color-card" data-color="kahverengi">
-                <div class="card-img-top text-center py-4" style="background-color: #795548;">
-                    <div style="width: 100px; height: 100px; margin: auto;"></div>
-                </div>
-                <div class="card-body text-center">
-                    <h5 class="card-title">Kahverengi</h5>
-                    <button class="btn btn-primary play-sound" onclick="playColorSound('kahverengi')">
-                        <i class="fas fa-volume-up"></i> Sesi Çal
+        <div class="color-card animate__animated animate__fadeInUp" data-color="kahverengi">
+            <div class="color-display" style="background-color: #884422;">
+                <div class="color-overlay">
+                    <button class="sound-btn" onclick="playColorSound('kahverengi')">
+                        <i class="fas fa-volume-up"></i>
                     </button>
-                    @if (User.Identity?.IsAuthenticated == true)
-                    {
-                        <div class="mt-2">
-                            <i class="fas fa-check-circle text-success completion-icon" style="display: none;"></i>
-                        </div>
-                    }
                 </div>
+            </div>
+            <div class="color-info">
+                <h3>Kahverengi</h3>
+                <p class="color-example">Çikolata gibi 🍫</p>
+                @if (User?.Identity?.IsAuthenticated == true)
+                {
+                    <div class="completion-badge">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                }
             </div>
         </div>
     </div>
 </div>
 
+<style>
+    .colors-container {
+        background: linear-gradient(135deg, #fff5f5 0%, #fff0f0 100%);
+        min-height: 100vh;
+        padding: 2rem;
+    }
+
+    .colors-header {
+        margin-bottom: 3rem;
+    }
+
+    .progress-wrapper {
+        max-width: 600px;
+        margin-bottom: 2rem;
+    }
+
+    .progress {
+        border-radius: 15px;
+        background-color: #e9ecef;
+        overflow: hidden;
+    }
+
+    .progress-text {
+        font-weight: bold;
+        text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+    }
+
+    .colors-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 2rem;
+        padding: 1rem;
+    }
+
+    .color-card {
+        background: white;
+        border-radius: 20px;
+        overflow: hidden;
+        box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        transition: all 0.3s ease;
+        position: relative;
+    }
+
+    .color-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+    }
+
+    .color-display {
+        position: relative;
+        height: 200px;
+        overflow: hidden;
+    }
+
+    .color-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0,0,0,0.1);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+
+    .color-card:hover .color-overlay {
+        opacity: 1;
+    }
+
+    .sound-btn {
+        background: white;
+        border: none;
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        font-size: 24px;
+        color: #007bff;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    }
+
+    .sound-btn:hover {
+        transform: scale(1.1);
+        background: #007bff;
+        color: white;
+    }
+
+    .color-info {
+        padding: 1.5rem;
+        text-align: center;
+        position: relative;
+    }
+
+    .color-info h3 {
+        margin: 0;
+        font-size: 1.5rem;
+        color: #2c3e50;
+    }
+
+    .color-example {
+        margin: 0.5rem 0 0;
+        color: #666;
+        font-size: 1.1rem;
+    }
+
+    .completion-badge {
+        position: absolute;
+        top: -15px;
+        right: 15px;
+        color: #28a745;
+        font-size: 24px;
+        display: none;
+    }
+
+    .completion-badge.completed {
+        display: block;
+        animation: popIn 0.3s ease;
+    }
+
+    @@keyframes popIn {
+        0% { transform: scale(0); }
+        50% { transform: scale(1.2); }
+        100% { transform: scale(1); }
+    }
+
+    @@media (max-width: 768px) {
+        .colors-grid {
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .color-info h3 {
+            font-size: 1.2rem;
+        }
+
+        .color-example {
+            font-size: 1rem;
+        }
+
+        .sound-btn {
+            width: 50px;
+            height: 50px;
+            font-size: 20px;
+        }
+    }
+</style>
+
 @section Scripts {
     <script>
         // Renk seslerini çalma ve ilerlemeyi kaydetme
         function playColorSound(color) {
+            const card = document.querySelector(`[data-color="${color}"]`);
+            const soundBtn = card.querySelector('.sound-btn');
             const audio = new Audio(`/sounds/colors/${color}.mp3`);
             
+            // Buton animasyonu
+            soundBtn.style.transform = 'scale(0.9)';
+            setTimeout(() => soundBtn.style.transform = 'scale(1)', 200);
+            
             audio.onended = function() {
-                // Kullanıcı giriş yapmışsa ilerlemeyi kaydet
-                if (@Json.Serialize(User.Identity?.IsAuthenticated == true)) {
+                if (@Json.Serialize(User?.Identity?.IsAuthenticated)) {
                     markAsCompleted(color);
                 }
             };
             
-            audio.play();
+            audio.play().catch(error => {
+                console.error('Ses çalınamadı:', error);
+            });
         }
 
         // Tamamlanan renkleri işaretleme
         function markAsCompleted(color) {
             const card = document.querySelector(`[data-color="${color}"]`);
-            const icon = card.querySelector('.completion-icon');
-            icon.style.display = 'inline-block';
-
-            // İlerleme durumunu sunucuya kaydet
-            saveProgress(color);
-
-            // İlerleme çubuğunu güncelle
-            updateProgress();
+            const badge = card.querySelector('.completion-badge');
+            
+            if (!badge.classList.contains('completed')) {
+                badge.classList.add('completed');
+                saveProgress(color);
+                updateProgress();
+            }
         }
 
         // İlerleme durumunu sunucuya kaydetme
@@ -298,50 +407,23 @@
 
         // İlerleme çubuğunu güncelleme
         function updateProgress() {
+            const completedBadges = document.querySelectorAll('.completion-badge.completed');
             const totalColors = document.querySelectorAll('.color-card').length;
-            const completedColors = document.querySelectorAll('.completion-icon[style="display: inline-block"]').length;
-            const progressPercentage = (completedColors / totalColors) * 100;
-
+            const progress = (completedBadges.length / totalColors) * 100;
+            
             const progressBar = document.getElementById('moduleProgress');
-            if (progressBar) {
-                progressBar.style.width = `${progressPercentage}%`;
-                progressBar.textContent = `${Math.round(progressPercentage)}%`;
-                progressBar.setAttribute('aria-valuenow', progressPercentage);
-            }
+            const progressText = progressBar.querySelector('.progress-text');
+            
+            progressBar.style.width = `${progress}%`;
+            progressBar.setAttribute('aria-valuenow', progress);
+            progressText.textContent = `${Math.round(progress)}%`;
         }
 
-        // Sayfa yüklendiğinde önceki ilerlemeyi yükle
+        // Sayfa yüklendiğinde mevcut ilerlemeyi göster
         document.addEventListener('DOMContentLoaded', function() {
-            if (@Json.Serialize(User.Identity?.IsAuthenticated == true)) {
-                fetch('/Education/GetProgress?moduleName=Colors')
-                    .then(response => response.json())
-                    .then(data => {
-                        data.forEach(item => {
-                            if (item.isCompleted) {
-                                const card = document.querySelector(`[data-color="${item.itemName}"]`);
-                                if (card) {
-                                    const icon = card.querySelector('.completion-icon');
-                                    icon.style.display = 'inline-block';
-                                }
-                            }
-                        });
-                        updateProgress();
-                    });
+            if (@Json.Serialize(User?.Identity?.IsAuthenticated)) {
+                updateProgress();
             }
         });
     </script>
-}
-
-<style>
-    .btn-primary {
-        background-color: #3498db;
-        border-color: #3498db;
-        transition: all 0.3s ease;
-    }
-
-    .btn-primary:hover {
-        background-color: #2980b9;
-        border-color: #2980b9;
-        transform: translateX(-5px);
-    }
-</style> 
+} 

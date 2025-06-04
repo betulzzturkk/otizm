@@ -3,174 +3,506 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="container mt-4">
-    <div class="d-flex justify-content-between align-items-center mb-4">
-        <a href="/Education" class="btn btn-primary">
+<div class="manners-container">
+    <div class="manners-header text-center py-4 animate__animated animate__bounceIn">
+        <h1 class="display-4 fw-bold">
+            <i class="fas fa-hand-sparkles text-primary me-3"></i>
+            Görgü Kuralları
+            <i class="fas fa-hand-sparkles text-primary ms-3"></i>
+        </h1>
+        <p class="lead">Görgü kurallarını öğrenmeye hazır mısın? 🤝</p>
+        <a href="/Education" class="btn btn-outline-primary btn-lg mt-2 rounded-pill">
             <i class="fas fa-arrow-left"></i> Geri Dön
         </a>
-        <h2 class="text-center mb-0">Görgü Kuralları</h2>
-        <div style="width: 100px;"></div>
     </div>
-    
-    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
-        <!-- Selamlaşma -->
-        <div class="col">
-            <div class="card h-100 manner-card">
-                <div class="card-body text-center">
-                    <img src="/images/selamlasma.png" class="card-img-top manner-image mb-3" alt="Selamlaşma">
-                    <h5 class="card-title">Selamlaşma</h5>
-                    <p class="card-text">Karşılaştığımız kişilere "Merhaba", "Günaydın", "İyi günler" deriz.</p>
-                    <button class="btn btn-primary play-sound" data-sound="selamlasma">
-                        <i class="fas fa-volume-up"></i> Dinle
-                    </button>
+
+    @if (User?.Identity?.IsAuthenticated == true)
+    {
+        <div class="progress-wrapper mx-auto mb-4 animate__animated animate__fadeIn">
+            <div class="progress" style="height: 25px;">
+                <div class="progress-bar bg-success progress-bar-striped progress-bar-animated" 
+                     id="moduleProgress" role="progressbar" style="width: 0%;" 
+                     aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+                    <span class="progress-text">0%</span>
                 </div>
             </div>
         </div>
+    }
 
-        <!-- Teşekkür Etme -->
-        <div class="col">
-            <div class="card h-100 manner-card">
-                <div class="card-body text-center">
-                    <img src="/images/tesekkur.jpg" class="card-img-top manner-image mb-3" alt="Teşekkür Etme">
-                    <h5 class="card-title">Teşekkür Etme</h5>
-                    <p class="card-text">Bize yardım eden veya bir şey veren kişiye "Teşekkür ederim" deriz.</p>
-                    <button class="btn btn-primary play-sound" data-sound="tesekkur-etmek">
-                        <i class="fas fa-volume-up"></i> Dinle
+    <div class="manners-grid">
+        <!-- Dinlemek -->
+        <div class="manner-card animate__animated animate__fadeInUp" data-manner="dinlemek">
+            <div class="manner-image-wrapper">
+                <img src="~/images/dinleme.jpg" alt="Dinlemek" class="manner-image">
+                <div class="manner-overlay">
+                    <button class="sound-btn" onclick="playMannerSound('dinleme')">
+                        <i class="fas fa-volume-up"></i>
                     </button>
                 </div>
             </div>
+            <div class="manner-info">
+                <h3>Dinlemek</h3>
+                <p class="manner-description">Başkalarını dikkatle dinlemeliyiz 👂</p>
+                @if (User?.Identity?.IsAuthenticated == true)
+                {
+                    <div class="completion-badge">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                }
+            </div>
         </div>
 
-        <!-- Özür Dileme -->
-        <div class="col">
-            <div class="card h-100 manner-card">
-                <div class="card-body text-center">
-                    <img src="/images/ozur.jpg" class="card-img-top manner-image mb-3" alt="Özür Dileme">
-                    <h5 class="card-title">Özür Dileme</h5>
-                    <p class="card-text">Yanlış bir şey yaptığımızda "Özür dilerim" deriz.</p>
-                    <button class="btn btn-primary play-sound" data-sound="ozur-dileme">
-                        <i class="fas fa-volume-up"></i> Dinle
+        <!-- İzin İstemek -->
+        <div class="manner-card animate__animated animate__fadeInUp" data-manner="izin">
+            <div class="manner-image-wrapper">
+                <img src="~/images/izin.jpg" alt="İzin İstemek" class="manner-image">
+                <div class="manner-overlay">
+                    <button class="sound-btn" onclick="playMannerSound('izin')">
+                        <i class="fas fa-volume-up"></i>
                     </button>
                 </div>
+            </div>
+            <div class="manner-info">
+                <h3>İzin İstemek</h3>
+                <p class="manner-description">Bir şey yapmadan önce izin istemeliyiz 🙋</p>
+                @if (User?.Identity?.IsAuthenticated == true)
+                {
+                    <div class="completion-badge">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                }
+            </div>
+        </div>
+
+        <!-- Özür Dilemek -->
+        <div class="manner-card animate__animated animate__fadeInUp" data-manner="ozur">
+            <div class="manner-image-wrapper">
+                <img src="~/images/ozur.jpg" alt="Özür Dilemek" class="manner-image">
+                <div class="manner-overlay">
+                    <button class="sound-btn" onclick="playMannerSound('ozur')">
+                        <i class="fas fa-volume-up"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="manner-info">
+                <h3>Özür Dilemek</h3>
+                <p class="manner-description">Hata yaptığımızda özür dilemeliyiz 🙇</p>
+                @if (User?.Identity?.IsAuthenticated == true)
+                {
+                    <div class="completion-badge">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                }
+            </div>
+        </div>
+
+        <!-- Paylaşmak -->
+        <div class="manner-card animate__animated animate__fadeInUp" data-manner="paylasmak">
+            <div class="manner-image-wrapper">
+                <img src="~/images/paylasma.jpg" alt="Paylaşmak" class="manner-image">
+                <div class="manner-overlay">
+                    <button class="sound-btn" onclick="playMannerSound('paylasma')">
+                        <i class="fas fa-volume-up"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="manner-info">
+                <h3>Paylaşmak</h3>
+                <p class="manner-description">Eşyalarımızı paylaşmayı öğrenmeliyiz 🤝</p>
+                @if (User?.Identity?.IsAuthenticated == true)
+                {
+                    <div class="completion-badge">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                }
+            </div>
+        </div>
+
+        <!-- Selamlaşmak -->
+        <div class="manner-card animate__animated animate__fadeInUp" data-manner="selamlasmak">
+            <div class="manner-image-wrapper">
+                <img src="~/images/selamlasma.png" alt="Selamlaşmak" class="manner-image">
+                <div class="manner-overlay">
+                    <button class="sound-btn" onclick="playMannerSound('selamlasma')">
+                        <i class="fas fa-volume-up"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="manner-info">
+                <h3>Selamlaşmak</h3>
+                <p class="manner-description">Günaydın, merhaba demeyi unutmamalıyız 👋</p>
+                @if (User?.Identity?.IsAuthenticated == true)
+                {
+                    <div class="completion-badge">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                }
+            </div>
+        </div>
+
+        <!-- Sıra Beklemek -->
+        <div class="manner-card animate__animated animate__fadeInUp" data-manner="sira">
+            <div class="manner-image-wrapper">
+                <img src="~/images/sira.jpg" alt="Sıra Beklemek" class="manner-image">
+                <div class="manner-overlay">
+                    <button class="sound-btn" onclick="playMannerSound('sira')">
+                        <i class="fas fa-volume-up"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="manner-info">
+                <h3>Sıra Beklemek</h3>
+                <p class="manner-description">Sıramızı beklemeliyiz, acele etmemeliyiz 🚶</p>
+                @if (User?.Identity?.IsAuthenticated == true)
+                {
+                    <div class="completion-badge">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                }
             </div>
         </div>
 
         <!-- Sofra Adabı -->
-        <div class="col">
-            <div class="card h-100 manner-card">
-                <div class="card-body text-center">
-                    <img src="/images/sofra-adabi.jpg" class="card-img-top manner-image mb-3" alt="Sofra Adabı">
-                    <h5 class="card-title">Sofra Adabı</h5>
-                    <p class="card-text">Yemekten önce ellerimizi yıkar, "Afiyet olsun" deriz.</p>
-                    <button class="btn btn-primary play-sound" data-sound="sofra-adabi">
-                        <i class="fas fa-volume-up"></i> Dinle
+        <div class="manner-card animate__animated animate__fadeInUp" data-manner="sofra">
+            <div class="manner-image-wrapper">
+                <img src="~/images/sofra-adabi.jpg" alt="Sofra Adabı" class="manner-image">
+                <div class="manner-overlay">
+                    <button class="sound-btn" onclick="playMannerSound('sofra')">
+                        <i class="fas fa-volume-up"></i>
                     </button>
                 </div>
             </div>
-        </div>
-
-        <!-- Sıra Bekleme -->
-        <div class="col">
-            <div class="card h-100 manner-card">
-                <div class="card-body text-center">
-                    <img src="/images/sira.jpg" class="card-img-top manner-image mb-3" alt="Sıra Bekleme">
-                    <h5 class="card-title">Sıra Bekleme</h5>
-                    <p class="card-text">Bir yere gittiğimizde sıramızı bekleriz.</p>
-                    <button class="btn btn-primary play-sound" data-sound="sıra-bekleme">
-                        <i class="fas fa-volume-up"></i> Dinle
-                    </button>
-                </div>
+            <div class="manner-info">
+                <h3>Sofra Adabı</h3>
+                <p class="manner-description">Yemek yerken sofra kurallarına uymalıyız 🍽️</p>
+                @if (User?.Identity?.IsAuthenticated == true)
+                {
+                    <div class="completion-badge">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                }
             </div>
         </div>
 
-        <!-- Dinleme -->
-        <div class="col">
-            <div class="card h-100 manner-card">
-                <div class="card-body text-center">
-                    <img src="/images/dinleme.jpg" class="card-img-top manner-image mb-3" alt="Dinleme">
-                    <h5 class="card-title">Dinleme</h5>
-                    <p class="card-text">Başkaları konuşurken dikkatle dinleriz, sözünü kesmeyiz.</p>
-                    <button class="btn btn-primary play-sound" data-sound="dinleme">
-                        <i class="fas fa-volume-up"></i> Dinle
+        <!-- Afiyet Olsun -->
+        <div class="manner-card animate__animated animate__fadeInUp" data-manner="afiyet">
+            <div class="manner-image-wrapper">
+                <img src="~/images/afiyet.jpg" alt="Afiyet Olsun" class="manner-image">
+                <div class="manner-overlay">
+                    <button class="sound-btn" onclick="playMannerSound('afiyet')">
+                        <i class="fas fa-volume-up"></i>
                     </button>
                 </div>
             </div>
-        </div>
-
-        <!-- İzin İsteme -->
-        <div class="col">
-            <div class="card h-100 manner-card">
-                <div class="card-body text-center">
-                    <img src="/images/izin.jpg" class="card-img-top manner-image mb-3" alt="İzin İsteme">
-                    <h5 class="card-title">İzin İsteme</h5>
-                    <p class="card-text">Bir şey yapmadan önce "İzin alabilir miyim?" diye sorarız.</p>
-                    <button class="btn btn-primary play-sound" data-sound="izin-isteme">
-                        <i class="fas fa-volume-up"></i> Dinle
-                    </button>
-                </div>
+            <div class="manner-info">
+                <h3>Afiyet Olsun</h3>
+                <p class="manner-description">Yemek yerken afiyet olsun demeliyiz 🍽️</p>
+                @if (User?.Identity?.IsAuthenticated == true)
+                {
+                    <div class="completion-badge">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                }
             </div>
         </div>
 
-        <!-- Paylaşma -->
-        <div class="col">
-            <div class="card h-100 manner-card">
-                <div class="card-body text-center">
-                    <img src="/images/paylasma.jpg" class="card-img-top manner-image mb-3" alt="Paylaşma">
-                    <h5 class="card-title">Paylaşma</h5>
-                    <p class="card-text">Eşyalarımızı ve oyuncaklarımızı arkadaşlarımızla paylaşırız.</p>
-                    <button class="btn btn-primary play-sound" data-sound="paylasma">
-                        <i class="fas fa-volume-up"></i> Dinle
+        <!-- Teşekkür Etmek -->
+        <div class="manner-card animate__animated animate__fadeInUp" data-manner="tesekkur">
+            <div class="manner-image-wrapper">
+                <img src="~/images/tesekkur.jpg" alt="Teşekkür Etmek" class="manner-image">
+                <div class="manner-overlay">
+                    <button class="sound-btn" onclick="playMannerSound('tesekkur')">
+                        <i class="fas fa-volume-up"></i>
                     </button>
                 </div>
+            </div>
+            <div class="manner-info">
+                <h3>Teşekkür Etmek</h3>
+                <p class="manner-description">Bize yardım edenlere teşekkür etmeliyiz 🙏</p>
+                @if (User?.Identity?.IsAuthenticated == true)
+                {
+                    <div class="completion-badge">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                }
             </div>
         </div>
     </div>
 </div>
 
 <style>
+    .manners-container {
+        background: linear-gradient(135deg, #fff5f5 0%, #ffe8e8 100%);
+        min-height: 100vh;
+        padding: 2rem;
+    }
+
+    .manners-header {
+        margin-bottom: 3rem;
+    }
+
+    .progress-wrapper {
+        max-width: 600px;
+        margin-bottom: 2rem;
+    }
+
+    .progress {
+        border-radius: 15px;
+        background-color: #e9ecef;
+        overflow: hidden;
+    }
+
+    .progress-text {
+        font-weight: bold;
+        text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+    }
+
+    .manners-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 2rem;
+        padding: 1rem;
+    }
+
     .manner-card {
-        transition: transform 0.3s ease;
-        cursor: pointer;
+        background: white;
+        border-radius: 20px;
+        overflow: hidden;
+        box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        transition: all 0.3s ease;
+        position: relative;
     }
 
     .manner-card:hover {
-        transform: scale(1.05);
+        transform: translateY(-10px);
+        box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+    }
+
+    .manner-image-wrapper {
+        position: relative;
+        padding-top: 75%;
+        overflow: hidden;
     }
 
     .manner-image {
-        max-height: 200px;
-        object-fit: cover;
-        border-radius: 8px;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        padding: 1rem;
+        transition: transform 0.3s ease;
     }
 
-    .card {
+    .manner-card:hover .manner-image {
+        transform: scale(1.1);
+    }
+
+    .manner-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0,0,0,0.1);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+
+    .manner-card:hover .manner-overlay {
+        opacity: 1;
+    }
+
+    .sound-btn {
+        background: white;
+        border: none;
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        font-size: 24px;
+        color: #007bff;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    }
+
+    .sound-btn:hover {
+        transform: scale(1.1);
+        background: #007bff;
+        color: white;
+    }
+
+    .manner-info {
+        padding: 1.5rem;
+        text-align: center;
+        position: relative;
+    }
+
+    .manner-info h3 {
+        margin: 0;
+        font-size: 1.5rem;
+        color: #2c3e50;
+    }
+
+    .manner-description {
+        margin: 0.5rem 0 0;
+        color: #666;
+        font-size: 1.1rem;
+    }
+
+    .completion-badge {
+        position: absolute;
+        top: -15px;
+        right: 15px;
+        color: #28a745;
+        font-size: 24px;
+        display: none;
+    }
+
+    .completion-badge.completed {
+        display: block;
+        animation: popIn 0.3s ease;
+    }
+
+    @@keyframes popIn {
+        0% { transform: scale(0); }
+        50% { transform: scale(1.2); }
+        100% { transform: scale(1); }
+    }
+
+    @@media (max-width: 768px) {
+        .manners-grid {
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .manner-info h3 {
+            font-size: 1.2rem;
+        }
+
+        .manner-description {
+            font-size: 1rem;
+        }
+
+        .sound-btn {
+            width: 50px;
+            height: 50px;
+            font-size: 20px;
+        }
+    }
+
+    .login-alert {
+        max-width: 500px;
+        margin-left: auto;
+        margin-right: auto;
+        background-color: rgba(255, 255, 255, 0.95);
+        border: 2px solid #17a2b8;
         border-radius: 15px;
-        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     }
 
-    .btn-primary {
-        background-color: #3498db;
-        border-color: #3498db;
+    .login-alert .btn {
+        padding: 8px 20px;
+        border-radius: 25px;
+        font-weight: 500;
         transition: all 0.3s ease;
     }
 
-    .btn-primary:hover {
-        background-color: #2980b9;
-        border-color: #2980b9;
-        transform: translateX(-5px);
+    .login-alert .btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     }
 </style>
 
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const buttons = document.querySelectorAll('.play-sound');
-        
-        buttons.forEach(button => {
-            button.addEventListener('click', function() {
-                const soundName = this.getAttribute('data-sound');
-                const audio = new Audio(`/sounds/gorgu/${soundName}.mp3`);
-                audio.play();
+@section Scripts {
+    <script>
+        // Görgü kuralları seslerini çalma ve ilerlemeyi kaydetme
+        function playMannerSound(manner) {
+            const soundMap = {
+                'dinleme': 'dinleme.mp3',
+                'izin': 'izin-isteme.mp3',
+                'ozur': 'ozur-dileme.mp3',
+                'paylasma': 'paylasma.mp3',
+                'selamlasma': 'selamlasma.mp3',
+                'sira': 'sıra-bekleme.mp3',
+                'sofra': 'sofra-adabi.mp3',
+                'tesekkur': 'tesekkur-etmek.mp3'
+            };
+
+            const card = document.querySelector(`[data-manner="${manner}"]`);
+            const soundBtn = card.querySelector('.sound-btn');
+            const soundFile = soundMap[manner] || `${manner}.mp3`;
+            const audio = new Audio(`/sounds/gorgu/${soundFile}`);
+            
+            // Buton animasyonu
+            soundBtn.style.transform = 'scale(0.9)';
+            setTimeout(() => soundBtn.style.transform = 'scale(1)', 200);
+            
+            audio.onended = function() {
+                if (@Json.Serialize(User?.Identity?.IsAuthenticated)) {
+                    markAsCompleted(manner);
+                }
+            };
+            
+            audio.play().catch(error => {
+                console.error('Ses çalınamadı:', error);
+                alert('Ses dosyası yüklenirken bir hata oluştu. Lütfen tekrar deneyin.');
             });
+        }
+
+        // Tamamlanan kuralları işaretleme
+        function markAsCompleted(manner) {
+            const card = document.querySelector(`[data-manner="${manner}"]`);
+            const badge = card.querySelector('.completion-badge');
+            
+            if (!badge.classList.contains('completed')) {
+                badge.classList.add('completed');
+                saveProgress(manner);
+                updateProgress();
+            }
+        }
+
+        // İlerleme durumunu sunucuya kaydetme
+        function saveProgress(manner) {
+            fetch('/Education/SaveProgress', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    moduleName: 'Manners',
+                    itemName: manner,
+                    isCompleted: true
+                })
+            });
+        }
+
+        // İlerleme çubuğunu güncelleme
+        function updateProgress() {
+            const completedBadges = document.querySelectorAll('.completion-badge.completed');
+            const totalManners = document.querySelectorAll('.manner-card').length;
+            const progress = (completedBadges.length / totalManners) * 100;
+            
+            const progressBar = document.getElementById('moduleProgress');
+            const progressText = progressBar.querySelector('.progress-text');
+            
+            progressBar.style.width = `${progress}%`;
+            progressBar.setAttribute('aria-valuenow', progress);
+            progressText.textContent = `${Math.round(progress)}%`;
+        }
+
+        // Sayfa yüklendiğinde mevcut ilerlemeyi göster
+        document.addEventListener('DOMContentLoaded', function() {
+            if (@Json.Serialize(User?.Identity?.IsAuthenticated)) {
+                updateProgress();
+            }
         });
-    });
-</script> 
+    </script>
+} 

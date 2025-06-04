@@ -1,265 +1,382 @@
 @{
-    ViewData["Title"] = "Masallar";
+    ViewData["Title"] = "Hikayeler";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="container mt-4">
-    <div class="d-flex justify-content-between align-items-center mb-4">
-        <a href="/Education" class="btn btn-primary">
+<div class="stories-container">
+    <div class="stories-header text-center py-4 animate__animated animate__bounceIn">
+        <h1 class="display-4 fw-bold">
+            <i class="fas fa-book-open text-primary me-3"></i>
+            Hikayeler Dünyası
+            <i class="fas fa-book-open text-primary ms-3"></i>
+        </h1>
+        <p class="lead">Birbirinden güzel hikayeleri dinlemeye hazır mısın? 📚</p>
+        <a href="/Education" class="btn btn-outline-primary btn-lg mt-2 rounded-pill">
             <i class="fas fa-arrow-left"></i> Geri Dön
         </a>
-        <h2 class="text-center mb-0">Masallar</h2>
-        <div style="width: 100px;"></div> <!-- Başlığı ortalamak için boş div -->
+        @await Html.PartialAsync("_LoginInfoPartial")
     </div>
-    
-    <div class="row g-4">
-        <!-- Pamuk Prenses ve Yedi Cüceler -->
-        <div class="col-12">
-            <div class="card story-card">
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-md-8">
-                            <div class="embed-responsive embed-responsive-16by9">
-                                <iframe class="embed-responsive-item w-100" style="height: 400px;"
-                                    src="https://www.youtube.com/embed/XCtzC66zJyo"
-                                    title="Pamuk Prenses ve Yedi Cüceler"
-                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                    allowfullscreen></iframe>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <h4 class="card-title">Pamuk Prenses ve Yedi Cüceler</h4>
-                            <p class="card-text">Güzel prenses ve yedi cüce arkadaşının unutulmaz hikayesi.</p>
-                            @if (User?.Identity?.IsAuthenticated == true)
-                            {
-                                <div class="form-check mt-3">
-                                    <input class="form-check-input progress-check" type="checkbox" 
-                                           data-module="Stories" data-item="PamukPrenses" id="progressPamukPrenses">
-                                    <label class="form-check-label" for="progressPamukPrenses">
-                                        Masalı dinledim
-                                    </label>
-                                </div>
-                            }
-                        </div>
-                    </div>
+
+    @if (User?.Identity?.IsAuthenticated == true)
+    {
+        <div class="progress-wrapper mx-auto mb-4 animate__animated animate__fadeIn">
+            <div class="progress" style="height: 25px;">
+                <div class="progress-bar bg-success progress-bar-striped progress-bar-animated" 
+                     id="moduleProgress" role="progressbar" style="width: 0%;" 
+                     aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+                    <span class="progress-text">0%</span>
                 </div>
+            </div>
+        </div>
+    }
+
+    <div class="stories-grid">
+        <!-- Kırmızı Başlıklı Kız -->
+        <div class="story-card animate__animated animate__fadeInUp" data-story="kirmizi-baslikli-kiz">
+            <div class="story-video-wrapper">
+                <iframe class="story-video" 
+                    src="https://www.youtube.com/embed/XCtzC66zJyo"
+                    title="Kırmızı Başlıklı Kız"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen></iframe>
+            </div>
+            <div class="story-info">
+                <h3>Kırmızı Başlıklı Kız</h3>
+                <p class="story-description">Büyükannesini ziyarete giden küçük kız 👧</p>
+                @if (User?.Identity?.IsAuthenticated == true)
+                {
+                    <div class="completion-badge">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                }
+            </div>
+        </div>
+
+        <!-- Bremen Mızıkacıları -->
+        <div class="story-card animate__animated animate__fadeInUp" data-story="bremen-mizikacilari">
+            <div class="story-video-wrapper">
+                <iframe class="story-video"
+                    src="https://www.youtube.com/embed/NCQpBenrhJk"
+                    title="Bremen Mızıkacıları"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen></iframe>
+            </div>
+            <div class="story-info">
+                <h3>Bremen Mızıkacıları</h3>
+                <p class="story-description">Müzisyen hayvanların dostluk hikayesi 🎵</p>
+                @if (User?.Identity?.IsAuthenticated == true)
+                {
+                    <div class="completion-badge">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                }
+            </div>
+        </div>
+
+        <!-- Çirkin Ördek Yavrusu -->
+        <div class="story-card animate__animated animate__fadeInUp" data-story="cirkin-ordek">
+            <div class="story-video-wrapper">
+                <iframe class="story-video"
+                    src="https://www.youtube.com/embed/OtAhcLHMvw0"
+                    title="Çirkin Ördek Yavrusu"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen></iframe>
+            </div>
+            <div class="story-info">
+                <h3>Çirkin Ördek Yavrusu</h3>
+                <p class="story-description">Güzel bir kuğuya dönüşen ördek 🦢</p>
+                @if (User?.Identity?.IsAuthenticated == true)
+                {
+                    <div class="completion-badge">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                }
+            </div>
+        </div>
+
+        <!-- Pinokyo -->
+        <div class="story-card animate__animated animate__fadeInUp" data-story="pinokyo">
+            <div class="story-video-wrapper">
+                <iframe class="story-video"
+                    src="https://www.youtube.com/embed/dJMn3kwCYtc"
+                    title="Pinokyo"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen></iframe>
+            </div>
+            <div class="story-info">
+                <h3>Pinokyo</h3>
+                <p class="story-description">Gerçek bir çocuk olmak isteyen kukla 🤥</p>
+                @if (User?.Identity?.IsAuthenticated == true)
+                {
+                    <div class="completion-badge">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                }
             </div>
         </div>
 
         <!-- Uyuyan Güzel -->
-        <div class="col-12">
-            <div class="card story-card">
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-md-8">
-                            <div class="embed-responsive embed-responsive-16by9">
-                                <iframe class="embed-responsive-item w-100" style="height: 400px;"
-                                    src="https://www.youtube.com/embed/NCQpBenrhJk"
-                                    title="Uyuyan Güzel"
-                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                    allowfullscreen></iframe>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <h4 class="card-title">Uyuyan Güzel</h4>
-                            <p class="card-text">Prenses Aurora'nın büyülü uykudan uyanış hikayesi.</p>
-                            @if (User?.Identity?.IsAuthenticated == true)
-                            {
-                                <div class="form-check mt-3">
-                                    <input class="form-check-input progress-check" type="checkbox" 
-                                           data-module="Stories" data-item="UyuyanGuzel" id="progressUyuyanGuzel">
-                                    <label class="form-check-label" for="progressUyuyanGuzel">
-                                        Masalı dinledim
-                                    </label>
-                                </div>
-                            }
-                        </div>
+        <div class="story-card animate__animated animate__fadeInUp" data-story="uyuyan-guzel">
+            <div class="story-video-wrapper">
+                <iframe class="story-video"
+                    src="https://www.youtube.com/embed/qaNZkV8d0xs"
+                    title="Uyuyan Güzel"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen></iframe>
+            </div>
+            <div class="story-info">
+                <h3>Uyuyan Güzel</h3>
+                <p class="story-description">Uzun uykusundan uyanan prenses 👸</p>
+                @if (User?.Identity?.IsAuthenticated == true)
+                {
+                    <div class="completion-badge">
+                        <i class="fas fa-check-circle"></i>
                     </div>
-                </div>
+                }
             </div>
         </div>
 
-        <!-- Tavşan ve Kaplumbağa Masalı -->
-        <div class="col-12">
-            <div class="card story-card">
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-md-8">
-                            <div class="embed-responsive embed-responsive-16by9">
-                                <iframe class="embed-responsive-item w-100" style="height: 400px;"
-                                    src="https://www.youtube.com/embed/OtAhcLHMvw0"
-                                    title="Tavşan ve Kaplumbağa Masalı"
-                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                    allowfullscreen></iframe>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <h4 class="card-title">Tavşan ve Kaplumbağa Masalı</h4>
-                            <p class="card-text">Azmin ve kararlılığın zaferi anlatan eğlenceli bir masal.</p>
-                            @if (User?.Identity?.IsAuthenticated == true)
-                            {
-                                <div class="form-check mt-3">
-                                    <input class="form-check-input progress-check" type="checkbox" 
-                                           data-module="Stories" data-item="TavsanKaplumbaga" id="progressTavsanKaplumbaga">
-                                    <label class="form-check-label" for="progressTavsanKaplumbaga">
-                                        Masalı dinledim
-                                    </label>
-                                </div>
-                            }
-                        </div>
-                    </div>
-                </div>
+        <!-- Hansel ve Gretel -->
+        <div class="story-card animate__animated animate__fadeInUp" data-story="hansel-gretel">
+            <div class="story-video-wrapper">
+                <iframe class="story-video"
+                    src="https://www.youtube.com/embed/XCtzC66zJyo"
+                    title="Hansel ve Gretel"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen></iframe>
             </div>
-        </div>
-
-        <!-- Kısa Boylu Zürafa -->
-        <div class="col-12">
-            <div class="card story-card">
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-md-8">
-                            <div class="embed-responsive embed-responsive-16by9">
-                                <iframe class="embed-responsive-item w-100" style="height: 400px;"
-                                    src="https://www.youtube.com/embed/dJMn3kwCYtc"
-                                    title="Kısa Boylu Zürafa"
-                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                    allowfullscreen></iframe>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <h4 class="card-title">Kısa Boylu Zürafa</h4>
-                            <p class="card-text">Kendini olduğu gibi kabul etmenin önemini anlatan sevimli bir hikaye.</p>
-                            @if (User?.Identity?.IsAuthenticated == true)
-                            {
-                                <div class="form-check mt-3">
-                                    <input class="form-check-input progress-check" type="checkbox" 
-                                           data-module="Stories" data-item="KisaBoyluZurafa" id="progressKisaBoyluZurafa">
-                                    <label class="form-check-label" for="progressKisaBoyluZurafa">
-                                        Masalı dinledim
-                                    </label>
-                                </div>
-                            }
-                        </div>
+            <div class="story-info">
+                <h3>Hansel ve Gretel</h3>
+                <p class="story-description">Şeker evini bulan kardeşler 🏠</p>
+                @if (User?.Identity?.IsAuthenticated == true)
+                {
+                    <div class="completion-badge">
+                        <i class="fas fa-check-circle"></i>
                     </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- İnatçı Yavru Fil -->
-        <div class="col-12">
-            <div class="card story-card">
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-md-8">
-                            <div class="embed-responsive embed-responsive-16by9">
-                                <iframe class="embed-responsive-item w-100" style="height: 400px;"
-                                    src="https://www.youtube.com/embed/qaNZkV8d0xs"
-                                    title="İnatçı Yavru Fil"
-                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                    allowfullscreen></iframe>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <h4 class="card-title">İnatçı Yavru Fil</h4>
-                            <p class="card-text">Dinlemenin ve öğüt almanın önemini anlatan sevimli bir fil hikayesi.</p>
-                            @if (User?.Identity?.IsAuthenticated == true)
-                            {
-                                <div class="form-check mt-3">
-                                    <input class="form-check-input progress-check" type="checkbox" 
-                                           data-module="Stories" data-item="InatciYavruFil" id="progressInatciYavruFil">
-                                    <label class="form-check-label" for="progressInatciYavruFil">
-                                        Masalı dinledim
-                                    </label>
-                                </div>
-                            }
-                        </div>
-                    </div>
-                </div>
+                }
             </div>
         </div>
     </div>
 </div>
 
 <style>
-    .story-card {
-        transition: transform 0.3s ease;
+    .stories-container {
+        background: linear-gradient(135deg, #fff8e1 0%, #ffe0b2 100%);
+        min-height: 100vh;
+        padding: 2rem;
+    }
+
+    .stories-header {
+        margin-bottom: 3rem;
+    }
+
+    .progress-wrapper {
+        max-width: 600px;
         margin-bottom: 2rem;
+    }
+
+    .progress {
         border-radius: 15px;
-        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        background-color: #e9ecef;
+        overflow: hidden;
+    }
+
+    .progress-text {
+        font-weight: bold;
+        text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+    }
+
+    .stories-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+        padding: 1rem;
+    }
+
+    .story-card {
+        background: white;
+        border-radius: 20px;
+        overflow: hidden;
+        box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        transition: all 0.3s ease;
+        position: relative;
     }
 
     .story-card:hover {
-        transform: translateY(-5px);
+        transform: translateY(-10px);
+        box-shadow: 0 15px 30px rgba(0,0,0,0.2);
     }
 
-    .card-title {
-        color: #2c3e50;
-        margin-bottom: 1rem;
+    .story-video-wrapper {
+        position: relative;
+        padding-top: 56.25%; /* 16:9 Aspect Ratio */
+        overflow: hidden;
     }
 
-    .card-text {
-        color: #34495e;
+    .story-video {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border: none;
     }
 
-    .form-check-input:checked {
-        background-color: #28a745;
-        border-color: #28a745;
+    .story-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0,0,0,0.3);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        opacity: 0;
+        transition: opacity 0.3s ease;
     }
 
-    .btn-primary {
-        background-color: #3498db;
-        border-color: #3498db;
+    .story-card:hover .story-overlay {
+        opacity: 1;
+    }
+
+    .sound-btn {
+        background: white;
+        border: none;
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        font-size: 24px;
+        color: #007bff;
+        cursor: pointer;
         transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.2);
     }
 
-    .btn-primary:hover {
-        background-color: #2980b9;
-        border-color: #2980b9;
-        transform: translateX(-5px);
+    .sound-btn:hover {
+        transform: scale(1.1);
+        background: #007bff;
+        color: white;
+    }
+
+    .story-info {
+        padding: 1.5rem;
+        text-align: center;
+        position: relative;
+    }
+
+    .story-info h3 {
+        margin: 0;
+        font-size: 1.5rem;
+        color: #2c3e50;
+    }
+
+    .story-description {
+        margin: 0.5rem 0 0;
+        color: #666;
+        font-size: 1.1rem;
+    }
+
+    .completion-badge {
+        position: absolute;
+        top: -15px;
+        right: 15px;
+        color: #28a745;
+        font-size: 24px;
+        display: none;
+    }
+
+    .completion-badge.completed {
+        display: block;
+        animation: popIn 0.3s ease;
+    }
+
+    @@keyframes popIn {
+        0% { transform: scale(0); }
+        50% { transform: scale(1.2); }
+        100% { transform: scale(1); }
+    }
+
+    @@media (max-width: 768px) {
+        .stories-grid {
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+        }
+
+        .story-info h3 {
+            font-size: 1.2rem;
+        }
+
+        .story-description {
+            font-size: 1rem;
+        }
+
+        .sound-btn {
+            width: 50px;
+            height: 50px;
+            font-size: 20px;
+        }
     }
 </style>
 
 @section Scripts {
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // İlerleme durumunu yükle
-            if (document.querySelector('.progress-check')) {
-                loadProgress();
+        // Video izleme durumunu takip etme
+        function onVideoEnd(story) {
+            if (@Json.Serialize(User?.Identity?.IsAuthenticated)) {
+                markAsCompleted(story);
             }
-
-            // İlerleme checkbox'larına event listener ekle
-            document.querySelectorAll('.progress-check').forEach(checkbox => {
-                checkbox.addEventListener('change', function() {
-                    saveProgress(this.dataset.module, this.dataset.item, this.checked);
-                });
-            });
-        });
-
-        function loadProgress() {
-            fetch('/Education/GetProgress?moduleName=Stories')
-                .then(response => response.json())
-                .then(data => {
-                    data.forEach(item => {
-                        const checkbox = document.querySelector(`[data-module="Stories"][data-item="${item.itemName}"]`);
-                        if (checkbox) {
-                            checkbox.checked = item.isCompleted;
-                        }
-                    });
-                });
         }
 
-        function saveProgress(moduleName, itemName, isCompleted) {
+        // Tamamlanan hikayeleri işaretleme
+        function markAsCompleted(story) {
+            const card = document.querySelector(`[data-story="${story}"]`);
+            const badge = card.querySelector('.completion-badge');
+            
+            if (!badge.classList.contains('completed')) {
+                badge.classList.add('completed');
+                saveProgress(story);
+                updateProgress();
+            }
+        }
+
+        // İlerleme durumunu sunucuya kaydetme
+        function saveProgress(story) {
             fetch('/Education/SaveProgress', {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    moduleName: moduleName,
-                    itemName: itemName,
-                    isCompleted: isCompleted
+                    moduleName: 'Stories',
+                    itemName: story,
+                    isCompleted: true
                 })
             });
         }
+
+        // İlerleme çubuğunu güncelleme
+        function updateProgress() {
+            const completedBadges = document.querySelectorAll('.completion-badge.completed');
+            const totalStories = document.querySelectorAll('.story-card').length;
+            const progress = (completedBadges.length / totalStories) * 100;
+            
+            const progressBar = document.getElementById('moduleProgress');
+            const progressText = progressBar.querySelector('.progress-text');
+            
+            progressBar.style.width = `${progress}%`;
+            progressBar.setAttribute('aria-valuenow', progress);
+            progressText.textContent = `${Math.round(progress)}%`;
+        }
+
+        // Sayfa yüklendiğinde mevcut ilerlemeyi göster
+        document.addEventListener('DOMContentLoaded', function() {
+            if (@Json.Serialize(User?.Identity?.IsAuthenticated)) {
+                updateProgress();
+            }
+        });
     </script>
 } 
