@@ -1,88 +1,40 @@
-@model AutismEducationPlatform.Models.Kullanici
+@model AutismEducationPlatform.Models.User
+
 @{
     ViewData["Title"] = "Öğrenci Detay";
+    Layout = "_EgitmenLayout";
 }
 
-<div class="container mt-4">
+<div class="container-fluid">
     <div class="row">
-        <!-- Sol Menü -->
-        <div class="col-md-3">
-            <div class="card shadow-sm">
-                <div class="card-body">
-                    <h5 class="card-title">@ViewBag.EgitmenAdi</h5>
-                    <hr>
-                    <div class="list-group list-group-flush">
-                        <a href="@Url.Action("Panel", "Egitmen")" class="list-group-item list-group-item-action">
-                            <i class="fas fa-users me-2"></i>Öğrenciler
-                        </a>
-                        <a href="@Url.Action("EgitimIcerikleri", "Egitmen")" class="list-group-item list-group-item-action">
-                            <i class="fas fa-book me-2"></i>Eğitim İçerikleri
-                        </a>
-                        <a href="@Url.Action("Cikis", "Kullanici")" class="list-group-item list-group-item-action text-danger">
-                            <i class="fas fa-sign-out-alt me-2"></i>Çıkış Yap
-                        </a>
-                    </div>
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Öğrenci Bilgileri</h3>
                 </div>
-            </div>
-        </div>
-
-        <!-- Ana İçerik -->
-        <div class="col-md-9">
-            <div class="card shadow-sm">
                 <div class="card-body">
-                    <div class="d-flex justify-content-between align-items-center mb-4">
-                        <h4 class="card-title mb-0">Öğrenci Bilgileri</h4>
-                        <a href="@Url.Action("Panel", "Egitmen")" class="btn btn-outline-secondary">
-                            <i class="fas fa-arrow-left me-1"></i>Geri Dön
-                        </a>
-                    </div>
+                    <dl class="row">
+                        <dt class="col-sm-2">@Html.DisplayNameFor(model => model.FirstName)</dt>
+                        <dd class="col-sm-10">@Html.DisplayFor(model => model.FirstName)</dd>
 
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="mb-3">
-                                <label class="form-label text-muted">Ad Soyad</label>
-                                <p class="form-control-plaintext">@Model.Ad @Model.Soyad</p>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="mb-3">
-                                <label class="form-label text-muted">E-posta</label>
-                                <p class="form-control-plaintext">@Model.Email</p>
-                            </div>
-                        </div>
-                    </div>
+                        <dt class="col-sm-2">@Html.DisplayNameFor(model => model.LastName)</dt>
+                        <dd class="col-sm-10">@Html.DisplayFor(model => model.LastName)</dd>
 
-                    <hr>
+                        <dt class="col-sm-2">@Html.DisplayNameFor(model => model.Email)</dt>
+                        <dd class="col-sm-10">@Html.DisplayFor(model => model.Email)</dd>
 
-                    <h5 class="mb-3">İlerleme Raporları</h5>
-                    <div class="table-responsive">
-                        <table class="table table-hover">
-                            <thead>
-                                <tr>
-                                    <th>Tarih</th>
-                                    <th>Rapor</th>
-                                    <th>Eğitmen</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <!-- TODO: İlerleme raporları burada listelenecek -->
-                                <tr>
-                                    <td colspan="3" class="text-center text-muted">
-                                        Henüz ilerleme raporu eklenmemiş
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
+                        <dt class="col-sm-2">@Html.DisplayNameFor(model => model.PhoneNumber)</dt>
+                        <dd class="col-sm-10">@Html.DisplayFor(model => model.PhoneNumber)</dd>
 
-                    <button type="button" 
-                            class="btn btn-primary mt-3" 
-                            data-bs-toggle="modal" 
-                            data-bs-target="#raporModal"
-                            data-ogrenci-id="@Model.Id"
-                            data-ogrenci-ad="@Model.Ad @Model.Soyad">
-                        <i class="fas fa-plus me-1"></i>Yeni Rapor Ekle
-                    </button>
+                        <dt class="col-sm-2">@Html.DisplayNameFor(model => model.Address)</dt>
+                        <dd class="col-sm-10">@Html.DisplayFor(model => model.Address)</dd>
+
+                        <dt class="col-sm-2">@Html.DisplayNameFor(model => model.CreatedAt)</dt>
+                        <dd class="col-sm-10">@Html.DisplayFor(model => model.CreatedAt)</dd>
+
+                        <dt class="col-sm-2">@Html.DisplayNameFor(model => model.LastLoginAt)</dt>
+                        <dd class="col-sm-10">@Html.DisplayFor(model => model.LastLoginAt)</dd>
+                    </dl>
                 </div>
             </div>
         </div>

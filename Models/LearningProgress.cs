@@ -9,13 +9,33 @@ namespace AutismEducationPlatform.Models
         [Key]
         public int Id { get; set; }
 
-        [Required]
+        [Display(Name = "Tamamlanan İçerik Sayısı")]
+        public int CompletedContentCount { get; set; }
+
+        [Display(Name = "Toplam İçerik Sayısı")]
+        public int TotalContentCount { get; set; }
+
+        [Display(Name = "İlerleme Yüzdesi")]
+        [Column(TypeName = "decimal(5,2)")]
+        public decimal ProgressPercentage { get; set; }
+
+        [Display(Name = "Son Erişim")]
+        public DateTime LastAccessDate { get; set; }
+
+        [Display(Name = "Aktif")]
+        public bool IsActive { get; set; } = true;
+
+        [Display(Name = "Kayıt Tarihi")]
+        public DateTime CreatedAt { get; set; } = DateTime.Now;
+
+        [Display(Name = "Son Güncelleme")]
+        public DateTime? LastUpdatedAt { get; set; }
+
         public int ChildId { get; set; }
 
         [ForeignKey("ChildId")]
         public Child Child { get; set; } = null!;
 
-        [Required]
         public int ModuleId { get; set; }
 
         [ForeignKey("ModuleId")]
@@ -24,18 +44,6 @@ namespace AutismEducationPlatform.Models
         public string ModuleName { get; set; } = string.Empty;
 
         public string ItemName { get; set; } = string.Empty;
-
-        public bool IsCompleted { get; set; }
-
-        public int CompletedContentCount { get; set; }
-
-        public int TotalContentCount { get; set; }
-
-        public decimal ProgressPercentage { get; set; }
-
-        public DateTime LastAccessDate { get; set; }
-
-        public DateTime CreatedAt { get; set; }
 
         public string Notes { get; set; } = string.Empty;
     }

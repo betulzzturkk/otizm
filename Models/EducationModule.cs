@@ -1,10 +1,11 @@
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace AutismEducationPlatform.Models
 {
-    public class ModuleContent
+    public class EducationModule
     {
         [Key]
         public int Id { get; set; }
@@ -15,12 +16,6 @@ namespace AutismEducationPlatform.Models
 
         [Display(Name = "Açıklama")]
         public string? Description { get; set; }
-
-        [Display(Name = "İçerik Tipi")]
-        public string ContentType { get; set; } = string.Empty;
-
-        [Display(Name = "İçerik URL")]
-        public string? ContentUrl { get; set; }
 
         [Display(Name = "Sıra No")]
         public int OrderNumber { get; set; }
@@ -34,9 +29,12 @@ namespace AutismEducationPlatform.Models
         [Display(Name = "Son Güncelleme")]
         public DateTime? LastUpdatedAt { get; set; }
 
-        public int ModuleId { get; set; }
+        public int EducationId { get; set; }
 
-        [ForeignKey("ModuleId")]
-        public EducationModule Module { get; set; } = null!;
+        [ForeignKey("EducationId")]
+        public Education Education { get; set; } = null!;
+
+        // Navigation properties
+        public ICollection<ModuleContent> Contents { get; set; } = new List<ModuleContent>();
     }
 } 

@@ -1,15 +1,15 @@
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Authorization;
-using AutismEducationPlatform.Data;
-using AutismEducationPlatform.Models;
 using System;
 using System.Linq;
-using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Http;
+using AutismEducationPlatform.Models;
+using AutismEducationPlatform.Data;
+using System.Security.Claims;
 
 namespace AutismEducationPlatform.Controllers
 {
+    [Authorize(Roles = "Instructor")]
     public class EducationController : Controller
     {
         private readonly UygulamaDbContext _context;
@@ -19,185 +19,186 @@ namespace AutismEducationPlatform.Controllers
             _context = context;
         }
 
-        // Eğitim modülleri ana sayfası
         public IActionResult Index()
         {
-            return View();
-        }
+            var userId = int.Parse(User.FindFirst("UserId")?.Value ?? "0");
+            var instructor = _context.Instructors
+                .Include(i => i.User)
+                .Include(i => i.Educations)
+                .ThenInclude(e => e.Child)
+                .ThenInclude(c => c.Parent)
+                .ThenInclude(p => p.User)
+                .FirstOrDefault(i => i.UserId == userId);
 
-        // Hayvanlar modülü
-        public async Task<IActionResult> Animals()
-        {
-            var userId = HttpContext.Session.GetString("UserId");
-            if (!string.IsNullOrEmpty(userId))
+            if (instructor == null)
             {
-                var childId = await _context.Children
-                    .Where(c => c.ParentId == int.Parse(userId))
-                    .Select(c => c.Id)
-                    .FirstOrDefaultAsync();
-
-                if (childId != 0)
-                {
-                    var progress = await _context.LearningProgress
-                        .Where(p => p.ChildId == childId && p.Module.Name == "Animals")
-                        .FirstOrDefaultAsync();
-                    ViewBag.Progress = progress;
-                }
+                return NotFound();
             }
-            return View();
+
+            return View(instructor.Educations.ToList());
         }
 
-        // İlerleme kaydetme - Sadece giriş yapmış kullanıcılar için
-        [Authorize]
+        public IActionResult Details(int id)
+        {
+            var userId = int.Parse(User.FindFirst("UserId")?.Value ?? "0");
+            var education = _context.Educations
+                .Include(e => e.Child)
+                .ThenInclude(c => c.Parent)
+                .ThenInclude(p => p.User)
+                .Include(e => e.Instructor)
+                .ThenInclude(i => i.User)
+                .Include(e => e.Modules)
+                .ThenInclude(m => m.Contents)
+                .FirstOrDefault(e => e.Id == id && e.Instructor.UserId == userId);
+
+            if (education == null)
+            {
+                return NotFound();
+            }
+
+            return View(education);
+        }
+
+        [HttpGet]
+        public IActionResult Create()
+        {
+            var userId = int.Parse(User.FindFirst("UserId")?.Value ?? "0");
+            var instructor = _context.Instructors
+                .Include(i => i.User)
+                .FirstOrDefault(i => i.UserId == userId);
+
+            if (instructor == null)
+            {
+                return NotFound();
+            }
+
+            ViewBag.Children = _context.Children
+                .Include(c => c.Parent)
+                .ThenInclude(p => p.User)
+                .Where(c => c.IsActive)
+                .ToList();
+
+            return View(new Education { InstructorId = instructor.Id });
+        }
+
         [HttpPost]
-        public async Task<IActionResult> SaveProgress([FromBody] LearningProgress progress)
+        public IActionResult Create(Education education)
         {
             if (!ModelState.IsValid)
             {
-                return BadRequest(ModelState);
+                ViewBag.Children = _context.Children
+                    .Include(c => c.Parent)
+                    .ThenInclude(p => p.User)
+                    .Where(c => c.IsActive)
+                    .ToList();
+
+                return View(education);
             }
 
-            var userId = HttpContext.Session.GetString("UserId");
-            if (string.IsNullOrEmpty(userId))
+            var userId = int.Parse(User.FindFirst("UserId")?.Value ?? "0");
+            var instructor = _context.Instructors
+                .FirstOrDefault(i => i.UserId == userId);
+
+            if (instructor == null)
             {
-                return BadRequest("User not found");
+                return NotFound();
             }
 
-            var childId = await _context.Children
-                .Where(c => c.ParentId == int.Parse(userId))
-                .Select(c => c.Id)
-                .FirstOrDefaultAsync();
+            education.InstructorId = instructor.Id;
+            education.CreatedAt = DateTime.Now;
+            education.IsActive = true;
 
-            if (childId == 0)
-            {
-                return BadRequest("Child not found");
-            }
+            _context.Educations.Add(education);
+            _context.SaveChanges();
 
-            var existingProgress = await _context.LearningProgress
-                .FirstOrDefaultAsync(p => p.ChildId == childId && 
-                                        p.ModuleId == progress.ModuleId);
-
-            if (existingProgress == null)
-            {
-                progress.ChildId = childId;
-                progress.CreatedAt = DateTime.UtcNow;
-                progress.LastAccessDate = DateTime.UtcNow;
-                _context.LearningProgress.Add(progress);
-            }
-            else
-            {
-                existingProgress.CompletedContentCount = progress.CompletedContentCount;
-                existingProgress.ProgressPercentage = progress.ProgressPercentage;
-                existingProgress.LastAccessDate = DateTime.UtcNow;
-                _context.LearningProgress.Update(existingProgress);
-            }
-
-            await _context.SaveChangesAsync();
-            return Ok();
+            TempData["Success"] = "Eğitim başarıyla oluşturuldu.";
+            return RedirectToAction("Index");
         }
 
-        // İlerleme durumunu getirme - Sadece giriş yapmış kullanıcılar için
-        [Authorize]
         [HttpGet]
-        public async Task<IActionResult> GetProgress(string moduleName)
+        public IActionResult Edit(int id)
         {
-            var userId = HttpContext.Session.GetString("UserId");
-            if (string.IsNullOrEmpty(userId)) return Json(new { success = false, message = "Oturum bulunamadı" });
+            var userId = int.Parse(User.FindFirst("UserId")?.Value ?? "0");
+            var education = _context.Educations
+                .Include(e => e.Child)
+                .ThenInclude(c => c.Parent)
+                .ThenInclude(p => p.User)
+                .Include(e => e.Instructor)
+                .ThenInclude(i => i.User)
+                .FirstOrDefault(e => e.Id == id && e.Instructor.UserId == userId);
 
-            var childId = await _context.Children
-                .Where(c => c.ParentId == int.Parse(userId))
-                .Select(c => c.Id)
-                .FirstOrDefaultAsync();
+            if (education == null)
+            {
+                return NotFound();
+            }
 
-            var progress = await _context.LearningProgress
-                .Include(lp => lp.Module)
-                .Where(lp => lp.ChildId == childId && lp.Module.Name == moduleName)
-                .Select(lp => new { 
-                    CompletedContent = lp.CompletedContentCount,
-                    TotalContent = lp.TotalContentCount,
-                    Progress = lp.ProgressPercentage
-                })
-                .FirstOrDefaultAsync();
+            ViewBag.Children = _context.Children
+                .Include(c => c.Parent)
+                .ThenInclude(p => p.User)
+                .Where(c => c.IsActive)
+                .ToList();
 
-            return Json(progress);
+            return View(education);
         }
-
-        // Sayılar modülü
-        public IActionResult Numbers() => View();
-
-        // Renkler modülü
-        public IActionResult Colors() => View();
-
-        // Şekiller modülü
-        public IActionResult Shapes() => View();
-
-        // Trafik İşaretleri modülü
-        public IActionResult TrafficSigns() => View();
-
-        // Görgü Kuralları modülü
-        public IActionResult GorguKurallari()
-        {
-            return View("Manners");
-        }
-
-        // Eğitim Videoları modülü
-        public IActionResult Videos() => View();
-
-        // Masallar modülü
-        public IActionResult Stories() => View();
-
-        // Mannerler modülü
-        public IActionResult Manners() => View();
 
         [HttpPost]
-        public async Task<IActionResult> UpdateProgress(string moduleName, string contentName)
+        public IActionResult Edit(Education education)
         {
-            var userId = HttpContext.Session.GetString("UserId");
-            if (string.IsNullOrEmpty(userId)) return Json(new { success = false, message = "Oturum bulunamadı" });
-
-            var childId = await _context.Children
-                .Where(c => c.ParentId == int.Parse(userId))
-                .Select(c => c.Id)
-                .FirstOrDefaultAsync();
-
-            var module = await _context.LearningModules
-                .Include(m => m.Contents)
-                .FirstOrDefaultAsync(m => m.Name == moduleName);
-
-            if (module == null) return Json(new { success = false, message = "Modül bulunamadı" });
-
-            var progress = await _context.LearningProgress
-                .FirstOrDefaultAsync(lp => lp.ChildId == childId && lp.ModuleId == module.Id);
-
-            if (progress == null)
+            if (!ModelState.IsValid)
             {
-                progress = new LearningProgress
-                {
-                    ChildId = childId,
-                    ModuleId = module.Id,
-                    CompletedContentCount = 1,
-                    TotalContentCount = module.Contents.Count,
-                    ProgressPercentage = (decimal)1 / module.Contents.Count * 100,
-                    LastAccessDate = DateTime.UtcNow,
-                    CreatedAt = DateTime.UtcNow
-                };
-                _context.LearningProgress.Add(progress);
-            }
-            else
-            {
-                progress.CompletedContentCount++;
-                progress.ProgressPercentage = (decimal)progress.CompletedContentCount / progress.TotalContentCount * 100;
-                progress.LastAccessDate = DateTime.UtcNow;
+                ViewBag.Children = _context.Children
+                    .Include(c => c.Parent)
+                    .ThenInclude(p => p.User)
+                    .Where(c => c.IsActive)
+                    .ToList();
+
+                return View(education);
             }
 
-            await _context.SaveChangesAsync();
+            var userId = int.Parse(User.FindFirst("UserId")?.Value ?? "0");
+            var existingEducation = _context.Educations
+                .Include(e => e.Instructor)
+                .FirstOrDefault(e => e.Id == education.Id && e.Instructor.UserId == userId);
 
-            return Json(new { 
-                success = true, 
-                completedContent = progress.CompletedContentCount,
-                totalContent = progress.TotalContentCount,
-                progress = progress.ProgressPercentage
-            });
+            if (existingEducation == null)
+            {
+                return NotFound();
+            }
+
+            existingEducation.ChildId = education.ChildId;
+            existingEducation.Title = education.Title;
+            existingEducation.Description = education.Description;
+            existingEducation.StartDate = education.StartDate;
+            existingEducation.EndDate = education.EndDate;
+            existingEducation.Goals = education.Goals;
+            existingEducation.LastUpdatedAt = DateTime.Now;
+
+            _context.SaveChanges();
+
+            TempData["Success"] = "Eğitim başarıyla güncellendi.";
+            return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        public IActionResult Delete(int id)
+        {
+            var userId = int.Parse(User.FindFirst("UserId")?.Value ?? "0");
+            var education = _context.Educations
+                .Include(e => e.Instructor)
+                .FirstOrDefault(e => e.Id == id && e.Instructor.UserId == userId);
+
+            if (education == null)
+            {
+                return NotFound();
+            }
+
+            education.IsActive = false;
+            education.LastUpdatedAt = DateTime.Now;
+
+            _context.SaveChanges();
+
+            TempData["Success"] = "Eğitim başarıyla silindi.";
+            return RedirectToAction("Index");
         }
     }
 } 

@@ -4,9 +4,9 @@ namespace AutismEducationPlatform.Models.ViewModels
 {
     public class LoginViewModel
     {
-        [Required(ErrorMessage = "E-posta alanı zorunludur")]
-        [EmailAddress(ErrorMessage = "Geçerli bir e-posta adresi giriniz")]
-        [Display(Name = "E-posta")]
+        [Required(ErrorMessage = "Email alanı zorunludur")]
+        [EmailAddress(ErrorMessage = "Geçerli bir email adresi giriniz")]
+        [Display(Name = "Email")]
         public string Email { get; set; } = string.Empty;
 
         [Required(ErrorMessage = "Şifre alanı zorunludur")]

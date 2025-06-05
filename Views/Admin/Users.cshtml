@@ -1,46 +1,67 @@
 @model IEnumerable<AutismEducationPlatform.Models.User>
 
 @{
-    ViewData["Title"] = "Kullanıcı Yönetimi";
+    ViewData["Title"] = "Kullanıcılar";
 }
 
 <div class="container mt-4">
-    <h2>Kullanıcı Yönetimi</h2>
+    <h2>Kullanıcılar</h2>
 
-    <div class="card mt-4">
-        <div class="card-body">
-            <div class="table-responsive">
-                <table class="table table-hover">
-                    <thead>
-                        <tr>
-                            <th>Ad Soyad</th>
-                            <th>E-posta</th>
-                            <th>Telefon</th>
-                            <th>Çocuk Sayısı</th>
-                            <th>Kayıt Tarihi</th>
-                            <th>İşlemler</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var user in Model)
-                        {
-                            <tr>
-                                <td>@user.FirstName @user.LastName</td>
-                                <td>@user.Email</td>
-                                <td>@user.PhoneNumber</td>
-                                <td>@(user.Children?.Count ?? 0)</td>
-                                <td>@user.CreatedAt.ToString("dd.MM.yyyy HH:mm")</td>
-                                <td>
-                                    <div class="btn-group">
-                                        <button type="button" class="btn btn-sm btn-primary">Düzenle</button>
-                                        <button type="button" class="btn btn-sm btn-danger">Sil</button>
-                                    </div>
-                                </td>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
-            </div>
-        </div>
+    <div class="mb-3">
+        <a asp-action="Create" class="btn btn-primary">Yeni Kullanıcı</a>
     </div>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>@Html.DisplayNameFor(model => model.FirstName)</th>
+                <th>@Html.DisplayNameFor(model => model.LastName)</th>
+                <th>@Html.DisplayNameFor(model => model.Email)</th>
+                <th>@Html.DisplayNameFor(model => model.PhoneNumber)</th>
+                <th>@Html.DisplayNameFor(model => model.UserType)</th>
+                <th>@Html.DisplayNameFor(model => model.IsActive)</th>
+                <th>İşlemler</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => item.FirstName)</td>
+                    <td>@Html.DisplayFor(modelItem => item.LastName)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Email)</td>
+                    <td>@Html.DisplayFor(modelItem => item.PhoneNumber)</td>
+                    <td>@Html.DisplayFor(modelItem => item.UserType)</td>
+                    <td>
+                        @if (item.IsActive)
+                        {
+                            <span class="badge bg-success">Aktif</span>
+                        }
+                        else
+                        {
+                            <span class="badge bg-danger">Pasif</span>
+                        }
+                    </td>
+                    <td>
+                        <div class="btn-group">
+                            <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-warning">Düzenle</a>
+                            <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-info">Detay</a>
+                            @if (item.IsActive)
+                            {
+                                <form asp-action="Deactivate" asp-route-id="@item.Id" method="post" style="display: inline;">
+                                    <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Bu kullanıcıyı pasifleştirmek istediğinizden emin misiniz?')">Pasifleştir</button>
+                                </form>
+                            }
+                            else
+                            {
+                                <form asp-action="Activate" asp-route-id="@item.Id" method="post" style="display: inline;">
+                                    <button type="submit" class="btn btn-sm btn-success" onclick="return confirm('Bu kullanıcıyı aktifleştirmek istediğinizden emin misiniz?')">Aktifleştir</button>
+                                </form>
+                            }
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
 </div> 

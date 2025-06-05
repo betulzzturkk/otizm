@@ -1,154 +1,68 @@
-@model IEnumerable<AutismEducationPlatform.Models.Kullanici>
+@model IEnumerable<AutismEducationPlatform.Models.User>
+
 @{
     ViewData["Title"] = "Eğitmen Paneli";
+    Layout = "_EgitmenLayout";
 }
 
-<div class="container mt-4">
+<div class="container-fluid">
     <div class="row">
-        <!-- Sol Menü -->
-        <div class="col-md-3">
-            <div class="card shadow-sm">
-                <div class="card-body">
-                    <h5 class="card-title">@ViewBag.EgitmenAdi</h5>
-                    <hr>
-                    <div class="list-group list-group-flush">
-                        <a href="@Url.Action("Panel", "Egitmen")" class="list-group-item list-group-item-action active">
-                            <i class="fas fa-users me-2"></i>Öğrenciler
-                        </a>
-                        <a href="@Url.Action("EgitimIcerikleri", "Egitmen")" class="list-group-item list-group-item-action">
-                            <i class="fas fa-book me-2"></i>Eğitim İçerikleri
-                        </a>
-                        <a href="@Url.Action("Cikis", "Kullanici")" class="list-group-item list-group-item-action text-danger">
-                            <i class="fas fa-sign-out-alt me-2"></i>Çıkış Yap
-                        </a>
-                    </div>
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Öğrencilerim</h3>
                 </div>
-            </div>
-        </div>
-
-        <!-- Ana İçerik -->
-        <div class="col-md-9">
-            <div class="card shadow-sm">
                 <div class="card-body">
-                    <h4 class="card-title mb-4">Öğrenci Listesi</h4>
-                    <div class="table-responsive">
-                        <table class="table table-hover">
-                            <thead>
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>@Html.DisplayNameFor(model => model.FirstName)</th>
+                                <th>@Html.DisplayNameFor(model => model.LastName)</th>
+                                <th>@Html.DisplayNameFor(model => model.Email)</th>
+                                <th>@Html.DisplayNameFor(model => model.PhoneNumber)</th>
+                                <th>Son Giriş</th>
+                                <th>İşlemler</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
                                 <tr>
-                                    <th>Ad Soyad</th>
-                                    <th>E-posta</th>
-                                    <th>İşlemler</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach (var ogrenci in Model)
-                                {
-                                    <tr>
-                                        <td>@ogrenci.Ad @ogrenci.Soyad</td>
-                                        <td>@ogrenci.Email</td>
-                                        <td>
-                                            <a href="@Url.Action("OgrenciDetay", "Egitmen", new { id = ogrenci.Id })" 
-                                               class="btn btn-sm btn-primary">
-                                                <i class="fas fa-eye me-1"></i>Detay
+                                    <td>@Html.DisplayFor(modelItem => item.FirstName)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.LastName)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.Email)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.PhoneNumber)</td>
+                                    <td>@(item.LastLoginAt.HasValue ? item.LastLoginAt.Value.ToString("dd/MM/yyyy HH:mm") : "-")</td>
+                                    <td>
+                                        <div class="btn-group">
+                                            <a asp-action="OgrenciDetay" asp-route-id="@item.Id" class="btn btn-info btn-sm">
+                                                <i class="fas fa-eye"></i>
                                             </a>
-                                            <button type="button" 
-                                                    class="btn btn-sm btn-success" 
-                                                    data-bs-toggle="modal" 
-                                                    data-bs-target="#raporModal" 
-                                                    data-ogrenci-id="@ogrenci.Id"
-                                                    data-ogrenci-ad="@ogrenci.Ad @ogrenci.Soyad">
-                                                <i class="fas fa-file-alt me-1"></i>Rapor Ekle
-                                            </button>
-                                        </td>
-                                    </tr>
-                                }
-                            </tbody>
-                        </table>
-                    </div>
+                                            <a asp-action="IlerlemeRaporu" asp-route-id="@item.Id" class="btn btn-primary btn-sm">
+                                                <i class="fas fa-chart-line"></i>
+                                            </a>
+                                            <a asp-action="EgitimDuzenle" asp-route-id="@item.Id" class="btn btn-warning btn-sm">
+                                                <i class="fas fa-edit"></i>
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
-<!-- Rapor Ekleme Modal -->
-<div class="modal fade" id="raporModal" tabindex="-1">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">İlerleme Raporu Ekle</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-            </div>
-            <div class="modal-body">
-                <input type="hidden" id="ogrenciId">
-                <div class="mb-3">
-                    <label class="form-label">Öğrenci</label>
-                    <input type="text" class="form-control" id="ogrenciAd" readonly>
-                </div>
-                <div class="mb-3">
-                    <label class="form-label">Rapor</label>
-                    <textarea class="form-control" id="rapor" rows="5" placeholder="İlerleme raporunu buraya yazın..."></textarea>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">İptal</button>
-                <button type="button" class="btn btn-primary" id="raporKaydet">Kaydet</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-@section Styles {
-    <style>
-        .list-group-item i {
-            width: 20px;
-        }
-        .btn-sm {
-            margin-right: 0.25rem;
-        }
-        .table td {
-            vertical-align: middle;
-        }
-    </style>
-}
 
 @section Scripts {
     <script>
-        $(document).ready(function() {
-            $('#raporModal').on('show.bs.modal', function (event) {
-                var button = $(event.relatedTarget);
-                var ogrenciId = button.data('ogrenci-id');
-                var ogrenciAd = button.data('ogrenci-ad');
-                
-                $('#ogrenciId').val(ogrenciId);
-                $('#ogrenciAd').val(ogrenciAd);
-            });
-
-            $('#raporKaydet').click(function() {
-                var ogrenciId = $('#ogrenciId').val();
-                var rapor = $('#rapor').val();
-
-                if (!rapor) {
-                    alert('Lütfen rapor yazın');
-                    return;
+        $(document).ready(function () {
+            $('.table').DataTable({
+                "language": {
+                    "url": "//cdn.datatables.net/plug-ins/1.10.24/i18n/Turkish.json"
                 }
-
-                $.post('@Url.Action("IlerlemeRaporuEkle", "Egitmen")', {
-                    ogrenciId: ogrenciId,
-                    rapor: rapor
-                })
-                .done(function(response) {
-                    if (response.success) {
-                        alert('Rapor başarıyla eklendi');
-                        $('#raporModal').modal('hide');
-                        $('#rapor').val('');
-                    } else {
-                        alert(response.message);
-                    }
-                })
-                .fail(function() {
-                    alert('Bir hata oluştu');
-                });
             });
         });
     </script>

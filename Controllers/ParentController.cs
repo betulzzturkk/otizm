@@ -8,9 +8,12 @@ using AutismEducationPlatform.Models;
 using AutismEducationPlatform.Models.ViewModels;
 using AutismEducationPlatform.Helpers;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
 
 namespace AutismEducationPlatform.Controllers
 {
+    [Authorize(Roles = "Parent")]
     public class ParentController : Controller
     {
         private readonly UygulamaDbContext _context;
@@ -92,20 +95,43 @@ namespace AutismEducationPlatform.Controllers
             return View(model);
         }
 
+        [Authorize(Policy = "ParentOnly")]
+        public async Task<IActionResult> Dashboard()
+        {
+            var userId = User.FindFirst("UserId")?.Value;
+            if (string.IsNullOrEmpty(userId) || !int.TryParse(userId, out int parentId))
+            {
+                return RedirectToAction("Login", "Auth");
+            }
+
+            var parent = await _context.Parents
+                .Include(p => p.Children)
+                .FirstOrDefaultAsync(p => p.Id == parentId);
+
+            if (parent == null)
+            {
+                return RedirectToAction("Login", "Auth");
+            }
+
+            return View(parent);
+        }
+
+        [Authorize(Policy = "ParentOnly")]
         public IActionResult AddChildInformation()
         {
             return View();
         }
 
         [HttpPost]
+        [Authorize(Policy = "ParentOnly")]
         public async Task<IActionResult> AddChildInformation(Models.ViewModels.ChildInformationViewModel model)
         {
             if (ModelState.IsValid)
             {
-                var userIdStr = HttpContext.Session.GetString("UserId");
-                if (string.IsNullOrEmpty(userIdStr) || !int.TryParse(userIdStr, out int userId))
+                var userId = User.FindFirst("UserId")?.Value;
+                if (string.IsNullOrEmpty(userId) || !int.TryParse(userId, out int parentId))
                 {
-                    return RedirectToAction("Login");
+                    return RedirectToAction("Login", "Auth");
                 }
 
                 var child = new Child
@@ -119,7 +145,7 @@ namespace AutismEducationPlatform.Controllers
                     Medications = model.Medications ?? string.Empty,
                     Allergies = model.Allergies ?? string.Empty,
                     EducationalHistory = model.EducationalHistory ?? string.Empty,
-                    ParentId = userId,
+                    ParentId = parentId,
                     CreatedAt = DateTime.UtcNow
                 };
 
@@ -130,26 +156,6 @@ namespace AutismEducationPlatform.Controllers
             }
 
             return View(model);
-        }
-
-        public async Task<IActionResult> Dashboard()
-        {
-            var userIdStr = HttpContext.Session.GetString("UserId");
-            if (string.IsNullOrEmpty(userIdStr) || !int.TryParse(userIdStr, out int userId))
-            {
-                return RedirectToAction("Login");
-            }
-
-            var user = await _context.Users
-                .Include(u => u.Children)
-                .FirstOrDefaultAsync(u => u.Id == userId);
-
-            if (user == null)
-            {
-                return RedirectToAction("Login");
-            }
-
-            return View(user);
         }
 
         public async Task<IActionResult> ToggleChildMode()
@@ -171,27 +177,141 @@ namespace AutismEducationPlatform.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        [Authorize(Policy = "ParentOnly")]
         public async Task<IActionResult> News()
         {
             var news = await _context.News.OrderByDescending(n => n.CreatedAt).ToListAsync();
             return View(news);
         }
 
+        [Authorize(Policy = "ParentOnly")]
         public async Task<IActionResult> Reports()
         {
-            var userIdStr = HttpContext.Session.GetString("UserId");
-            if (string.IsNullOrEmpty(userIdStr) || !int.TryParse(userIdStr, out int userId))
+            var userId = User.FindFirst("UserId")?.Value;
+            if (string.IsNullOrEmpty(userId) || !int.TryParse(userId, out int parentId))
             {
-                return RedirectToAction("Login");
+                return RedirectToAction("Login", "Auth");
             }
 
             var childProgress = await _context.Children
-                .Where(c => c.ParentId == userId)
-                .Include(c => c.LearningProgress)
+                .Where(c => c.ParentId == parentId)
+                .Include(c => c.LearningProgresses)
                 .ThenInclude(lp => lp.Module)
                 .ToListAsync();
 
             return View(childProgress);
+        }
+
+        public IActionResult Panel()
+        {
+            var userId = int.Parse(User.FindFirst("UserId")?.Value ?? "0");
+            var parent = _context.Parents
+                .Include(p => p.User)
+                .Include(p => p.Children)
+                .ThenInclude(c => c.Educations)
+                .ThenInclude(e => e.Instructor)
+                .ThenInclude(i => i.User)
+                .FirstOrDefault(p => p.UserId == userId);
+
+            if (parent == null)
+            {
+                return NotFound();
+            }
+
+            return View(parent);
+        }
+
+        public IActionResult ChildDetails(int id)
+        {
+            var userId = int.Parse(User.FindFirst("UserId")?.Value ?? "0");
+            var child = _context.Children
+                .Include(c => c.Parent)
+                .ThenInclude(p => p.User)
+                .Include(c => c.Educations)
+                .ThenInclude(e => e.Instructor)
+                .ThenInclude(i => i.User)
+                .Include(c => c.ProgressReports)
+                .Include(c => c.StatusHistory)
+                .Include(c => c.ParentInformations)
+                .Include(c => c.LearningProgresses)
+                .FirstOrDefault(c => c.Id == id && c.Parent.UserId == userId);
+
+            if (child == null)
+            {
+                return NotFound();
+            }
+
+            return View(child);
+        }
+
+        public IActionResult EducationDetails(int id)
+        {
+            var userId = int.Parse(User.FindFirst("UserId")?.Value ?? "0");
+            var education = _context.Educations
+                .Include(e => e.Child)
+                .ThenInclude(c => c.Parent)
+                .Include(e => e.Instructor)
+                .ThenInclude(i => i.User)
+                .Include(e => e.Modules)
+                .ThenInclude(m => m.Contents)
+                .FirstOrDefault(e => e.Id == id && e.Child.Parent.UserId == userId);
+
+            if (education == null)
+            {
+                return NotFound();
+            }
+
+            return View(education);
+        }
+
+        public IActionResult Profile()
+        {
+            var userId = int.Parse(User.FindFirst("UserId")?.Value ?? "0");
+            var parent = _context.Parents
+                .Include(p => p.User)
+                .FirstOrDefault(p => p.UserId == userId);
+
+            if (parent == null)
+            {
+                return NotFound();
+            }
+
+            return View(parent);
+        }
+
+        [HttpPost]
+        public IActionResult UpdateProfile(Parent parent)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View("Profile", parent);
+            }
+
+            var userId = int.Parse(User.FindFirst("UserId")?.Value ?? "0");
+            var existingParent = _context.Parents
+                .Include(p => p.User)
+                .FirstOrDefault(p => p.UserId == userId);
+
+            if (existingParent == null)
+            {
+                return NotFound();
+            }
+
+            existingParent.User.FirstName = parent.User.FirstName;
+            existingParent.User.LastName = parent.User.LastName;
+            existingParent.User.PhoneNumber = parent.User.PhoneNumber;
+            existingParent.User.Address = parent.User.Address;
+            existingParent.User.LastUpdatedAt = DateTime.Now;
+
+            existingParent.Occupation = parent.Occupation;
+            existingParent.City = parent.City;
+            existingParent.EmergencyContact = parent.EmergencyContact;
+            existingParent.LastUpdatedAt = DateTime.Now;
+
+            _context.SaveChanges();
+
+            TempData["Success"] = "Profiliniz başarıyla güncellendi.";
+            return RedirectToAction("Profile");
         }
     }
 } 

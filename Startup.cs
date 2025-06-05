@@ -28,14 +28,20 @@ namespace AutismEducationPlatform
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie(options =>
                 {
-                    options.LoginPath = "/Admin/Login";
-                    options.LogoutPath = "/Admin/Logout";
-                    options.AccessDeniedPath = "/Admin/Login";
-                    options.Cookie.Name = "AutismEducationPlatform";
+                    options.LoginPath = "/Auth/Login";
+                    options.LogoutPath = "/Auth/Logout";
+                    options.AccessDeniedPath = "/Auth/AccessDenied";
+                    options.Cookie.Name = "AutismEducationAuth";
                     options.Cookie.HttpOnly = true;
                     options.ExpireTimeSpan = TimeSpan.FromDays(7);
                     options.SlidingExpiration = true;
                 });
+
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("ParentOnly", policy => policy.RequireRole("Parent"));
+                options.AddPolicy("InstructorOnly", policy => policy.RequireRole("Instructor"));
+            });
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

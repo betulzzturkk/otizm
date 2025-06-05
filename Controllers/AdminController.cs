@@ -132,7 +132,7 @@ namespace AutismEducationPlatform.Controllers
 
             var children = await _context.Children
                 .Include(c => c.Parent)
-                .Include(c => c.LearningProgress)
+                .Include(c => c.LearningProgresses)
                 .OrderByDescending(c => c.CreatedAt)
                 .ToListAsync();
 

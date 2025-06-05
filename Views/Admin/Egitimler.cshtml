@@ -1,111 +1,82 @@
-@model List<Egitim>
+@model IEnumerable<AutismEducationPlatform.Models.Education>
 
 @{
-    ViewData["Title"] = "Eğitim Yönetimi";
+    ViewData["Title"] = "Eğitimler";
+    Layout = "_AdminLayout";
 }
 
-<div class="container-fluid mt-4">
-    <div class="d-flex justify-content-between align-items-center mb-4">
-        <h2>Eğitim Yönetimi</h2>
-        <div>
-            <a asp-action="Panel" class="btn btn-secondary me-2">
-                <i class="fas fa-arrow-left"></i> Panele Dön
-            </a>
-            <a asp-action="EgitimEkle" class="btn btn-primary">
-                <i class="fas fa-plus"></i> Yeni Eğitim Ekle
-            </a>
-        </div>
-    </div>
-
-    @if (TempData["Mesaj"] != null)
-    {
-        <div class="alert alert-success alert-dismissible fade show" role="alert">
-            @TempData["Mesaj"]
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-    }
-
-    <div class="card">
-        <div class="card-body">
-            <div class="table-responsive">
-                <table class="table table-hover" id="egitimlerTable">
-                    <thead>
-                        <tr>
-                            <th>Başlık</th>
-                            <th>Açıklama</th>
-                            <th>Video</th>
-                            <th>Döküman</th>
-                            <th>Süre</th>
-                            <th>Durum</th>
-                            <th>Oluşturulma Tarihi</th>
-                            <th>İşlemler</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var egitim in Model)
-                        {
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Eğitimler</h3>
+                    <div class="card-tools">
+                        <a asp-action="EgitimEkle" class="btn btn-primary">
+                            <i class="fas fa-plus"></i> Yeni Eğitim Ekle
+                        </a>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <table class="table table-striped">
+                        <thead>
                             <tr>
-                                <td>@egitim.Baslik</td>
-                                <td>@(egitim.Aciklama?.Length > 50 ? egitim.Aciklama.Substring(0, 47) + "..." : egitim.Aciklama)</td>
-                                <td>
-                                    @if (!string.IsNullOrEmpty(egitim.VideoUrl))
-                                    {
-                                        <a href="@egitim.VideoUrl" target="_blank" class="btn btn-sm btn-info">
-                                            <i class="fas fa-video"></i>
-                                        </a>
-                                    }
-                                </td>
-                                <td>
-                                    @if (!string.IsNullOrEmpty(egitim.DokumanUrl))
-                                    {
-                                        <a href="@egitim.DokumanUrl" target="_blank" class="btn btn-sm btn-info">
-                                            <i class="fas fa-file-pdf"></i>
-                                        </a>
-                                    }
-                                </td>
-                                <td>@(egitim.EgitimSuresi.HasValue ? $"{egitim.EgitimSuresi} dk" : "-")</td>
-                                <td>
-                                    <form asp-action="EgitimDurumDegistir" method="post" style="display: inline;">
-                                        <input type="hidden" name="id" value="@egitim.Id" />
-                                        <button type="submit" class="btn btn-sm @(egitim.IsActive ? "btn-success" : "btn-warning")">
-                                            @(egitim.IsActive ? "Aktif" : "Pasif")
-                                        </button>
-                                    </form>
-                                </td>
-                                <td>@egitim.OlusturulmaTarihi.ToString("dd.MM.yyyy HH:mm")</td>
-                                <td>
-                                    <a asp-action="EgitimDuzenle" asp-route-id="@egitim.Id" class="btn btn-primary btn-sm">
-                                        <i class="fas fa-edit"></i>
-                                    </a>
-                                    <form asp-action="EgitimSil" method="post" style="display: inline;"
-                                        onsubmit="return confirm('Bu eğitimi silmek istediğinizden emin misiniz?');">
-                                        <input type="hidden" name="id" value="@egitim.Id" />
-                                        <button type="submit" class="btn btn-danger btn-sm">
-                                            <i class="fas fa-trash"></i>
-                                        </button>
-                                    </form>
-                                </td>
+                                <th>@Html.DisplayNameFor(model => model.Name)</th>
+                                <th>@Html.DisplayNameFor(model => model.StartDate)</th>
+                                <th>@Html.DisplayNameFor(model => model.EndDate)</th>
+                                <th>Eğitmen</th>
+                                <th>Öğrenci</th>
+                                <th>Durum</th>
+                                <th>İşlemler</th>
                             </tr>
-                        }
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>@Html.DisplayFor(modelItem => item.Name)</td>
+                                    <td>@item.StartDate.ToString("dd/MM/yyyy HH:mm")</td>
+                                    <td>@(item.EndDate.HasValue ? item.EndDate.Value.ToString("dd/MM/yyyy HH:mm") : "-")</td>
+                                    <td>@(item.Instructor != null ? $"{item.Instructor.FirstName} {item.Instructor.LastName}" : "-")</td>
+                                    <td>@(item.Child != null ? $"{item.Child.FirstName} {item.Child.LastName}" : "-")</td>
+                                    <td>
+                                        @if (item.IsActive)
+                                        {
+                                            <span class="badge badge-success">Aktif</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="badge badge-danger">Pasif</span>
+                                        }
+                                    </td>
+                                    <td>
+                                        <div class="btn-group">
+                                            <a asp-action="EgitimDuzenle" asp-route-id="@item.Id" class="btn btn-info btn-sm">
+                                                <i class="fas fa-edit"></i>
+                                            </a>
+                                            <a asp-action="EgitimSil" asp-route-id="@item.Id" class="btn btn-danger btn-sm" 
+                                               onclick="return confirm('Bu eğitimi silmek istediğinizden emin misiniz?')">
+                                                <i class="fas fa-trash"></i>
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
 </div>
 
 @section Scripts {
-    <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.10.24/js/dataTables.bootstrap5.min.js"></script>
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/dataTables.bootstrap5.min.css" />
-    
     <script>
-        $(document).ready(function() {
-            $('#egitimlerTable').DataTable({
+        $(document).ready(function () {
+            $('.table').DataTable({
                 "language": {
                     "url": "//cdn.datatables.net/plug-ins/1.10.24/i18n/Turkish.json"
-                },
-                "order": [[6, "desc"]]
+                }
             });
         });
     </script>

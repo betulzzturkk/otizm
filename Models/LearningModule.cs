@@ -9,23 +9,29 @@ namespace AutismEducationPlatform.Models
         [Key]
         public int Id { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Ad alanı zorunludur")]
+        [Display(Name = "Ad")]
         public string Name { get; set; } = string.Empty;
 
-        [Required]
-        public string Description { get; set; } = string.Empty;
+        [Display(Name = "Açıklama")]
+        public string? Description { get; set; }
 
-        [Required]
-        public string ImageUrl { get; set; } = string.Empty;
+        [Display(Name = "İçerik Sayısı")]
+        public int TotalContentCount { get; set; }
 
+        [Display(Name = "Sıra")]
         public int OrderIndex { get; set; }
 
-        public bool IsActive { get; set; }
+        [Display(Name = "Aktif")]
+        public bool IsActive { get; set; } = true;
 
-        public DateTime CreatedAt { get; set; }
+        [Display(Name = "Kayıt Tarihi")]
+        public DateTime CreatedAt { get; set; } = DateTime.Now;
 
+        [Display(Name = "Son Güncelleme")]
+        public DateTime? LastUpdatedAt { get; set; }
+
+        // Navigation properties
         public ICollection<ModuleContent> Contents { get; set; } = new List<ModuleContent>();
-
-        public ICollection<LearningProgress> LearningProgress { get; set; } = new List<LearningProgress>();
     }
 } 
